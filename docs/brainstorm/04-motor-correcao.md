@@ -73,3 +73,4 @@ A lógica pura que compara o verso esperado com o que o usuário digitou, nos mo
 - NB11 (nova) → no tolerante, contrações digitadas sem apóstrofo valem como a contração (`dont` = `don't`), exceto as que colidem com palavras reais (`ill`, `well`, `cant`, `wont`, `its`, `were`, `lets`, `shed`, `hell`, `shell`, `wed`, `id`) — decidido por padrão (a spec manda ignorar pontuação, e o caso `ill` da spec continua `near`)
 - Nota de linha sem palavras esperadas (ex.: instrumental) = 1 — decidido por padrão
 - NB1–NB7, NB9, NB10 → decididos por padrão
+- NB4 ajustada na implementação → empates de custo são decididos **a favor de mais pares exatos** (ex.: `we will be` × `we be here` dá will=missing, be=ok, here=extra (2/3), e não will=wrong, be=wrong (1/3)). Depois disso, a ordem é par → faltando → extra. Custos internos em inteiros. Decidido por padrão.
