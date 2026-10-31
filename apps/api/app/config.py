@@ -14,6 +14,10 @@ class Settings(BaseSettings):
     whisper_model: str = "small"
     translate_provider: str = ""
     translate_api_key: str = ""
+    # O LRCLIB exige identificar o cliente (nome, versão e link).
+    user_agent: str = "Eco/0.1 (+https://github.com/ovinicius71/ECO)"
+    lrclib_url: str = "https://lrclib.net"
+    http_timeout_s: float = 10.0
 
 
 @lru_cache
