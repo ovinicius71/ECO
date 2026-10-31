@@ -30,6 +30,7 @@ O `.claude/settings.json` bloqueia `git push` e pede confirmação para `git mer
 | `docs/spec/` | Especificações: `produto.md`, `correcao.md`, `dados.md`, `api.md` |
 | `docs/arquitetura.md` | Árvore de pastas e onde cada tipo de arquivo deve ficar |
 | `docs/adr/` | Decisões de arquitetura registradas (uma por arquivo) |
+| `docs/acompanhamento/` | Registros para o dono acompanhar o desenvolvimento: um técnico e um geral por mudança, mais a linha do tempo |
 | `design/` | Design aprovado: tokens, mapa de telas e artboards de referência |
 | `apps/web/` | Front-end (React + Vite + TypeScript) |
 | `apps/api/` | Back-end (FastAPI + Python) |
@@ -92,7 +93,7 @@ Use o `NN` e o `slug` exatos do roadmap. Exemplo: `feat/05-modo-ditado`.
 1. `git switch main` e confira que está limpo (`git status`).
 2. `git switch -c <tipo>/NN-slug`.
 3. Brainstorm (seção 3). Espere as respostas bloqueantes.
-4. Implemente em commits pequenos (seção 5).
+4. Implemente em commits pequenos (seção 5). Ao fechar cada mudança lógica, crie os registros de acompanhamento (veja abaixo).
 5. Rode testes, lint e checagem de tipos (seção 6). Tudo deve passar.
 6. Escreva `docs/entregas/NN-slug.md` a partir do modelo.
 7. Atualize o status da parte em `docs/roadmap.md` para `🟡 pronta para push`.
@@ -107,6 +108,17 @@ Parte NN pronta — branch `<tipo>/NN-slug`
 - Pendências: <lista ou "nenhuma">
 Pode dar push quando quiser. Aguardo seu ok para o merge.
 ```
+
+### Registros de acompanhamento
+
+Servem para o dono acompanhar o desenvolvimento. A **cada mudança lógica** (um bloco coerente de trabalho, ex.: "scaffold do front", "motor de correção"; não precisa ser a cada commit), crie **dois** registros com o mesmo número:
+
+- `docs/acompanhamento/tecnico/NNNN-slug.md`: o que mudou no código, arquivos, dependências e versões, comandos, decisões técnicas e alternativas descartadas, riscos;
+- `docs/acompanhamento/geral/NNNN-slug.md`: em linguagem simples, o que mudou, por que mudou e o que o dono pode ver ou testar agora.
+
+Adicione também uma linha na linha do tempo do `docs/acompanhamento/README.md`. Os modelos estão nesse README. Faça o commit junto com a mudança ou logo depois dela: `docs(acompanhamento): NNNN — <slug>`.
+
+O `docs/adr/` continua sendo **só** para decisões de arquitetura. Um registro de acompanhamento pode citar um ADR, mas não o substitui.
 
 ### Merge (só com autorização)
 
@@ -128,7 +140,7 @@ Se o dono disser que **não** pode mergear, ou pedir mudanças, continue na mesm
 - Formato **Conventional Commits**, com a descrição em **pt-BR**:
   `tipo(escopo): descrição no imperativo`
 - Tipos: `feat`, `fix`, `refactor`, `test`, `docs`, `chore`, `style`, `perf`.
-- Escopos sugeridos: `web`, `api`, `design`, `player`, `letra`, `correcao`, `ditado`, `digitar`, `preencher`, `escolha`, `karaoke`, `assistir`, `vocab`, `progresso`, `brainstorm`, `entrega`, `roadmap`.
+- Escopos sugeridos: `web`, `api`, `design`, `player`, `letra`, `correcao`, `ditado`, `digitar`, `preencher`, `escolha`, `karaoke`, `assistir`, `vocab`, `progresso`, `brainstorm`, `entrega`, `roadmap`, `acompanhamento`, `claude`.
 - Um commit é uma mudança lógica que compila e passa nos testes.
 - Exemplos:
   - `feat(ditado): pausar o vídeo no fim de cada verso`

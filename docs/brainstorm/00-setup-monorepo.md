@@ -58,4 +58,6 @@ Criar o esqueleto que roda e passa nos checks: `apps/web` (Vite + React + TS), `
 - P2 (B) → npm (dono, 2026-10-31)
 - P3 (uv) → o dono instala o uv (dono, 2026-10-31)
 - Extra → perguntas de brainstorm sempre pela ferramenta de perguntas; CLAUDE.md atualizado (dono, 2026-10-31)
+- Extra 2 → o template novo do Vite traz TS 7 + oxlint, e o typescript-eslint só aceita TS < 6.1. Escolha: ESLint + typescript-eslint + Prettier com TypeScript ~6.0, mantendo o ADR (dono, 2026-10-31)
+- Extra 3 → toda mudança lógica gera dois registros, um técnico e um geral, em `docs/acompanhamento/` (com retroativos). O `docs/adr/` fica só para arquitetura. Regra registrada no CLAUDE.md (dono, 2026-10-31)
 - NB1–NB11 → decididos por padrão

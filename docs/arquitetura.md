@@ -11,6 +11,7 @@ eco/
 │   ├── roadmap.md                partes, branches e status (fonte da verdade)
 │   ├── arquitetura.md            este arquivo
 │   ├── adr/NNNN-titulo.md        decisões de arquitetura
+│   ├── acompanhamento/           registros por mudança: tecnico/NNNN-slug.md, geral/NNNN-slug.md, README (linha do tempo)
 │   ├── brainstorm/NN-slug.md     um por parte + README (modelo)
 │   ├── entregas/NN-slug.md       um por parte + README (modelo)
 │   └── spec/                     produto.md, correcao.md, dados.md, api.md
