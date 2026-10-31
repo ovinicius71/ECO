@@ -1,6 +1,7 @@
 import { lazy, Suspense } from 'react'
 import { Route, Routes } from 'react-router'
 import { Home } from '@/pages/Home/Home'
+import { SongSetup } from '@/pages/SongSetup/SongSetup'
 
 // Vitrine de componentes: só existe em dev e fica fora do bundle de produção.
 const DevUi = import.meta.env.DEV
@@ -12,6 +13,7 @@ export function AppRoutes() {
     <Suspense fallback={null}>
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/musica/:videoId" element={<SongSetup />} />
         {DevUi && <Route path="/dev/ui" element={<DevUi />} />}
       </Routes>
     </Suspense>

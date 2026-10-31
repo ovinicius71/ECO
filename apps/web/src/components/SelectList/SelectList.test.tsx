@@ -61,4 +61,27 @@ describe('SelectList', () => {
     await userEvent.click(option('Glass Garden'))
     expect(onActivate).toHaveBeenLastCalledWith('Glass Garden', 2)
   })
+
+  it('avisa quando a barra muda de linha', async () => {
+    const onSelectedChange = vi.fn()
+    render(
+      <SelectList
+        label="Modos"
+        items={songs}
+        getKey={(song) => song}
+        renderItem={(song) => song}
+        onSelectedChange={onSelectedChange}
+      />,
+    )
+    fireEvent.mouseEnter(screen.getByRole('option', { name: 'Glass Garden' }))
+    expect(onSelectedChange).toHaveBeenLastCalledWith('Glass Garden', 2)
+
+    fireEvent.mouseEnter(screen.getByRole('option', { name: 'Glass Garden' }))
+    expect(onSelectedChange).toHaveBeenCalledTimes(1)
+
+    screen.getByRole('option', { name: 'Glass Garden' }).focus()
+    await userEvent.keyboard('{ArrowUp}')
+    expect(onSelectedChange).toHaveBeenCalledTimes(2)
+    expect(onSelectedChange).toHaveBeenLastCalledWith('Northbound Lights', 1)
+  })
 })

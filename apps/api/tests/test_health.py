@@ -2,11 +2,12 @@ from fastapi.testclient import TestClient
 
 from app.config import Settings, get_settings
 from app.main import create_app
+from app.services.cache import Cache
 
 
 def make_client(**overrides: object) -> TestClient:
     settings = Settings(_env_file=None, **overrides)
-    app = create_app(settings)
+    app = create_app(settings, cache=Cache(":memory:"))
     app.dependency_overrides[get_settings] = lambda: settings
     return TestClient(app)
 

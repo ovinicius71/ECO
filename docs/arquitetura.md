@@ -71,6 +71,8 @@ eco/
     ├── app/
     │   ├── main.py               criação do app, CORS, routers
     │   ├── config.py             settings via env
+    │   ├── errors.py             ApiError e o formato {"error": {code, message}}
+    │   ├── deps.py               dependências compartilhadas (cliente HTTP, cache)
     │   ├── routers/              songs.py, lyrics.py, translate.py, dictionary.py, words.py, transcribe.py
     │   ├── services/             youtube.py (oEmbed + parse de URL), lrclib.py, lrc.py, title_guess.py,
     │   │                         translator.py, dictionary.py, cefr.py, phonetics.py, whisper.py, cache.py

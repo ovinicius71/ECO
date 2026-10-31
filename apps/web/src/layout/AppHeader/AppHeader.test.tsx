@@ -20,9 +20,18 @@ describe('AppHeader', () => {
     expect(nav.getByRole('link', { name: 'ESTUDAR' })).not.toHaveAttribute('aria-current')
   })
 
-  it('ESTUDAR fica ativo só na Home', () => {
-    const nav = renderAt('/')
-    expect(nav.getByRole('link', { name: 'ESTUDAR' })).toHaveAttribute('aria-current', 'page')
+  it.each(['/', '/musica/abcdefghijk', '/praticar/abcdefghijk/ditado'])(
+    'ESTUDAR fica ativo no fluxo de estudo (%s)',
+    (path) => {
+      const nav = renderAt(path)
+      expect(nav.getByRole('link', { name: 'ESTUDAR' })).toHaveAttribute('aria-current', 'page')
+    },
+  )
+
+  it('ESTUDAR não fica ativo nas outras seções', () => {
+    const nav = renderAt('/progresso')
+    expect(nav.getByRole('link', { name: 'ESTUDAR' })).not.toHaveAttribute('aria-current')
+    expect(nav.getByRole('link', { name: 'PROGRESSO' })).toHaveAttribute('aria-current', 'page')
   })
 
   it('mostra o streak com texto acessível e plural correto', () => {
