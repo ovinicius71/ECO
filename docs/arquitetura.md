@@ -29,6 +29,7 @@ eco/
 │   ├── public/                   favicon e estáticos
 │   └── src/
 │       ├── main.tsx
+│       ├── test-setup.ts         setup do Vitest (jest-dom, cleanup)
 │       ├── app/                  App.tsx, router.tsx, providers (rotas e layout raiz)
 │       ├── styles/               tokens.css (cópia de design/tokens.css), global.css, fonts.css
 │       ├── components/           primitivos de UI reutilizáveis, sem regra de negócio
