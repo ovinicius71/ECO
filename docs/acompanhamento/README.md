@@ -16,6 +16,8 @@ O `docs/adr/` continua sendo só para as decisões de arquitetura. O status ofic
 | 0003 | 2026-10-31 | 00 | Esqueleto do servidor (apps/api) | [geral](geral/0003-scaffold-api.md) | [técnico](tecnico/0003-scaffold-api.md) |
 | 0004 | 2026-10-31 | 00 | Atalhos na raiz e README | [geral](geral/0004-scripts-raiz.md) | [técnico](tecnico/0004-scripts-raiz.md) |
 | 0005 | 2026-10-31 | 00 | Parte 00 na main e GitHub configurado | [geral](geral/0005-parte-00-na-main.md) | [técnico](tecnico/0005-parte-00-na-main.md) |
+| 0006 | 2026-10-31 | 01 | Fontes próprias e vitrine /dev/ui | [geral](geral/0006-fontes-e-vitrine.md) | [técnico](tecnico/0006-fontes-e-vitrine.md) |
+| 0007 | 2026-10-31 | 01 | Componentes base do visual | [geral](geral/0007-componentes-base.md) | [técnico](tecnico/0007-componentes-base.md) |
 
 ## Modelo — geral
 
