@@ -26,4 +26,10 @@ describe('WordToken', () => {
     expect(container.querySelector('[aria-hidden="true"]')).toHaveTextContent('—')
     expect(screen.getByText(/faltou/)).toBeInTheDocument()
   })
+
+  it('compacto não mostra o digitado, mas mantém o texto acessível', () => {
+    const { container } = render(<WordToken expected="sea" status="wrong" typed="see" compact />)
+    expect(container.querySelector('[aria-hidden="true"]')).toBeNull()
+    expect(screen.getByText(/errado: você digitou see/)).toBeInTheDocument()
+  })
 })

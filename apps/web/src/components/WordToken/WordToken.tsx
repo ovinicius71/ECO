@@ -8,6 +8,8 @@ interface WordTokenProps {
   status: WordTokenStatus
   typed?: string
   hint?: 'merge' | 'split' | 'number' | 'contraction'
+  /** Só o sublinhado, sem o digitado embaixo (lista de versos anteriores). */
+  compact?: boolean
 }
 
 const HINT_TEXT = {
@@ -34,9 +36,9 @@ function describe(status: WordTokenStatus, typed: string | undefined): string {
  * Palavra corrigida: `ok` normal, `near` com sublinhado tracejado, `wrong` com sublinhado
  * vermelhão e o digitado riscado embaixo, `missing` com "—" embaixo.
  */
-export function WordToken({ expected, status, typed, hint }: WordTokenProps) {
+export function WordToken({ expected, status, typed, hint, compact = false }: WordTokenProps) {
   const spoken = [describe(status, typed), hint && HINT_TEXT[hint]].filter(Boolean).join('; ')
-  const showTyped = status === 'wrong' || status === 'missing'
+  const showTyped = !compact && (status === 'wrong' || status === 'missing')
 
   return (
     <span className={cx(styles.token, styles[status])} title={spoken || undefined}>

@@ -1,0 +1,317 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.loading {
+  display: flex;
+  flex-direction: column;
+  gap: var(--eco-space-4);
+  padding: var(--eco-space-6) var(--eco-gutter);
+  font-size: var(--eco-text-label);
+  letter-spacing: var(--eco-tracking-label);
+}
+
+.main {
+  flex: 1;
+  width: 100%;
+  max-width: var(--eco-page-max);
+  margin: 0 auto;
+  padding: 36px var(--eco-gutter) 28px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--eco-space-7);
+  align-items: flex-start;
+}
+
+.label {
+  margin: 0;
+  font-size: var(--eco-text-label);
+  font-weight: 400;
+  letter-spacing: var(--eco-tracking-label);
+  color: var(--eco-ink-2);
+}
+
+.mono {
+  font-family: var(--eco-font-mono);
+  font-size: var(--eco-text-sm);
+}
+
+/* ---------- coluna do ditado ---------- */
+
+.dictation {
+  flex: 999 1 600px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.titleRow {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--eco-space-2);
+}
+
+.title {
+  margin: 0;
+  font-size: var(--eco-text-title);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+.startButton {
+  align-self: flex-start;
+  min-height: 56px;
+}
+
+.tools {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--eco-space-2);
+}
+
+.tool,
+.toolStrong,
+.toolGhost {
+  min-height: var(--eco-hit);
+  padding: 0 var(--eco-space-4);
+  border: var(--eco-border);
+  background: transparent;
+  font-size: var(--eco-text-sm);
+  cursor: pointer;
+}
+
+.toolStrong {
+  border: var(--eco-border-strong);
+}
+
+.toolGhost {
+  border-color: transparent;
+  color: var(--eco-ink-2);
+}
+
+.tool[aria-pressed='true'] {
+  background: var(--eco-bar);
+  color: var(--eco-on-bar);
+}
+
+.tool:disabled,
+.toolStrong:disabled,
+.toolGhost:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.count {
+  font-family: var(--eco-font-mono);
+  font-size: var(--eco-text-label);
+  color: var(--eco-ink-2);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--eco-space-2);
+}
+
+.field {
+  display: flex;
+  flex-wrap: wrap;
+  border: var(--eco-border-strong);
+  background: var(--eco-paper-raised);
+}
+
+.field:focus-within {
+  outline: 2px solid var(--eco-focus);
+  outline-offset: 2px;
+}
+
+.input {
+  flex: 1 1 300px;
+  min-width: 0;
+  padding: var(--eco-space-4) 18px;
+  border: 0;
+  background: transparent;
+  color: var(--eco-ink);
+  font-family: var(--eco-font-sans);
+  font-size: 30px;
+}
+
+.input::placeholder {
+  color: var(--eco-placeholder);
+}
+
+.input:focus-visible {
+  outline: none;
+}
+
+.confirm {
+  flex: 1 0 auto;
+  min-height: 64px;
+  padding: 0 var(--eco-space-5);
+  border: 0;
+  background: var(--eco-bar);
+  color: var(--eco-on-bar);
+  font-size: var(--eco-text-sm);
+  letter-spacing: 0.16em;
+  cursor: pointer;
+}
+
+.confirm:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.result {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: var(--eco-space-1) 0 var(--eco-space-1) 18px;
+  border-left: 3px solid var(--eco-bar);
+}
+
+.resultWords {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 0.35em;
+  margin: 0;
+  font-size: 30px;
+  line-height: 1.5;
+}
+
+.extras {
+  margin: 0;
+  font-size: var(--eco-text-sm);
+  color: var(--eco-ink-2);
+}
+
+.resultActions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--eco-space-3) var(--eco-space-5);
+}
+
+.previous {
+  display: flex;
+  flex-direction: column;
+  margin-top: var(--eco-space-2);
+}
+
+.previousTitle {
+  margin: 0;
+  padding-bottom: 6px;
+  border-bottom: var(--eco-border);
+  font-size: var(--eco-text-label);
+  font-weight: 400;
+  letter-spacing: var(--eco-tracking-label);
+  color: var(--eco-ink-2);
+}
+
+.previousList {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.previousRow {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  padding: 9px 0;
+  border-bottom: var(--eco-border);
+  font-size: 17px;
+}
+
+.previousNumber {
+  width: 26px;
+  font-family: var(--eco-font-mono);
+  font-size: var(--eco-text-label);
+  color: var(--eco-ink-2);
+}
+
+.previousText {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 0.3em;
+}
+
+.skipped {
+  color: var(--eco-ink-2);
+}
+
+/* ---------- coluna lateral ---------- */
+
+.aside {
+  flex: 1 1 300px;
+  min-width: 0;
+  max-width: 360px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.note {
+  margin: 0;
+  font-size: var(--eco-text-sm);
+  line-height: 1.5;
+  color: var(--eco-ink-2);
+}
+
+.setting {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* ---------- resumo do fim ---------- */
+
+.summary {
+  flex: 999 1 600px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--eco-space-4);
+  max-width: 560px;
+}
+
+.score {
+  margin: 0;
+  font-family: var(--eco-font-mono);
+  font-size: var(--eco-text-score);
+  font-weight: 300;
+  line-height: 1;
+}
+
+.score:focus-visible {
+  outline: none;
+}
+
+.summaryActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--eco-space-3);
+}
+
+@media (max-width: 900px) {
+  .aside {
+    max-width: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .input,
+  .resultWords {
+    font-size: 22px;
+  }
+
+  .score {
+    font-size: 96px;
+  }
+}

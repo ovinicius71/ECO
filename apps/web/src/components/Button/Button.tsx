@@ -1,4 +1,4 @@
-import type { ButtonHTMLAttributes, ReactNode } from 'react'
+import type { ComponentProps, ReactNode } from 'react'
 import { Link, type LinkProps } from 'react-router'
 import { Icon, type IconName } from '@/components/Icon/Icon'
 import { cx } from '@/lib/utils/cx'
@@ -29,7 +29,7 @@ export function Button({
   className,
   type = 'button',
   ...rest
-}: CommonProps & ButtonHTMLAttributes<HTMLButtonElement>) {
+}: CommonProps & ComponentProps<'button'>) {
   return (
     <button type={type} className={cx(styles.button, styles[variant], className)} {...rest}>
       <Content icon={icon}>{children}</Content>
