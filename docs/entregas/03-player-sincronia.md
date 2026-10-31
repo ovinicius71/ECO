@@ -1,7 +1,7 @@
 # Entrega — Parte 03: Player e sincronia
 
 Branch: `feat/03-player-sincronia` · Base: `main`
-Status: 🟡 pronta para push
+Status: ✅ mergeada na `main` (`2273af9`, 2026-10-31)
 
 ## O que foi entregue
 - **Núcleo do player** (`features/player`):
