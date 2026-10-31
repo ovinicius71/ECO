@@ -1,7 +1,7 @@
 # Entrega — Parte 05: Modo Ditado
 
 Branch: `feat/05-modo-ditado` · Base: `main`
-Status: 🟡 pronta para push
+Status: ✅ mergeada na `main` (`d183538`, 2026-10-31)
 
 ## O que foi entregue
 - **Modo Ditado completo** em `/praticar/:videoId/ditado`:
