@@ -71,6 +71,16 @@ describe('dictationReducer', () => {
     expect(dictationReducer(finished, { type: 'restart' })).toEqual(initialDictation(3))
   })
 
+  it('pratica só os versos escolhidos, na ordem dada', () => {
+    const state = run(
+      [{ type: 'start' }, { type: 'skip' }, { type: 'submit', typed: 'x' }, { type: 'next' }],
+      initialDictation([2, 0]),
+    )
+    expect(state.phase).toBe('finished')
+    expect(state.attempts.map((a) => a.lineIndex)).toEqual([2, 0])
+    expect(dictationReducer(state, { type: 'restart' }).order).toEqual([2, 0])
+  })
+
   it('ignora ações fora de hora', () => {
     const checked = run([{ type: 'start' }, { type: 'submit', typed: 'x' }])
     expect(dictationReducer(checked, { type: 'replay' })).toBe(checked)

@@ -188,4 +188,14 @@ describe('scoreLine — junção, separação e contrações', () => {
   it('o estrito aceita apóstrofo reto no lugar do tipográfico', () => {
     expect(scoreLine('I’ll be the echo', "I'll be the echo", 'strict').score).toBe(1)
   })
+
+  it('contração não vira junção/separação (we + are são a mesma palavra “We’re”)', () => {
+    const r = scoreLine('We’re no strangers to love', 'were no strangers to love', 'tolerant')
+    expect(r.words[0]).toEqual({
+      expected: 'We’re',
+      typed: 'were',
+      status: 'near',
+      hint: 'contraction',
+    })
+  })
 })

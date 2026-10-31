@@ -21,13 +21,18 @@ import {
   firstLettersHint,
   initialDictation,
   scoreAttempts,
+  targetLine,
 } from '@/features/dictation/session'
+import { buildDictationSession } from '@/features/dictation/record'
 import { seekPointFor, type DictationSettings } from '@/features/dictation/settings'
 import { EDGE_TOLERANCE_MS, toLyricMs, toVideoMs } from '@/features/player/sync'
 import { usePlayer, usePlayerState } from '@/features/player/usePlayer'
 import { usePracticeShortcuts } from '@/features/player/usePracticeShortcuts'
+import { createPracticeClock } from '@/features/progress/clock'
+import { toLocalDate } from '@/features/progress/dates'
 import { KeyHintBar } from '@/layout/KeyHintBar/KeyHintBar'
 import { PracticeHeader } from '@/layout/PracticeHeader/PracticeHeader'
+import { recordActivity, saveSession } from '@/lib/db/sessions'
 import type { Song } from '@/types/song'
 import styles from './Dictation.module.css'
 import { DictationSummary } from './DictationSummary'
@@ -57,11 +62,21 @@ const percent = (value: number | null) => (value === null ? '—' : `${Math.roun
 export function DictationSession({ song, settings }: { song: Song; settings: DictationSettings }) {
   const navigate = useNavigate()
   const { lines } = song
-  const [state, dispatch] = useReducer(dictationReducer, lines.length, initialDictation)
+  // Só os versos pedidos (?versos=), se forem válidos para esta letra; senão, a música inteira.
+  const chosen = settings.lines?.filter((index) => index < lines.length)
+  const [state, dispatch] = useReducer(
+    dictationReducer,
+    chosen?.length ? chosen : lines.length,
+    initialDictation,
+  )
   const [correction, setCorrection] = useState<CorrectionMode>(settings.correction)
   const [draft, setDraft] = useState('')
+  const [saveError, setSaveError] = useState<string | null>(null)
   const inputRef = useRef<HTMLInputElement>(null)
   const nextRef = useRef<HTMLButtonElement>(null)
+  // Tempo ativo de prática (pausas > 2 min não contam) e início da sessão.
+  const [clock] = useState(() => createPracticeClock())
+  const startedAt = useRef<Date | null>(null)
 
   const { containerRef, engine } = usePlayer({
     videoId: song.videoId,
@@ -86,7 +101,8 @@ export function DictationSession({ song, settings }: { song: Song; settings: Dic
     [state.attempts, lines, correction],
   )
   const stats = useMemo(() => dictationStats(scored), [scored])
-  const target = lines[state.target]
+  const lineIndex = targetLine(state)
+  const target = lines[lineIndex]
   const lyricMs = toLyricMs(videoMs, offsetMs)
   const checked = state.phase === 'checked' ? scored.at(-1) : undefined
 
@@ -101,38 +117,48 @@ export function DictationSession({ song, settings }: { song: Song; settings: Dic
   )
 
   const start = useCallback(() => {
+    startedAt.current ??= new Date()
+    clock.mark()
     dispatch({ type: 'start' })
-    playFrom(0, START_PRE_ROLL_MS)
+    playFrom(lineIndex, START_PRE_ROLL_MS)
     inputRef.current?.focus()
-  }, [playFrom])
+  }, [clock, lineIndex, playFrom])
 
   const replay = useCallback(() => {
     if (state.phase !== 'answering') return
+    clock.mark()
     dispatch({ type: 'replay' })
-    playFrom(state.target, REPLAY_PRE_ROLL_MS)
-  }, [playFrom, state.phase, state.target])
+    playFrom(lineIndex, REPLAY_PRE_ROLL_MS)
+  }, [clock, lineIndex, playFrom, state.phase])
 
-  const hint = useCallback(() => dispatch({ type: 'hint' }), [])
+  const hint = useCallback(() => {
+    clock.mark()
+    dispatch({ type: 'hint' })
+  }, [clock])
 
   /** Segue para o próximo verso: continua de onde parou ou, se parou antes do fim, pula até ele. */
   const goOn = useCallback(() => {
-    const next = state.target + 1
-    if (next >= lines.length) return
-    const current = lines[state.target]
+    const next = state.order[state.target + 1]
+    if (next === undefined) return
+    const current = lines[lineIndex]
     const now = toLyricMs(engine.store.getState().videoMs, engine.store.getState().offsetMs)
-    if (current && now < current.endMs - EDGE_TOLERANCE_MS * 2) playFrom(next, REPLAY_PRE_ROLL_MS)
+    const stoppedEarly = current !== undefined && now < current.endMs - EDGE_TOLERANCE_MS * 2
+    // Versos escolhidos fora de sequência: sempre pula até o próximo.
+    if (stoppedEarly || next !== lineIndex + 1) playFrom(next, REPLAY_PRE_ROLL_MS)
     else engine.play()
-  }, [engine, lines, playFrom, state.target])
+  }, [engine, lineIndex, lines, playFrom, state.order, state.target])
 
   function submit(event: FormEvent) {
     event.preventDefault()
     if (state.phase === 'ready') return start()
     if (state.phase !== 'answering') return
+    clock.mark()
     engine.pause()
     dispatch({ type: 'submit', typed: draft })
   }
 
   function next() {
+    clock.mark()
     dispatch({ type: 'next' })
     setDraft('')
     goOn()
@@ -140,6 +166,7 @@ export function DictationSession({ song, settings }: { song: Song; settings: Dic
   }
 
   function skip() {
+    clock.mark()
     dispatch({ type: 'skip' })
     setDraft('')
     goOn()
@@ -154,11 +181,45 @@ export function DictationSession({ song, settings }: { song: Song; settings: Dic
 
   const exit = useCallback(() => {
     const inProgress = state.attempts.length > 0 && state.phase !== 'finished'
-    if (inProgress && !window.confirm('Sair do ditado? O progresso deste treino será perdido.')) {
+    if (
+      inProgress &&
+      !window.confirm('Sair do ditado? As respostas deste treino serão perdidas.')
+    ) {
       return
     }
+    // Sessão interrompida não é salva, mas o tempo praticado conta para a meta e a sequência.
+    if (state.phase !== 'finished') {
+      clock.mark()
+      void recordActivity(toLocalDate(new Date()), clock.elapsedMs() / 1000, 0).catch(() => {})
+    }
     navigate(`/musica/${song.videoId}`)
-  }, [navigate, song.videoId, state.attempts.length, state.phase])
+  }, [clock, navigate, song.videoId, state.attempts.length, state.phase])
+
+  // Fim da música: salva a sessão e abre o Resultado. Se não der para salvar, mostra o resumo.
+  const saved = useRef(false)
+  useEffect(() => {
+    if (state.phase !== 'finished' || saved.current) return
+    saved.current = true
+    clock.mark()
+    const endedAt = new Date()
+    const session = buildDictationSession({
+      id: crypto.randomUUID(),
+      song,
+      scored,
+      lineCount: state.lineCount,
+      settings,
+      correction,
+      startedAt: startedAt.current ?? endedAt,
+      endedAt,
+      activeMs: clock.elapsedMs(),
+    })
+    Promise.all([
+      saveSession(session),
+      recordActivity(toLocalDate(endedAt), session.durationSec, 1),
+    ])
+      .then(() => navigate(`/resultado/${session.id}`, { replace: true }))
+      .catch(() => setSaveError('Não foi possível salvar a sessão neste navegador.'))
+  }, [clock, correction, navigate, scored, settings, song, state.lineCount, state.phase])
 
   usePracticeShortcuts(engine, { onReplay: replay, onHint: hint })
 
@@ -181,11 +242,11 @@ export function DictationSession({ song, settings }: { song: Song; settings: Dic
   const ended = target ? lyricMs >= target.endMs - EDGE_TOLERANCE_MS * 2 : false
   const statusText =
     state.phase === 'ready'
-      ? 'APERTE ENTER PARA OUVIR O VERSO 1'
+      ? `APERTE ENTER PARA OUVIR O VERSO ${lineIndex + 1}`
       : state.phase === 'checked'
         ? 'CORRIGIDO · ENTER PARA SEGUIR'
         : playing
-          ? `TOCANDO O VERSO ${state.target + 1}`
+          ? `TOCANDO O VERSO ${lineIndex + 1}`
           : ended
             ? 'PAUSADO NO FIM DO VERSO'
             : 'PAUSADO'
@@ -197,20 +258,27 @@ export function DictationSession({ song, settings }: { song: Song; settings: Dic
         title={song.title}
         artist={song.artist}
         mode="DITADO"
-        current={Math.min(state.target + 1, lines.length)}
-        total={lines.length}
+        current={Math.min(state.target + 1, state.lineCount)}
+        total={state.lineCount}
         metric={{ label: 'PRECISÃO', value: percent(stats.accuracy) }}
         onExit={exit}
       />
 
       <main className={styles.main}>
         {state.phase === 'finished' ? (
-          <DictationSummary
-            videoId={song.videoId}
-            stats={stats}
-            lineCount={lines.length}
-            onRestart={restart}
-          />
+          saveError ? (
+            <DictationSummary
+              videoId={song.videoId}
+              stats={stats}
+              lineCount={state.lineCount}
+              error={saveError}
+              onRestart={restart}
+            />
+          ) : (
+            <p role="status" className={styles.label}>
+              SALVANDO A SESSÃO…
+            </p>
+          )
         ) : (
           <section aria-label="Ditado" className={styles.dictation}>
             <div className={styles.titleRow}>
@@ -223,7 +291,7 @@ export function DictationSession({ song, settings }: { song: Song; settings: Dic
             <Waveform
               seed={target?.text ?? ''}
               progress={state.phase === 'ready' ? 0 : progress}
-              label={`Progresso do verso ${state.target + 1}`}
+              label={`Progresso do verso ${lineIndex + 1}`}
             />
 
             {state.phase === 'ready' ? (
@@ -234,7 +302,7 @@ export function DictationSession({ song, settings }: { song: Song; settings: Dic
                 onClick={start}
                 autoFocus
               >
-                {status === 'ready' ? 'Ouvir o verso 1' : 'Carregando o vídeo…'}
+                {status === 'ready' ? `Ouvir o verso ${lineIndex + 1}` : 'Carregando o vídeo…'}
               </Button>
             ) : (
               <div className={styles.tools}>
@@ -284,7 +352,10 @@ export function DictationSession({ song, settings }: { song: Song; settings: Dic
                   ref={inputRef}
                   className={styles.input}
                   value={draft}
-                  onChange={(event) => setDraft(event.target.value)}
+                  onChange={(event) => {
+                    clock.mark()
+                    setDraft(event.target.value)
+                  }}
                   readOnly={state.phase === 'checked'}
                   autoComplete="off"
                   autoCapitalize="off"
@@ -326,7 +397,7 @@ export function DictationSession({ song, settings }: { song: Song; settings: Dic
                     VERSO {Math.round(checked.result.score * 100)}%
                   </span>
                   <Button ref={nextRef} icon="arrowRight" onClick={next}>
-                    {state.target + 1 < lines.length ? 'Próximo verso' : 'Ver resumo'}
+                    {state.target + 1 < state.lineCount ? 'Próximo verso' : 'Ver resultado'}
                   </Button>
                 </div>
               </div>

@@ -48,6 +48,8 @@ Cada palavra **esperada** sai com um status:
 - `near` se há mistura de `ok`/`near` com `missing`/`wrong`;
 - o pior status, caso contrário.
 
+**Contração sem apóstrofo (Parte 10):** no tolerante, se a palavra digitada é igual à contração esperada sem caixa, acento, pontuação e apóstrofo (`were` × `We’re`), a palavra vale `near` com `hint: 'contraction'`, como no caso `ill` × `I’ll`. Tokens da mesma palavra (uma contração expandida) nunca contam como junção ou separação. O adaptador expõe isso como `bare(word)`, que é opcional por idioma.
+
 As palavras digitadas a mais (`extra`) aparecem na interface riscadas, mas **não descontam** pontos. No modo estrito, descontam 0,25 cada, com mínimo 0.
 
 Junções e separações: `all most` contra `almost` deve dar `near` no tolerante (`wrong` no estrito, que não tem "quase") com a sugestão "é uma palavra só" (decisão do dono, Parte 04). Sem essa regra, o alinhamento sozinho também daria `near` (most≈almost), mas deixaria "all" como extra e sem dica. Detecte quando duas palavras digitadas concatenadas são iguais **ou quase** a uma esperada (`lev ≤ limiteQuase`; no estrito, só iguais), ou o contrário, e devolva `hint: 'merge' | 'split'`. O "quase" é necessário para o próprio exemplo: `all`+`most` = `allmost`, a distância 1 de `almost`. Limitação conhecida: a comparação usa os tokens já normalizados, então `any one` × `anyone` não é detectado (`one` vira `1`).

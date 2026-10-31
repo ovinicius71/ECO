@@ -6,8 +6,10 @@ import { Icon } from '@/components/Icon/Icon'
 import { AppHeader } from '@/layout/AppHeader/AppHeader'
 import { KeyHintBar } from '@/layout/KeyHintBar/KeyHintBar'
 import { ApiError } from '@/lib/api/client'
+import { useStreak } from '@/features/progress/useProgress'
 import { resolveSong } from '@/lib/api/songs'
 import styles from './Home.module.css'
+import { HomeProgress } from './HomeProgress'
 
 const STEPS = [
   { title: 'Cole o link', text: 'A letra é buscada e sincronizada com o vídeo.' },
@@ -23,6 +25,7 @@ export function Home() {
   const errorId = useId()
   const [url, setUrl] = useState('')
   const [status, setStatus] = useState<Status>({ kind: 'idle' })
+  const streak = useStreak()
 
   async function onSubmit(event: FormEvent) {
     event.preventDefault()
@@ -44,7 +47,7 @@ export function Home() {
 
   return (
     <div className={styles.page}>
-      <AppHeader />
+      <AppHeader streakDays={streak || undefined} />
       <main className={styles.main}>
         <section className={styles.hero}>
           <p className={styles.label}>01 / NOVA MÚSICA</p>
@@ -110,6 +113,7 @@ export function Home() {
           </div>
         </aside>
       </main>
+      <HomeProgress />
       <KeyHintBar
         hints={[
           { keys: 'CTRL V', label: 'COLAR LINK' },

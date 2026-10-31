@@ -83,7 +83,19 @@ export function scoreLine(
     const own = results.filter((_, e) => exp.tokens[e]!.word === index)
     const typedWords = [...new Set(own.flatMap((r) => r.typed).map((t) => typ.tokens[t]!.word))]
     const typedText = typedWords.map((w) => typ.words[w]!.text).join(' ') || undefined
-    return toWordResult(word, own, typedText)
+    const result = toWordResult(word, own, typedText)
+    // Contração digitada só sem o apóstrofo ("were" × "We're"): vale quase, como "ill" × "I'll".
+    const bare = adapter.bare?.bind(adapter)
+    if (
+      mode === 'tolerant' &&
+      bare &&
+      result.status === 'wrong' &&
+      word.tokens.length > 1 &&
+      typedWords.some((w) => bare(typ.words[w]!.text) === bare(word.text))
+    ) {
+      result.status = 'near'
+    }
+    return result
   })
 
   const extras = typ.words
@@ -116,6 +128,8 @@ function detectJoins(
     for (const other of [t - 1, t + 1]) {
       if (!extra.has(other)) continue
       const [first, second] = other < t ? [other, t] : [t, other]
+      // Tokens da mesma palavra digitada (contração expandida) não são uma junção.
+      if (typ[first]!.word === typ[second]!.word) continue
       if (joins(typ[first]!.value + typ[second]!.value, exp[e]!.value)) {
         results[e] = { status, typed: [first, second], hint: 'merge' }
         extra.delete(other)
@@ -126,6 +140,8 @@ function detectJoins(
     for (const other of [e - 1, e + 1]) {
       if (results[other]?.status !== 'missing') continue
       const [first, second] = other < e ? [other, e] : [e, other]
+      // Tokens da mesma palavra esperada ("We're" → we + are) não são uma separação.
+      if (exp[first]!.word === exp[second]!.word) continue
       if (joins(exp[first]!.value + exp[second]!.value, typ[t]!.value)) {
         results[first] = { status, typed: [t], hint: 'split' }
         results[second] = { status, typed: [], hint: 'split' }

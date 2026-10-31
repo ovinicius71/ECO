@@ -8,11 +8,19 @@ interface DictationSummaryProps {
   videoId: string
   stats: DictationStats
   lineCount: number
+  /** Motivo de estar vendo o resumo aqui, e não o Resultado (ex.: falha ao salvar). */
+  error?: string
   onRestart: () => void
 }
 
-/** Resumo no fim da música (a tela Resultado e o histórico chegam na Parte 10). */
-export function DictationSummary({ videoId, stats, lineCount, onRestart }: DictationSummaryProps) {
+/** Resumo no fim da música, quando a sessão não pôde ser salva (o normal é ir ao Resultado). */
+export function DictationSummary({
+  videoId,
+  stats,
+  lineCount,
+  error,
+  onRestart,
+}: DictationSummaryProps) {
   const headingRef = useRef<HTMLHeadingElement>(null)
   useEffect(() => headingRef.current?.focus(), [])
   const accuracy = stats.accuracy === null ? '—' : `${Math.round(stats.accuracy * 100)}%`
@@ -20,6 +28,7 @@ export function DictationSummary({ videoId, stats, lineCount, onRestart }: Dicta
   return (
     <section aria-labelledby="dictation-summary" className={styles.summary}>
       <p className={styles.label}>FIM DO DITADO</p>
+      {error && <p role="alert">{error}</p>}
       <h1 id="dictation-summary" ref={headingRef} tabIndex={-1} className={styles.score}>
         {accuracy}
       </h1>

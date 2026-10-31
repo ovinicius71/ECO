@@ -2,7 +2,7 @@ import 'fake-indexeddb/auto'
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 import type { Song } from '@/types/song'
 import { EcoDb } from './db'
-import { getSong, saveSong, updateSongOffset } from './songs'
+import { getSong, listSongs, saveSong, setFavorite, updateSongOffset } from './songs'
 
 const song = (overrides: Partial<Song> = {}): Song => ({
   videoId: 'abcdefghijk',
@@ -62,5 +62,13 @@ describe('songs', () => {
 
     await updateSongOffset('naoexiste00', 100, db) // música ausente: não cria nada
     expect(await getSong('naoexiste00', db)).toBeUndefined()
+  })
+
+  it('favoritar e listar', async () => {
+    await saveSong(song(), db)
+    await setFavorite('abcdefghijk', true, db)
+    expect((await listSongs(db)).map((s) => [s.videoId, s.favorite])).toEqual([
+      ['abcdefghijk', true],
+    ])
   })
 })

@@ -76,3 +76,10 @@ describe('english.nearThreshold', () => {
     expect(english.nearThreshold('static', 'strict')).toBe(0)
   })
 })
+
+describe('english.bare', () => {
+  it('tira caixa, acento, pontuação e apóstrofo', () => {
+    expect(english.bare?.('We’re,')).toBe('were')
+    expect(english.bare?.('Café!')).toBe('cafe')
+  })
+})

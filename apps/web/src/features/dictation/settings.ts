@@ -5,6 +5,8 @@ export interface DictationSettings {
   pauseAtEnd: boolean
   rate: number
   correction: CorrectionMode
+  /** Só estes versos (índices 0-based); ausente = a música inteira. Na URL: `versos=6,14` (1-based). */
+  lines?: number[]
 }
 
 export const DEFAULT_DICTATION_SETTINGS: DictationSettings = {
@@ -17,19 +19,27 @@ const RATES = [0.5, 0.75, 1]
 
 export function parseDictationSettings(params: URLSearchParams): DictationSettings {
   const rate = Number(params.get('velocidade'))
+  const lines = (params.get('versos') ?? '')
+    .split(',')
+    .map(Number)
+    .filter((n) => Number.isInteger(n) && n >= 1)
+    .map((n) => n - 1)
   return {
     pauseAtEnd: params.get('pausa') !== 'desligada',
     rate: RATES.includes(rate) ? rate : DEFAULT_DICTATION_SETTINGS.rate,
     correction: params.get('correcao') === 'estrita' ? 'strict' : 'tolerant',
+    ...(lines.length ? { lines: [...new Set(lines)].sort((a, b) => a - b) } : {}),
   }
 }
 
 export function dictationQuery(settings: DictationSettings): string {
-  return new URLSearchParams({
+  const params = new URLSearchParams({
     pausa: settings.pauseAtEnd ? 'fim' : 'desligada',
     velocidade: String(settings.rate),
     correcao: settings.correction === 'strict' ? 'estrita' : 'tolerante',
-  }).toString()
+  })
+  if (settings.lines?.length) params.set('versos', settings.lines.map((i) => i + 1).join(','))
+  return params.toString()
 }
 
 /**
@@ -62,4 +72,19 @@ export function seekPointFor(
   if (!line) return 0
   const floor = lines[index - 1]?.endMs ?? 0
   return Math.max(line.startMs - preRollMs, floor, 0)
+}
+
+/** Ajustes de uma sessão salva (para "Repetir" e "Praticar só os versos com erro"). */
+export function settingsFromSession(session: {
+  settings: Record<string, string | number | boolean>
+  correction: CorrectionMode
+}): DictationSettings {
+  const { pauseAtEnd, rate, lines } = session.settings
+  const chosen = typeof lines === 'string' && lines ? lines.split(',').map(Number) : undefined
+  return {
+    pauseAtEnd: pauseAtEnd !== false,
+    rate: typeof rate === 'number' && RATES.includes(rate) ? rate : DEFAULT_DICTATION_SETTINGS.rate,
+    correction: session.correction,
+    ...(chosen ? { lines: chosen } : {}),
+  }
 }

@@ -2,6 +2,7 @@ import { lazy, Suspense } from 'react'
 import { Route, Routes } from 'react-router'
 import { Home } from '@/pages/Home/Home'
 import { Dictation } from '@/pages/practice/Dictation/Dictation'
+import { Result } from '@/pages/Result/Result'
 import { SongSetup } from '@/pages/SongSetup/SongSetup'
 
 // Páginas de dev (vitrine e bancada do player): ficam fora do bundle de produção.
@@ -19,6 +20,7 @@ export function AppRoutes() {
         <Route path="/" element={<Home />} />
         <Route path="/musica/:videoId" element={<SongSetup />} />
         <Route path="/praticar/:videoId/ditado" element={<Dictation />} />
+        <Route path="/resultado/:sessionId" element={<Result />} />
         {DevUi && <Route path="/dev/ui" element={<DevUi />} />}
         {DevPlayer && <Route path="/dev/player/:videoId" element={<DevPlayer />} />}
       </Routes>

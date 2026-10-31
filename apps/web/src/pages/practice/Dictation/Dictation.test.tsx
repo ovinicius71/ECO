@@ -4,11 +4,16 @@ import { MemoryRouter, Route, Routes } from 'react-router'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { loadSong } from '@/features/lyrics/loadSong'
 import { toLines } from '@/features/lyrics/toLines'
+import { recordActivity, saveSession } from '@/lib/db/sessions'
 import type { PlayerEvents } from '@/features/player/controller'
 import type { Song } from '@/types/song'
 import { Dictation } from './Dictation'
 
 vi.mock('@/features/lyrics/loadSong', () => ({ loadSong: vi.fn() }))
+vi.mock('@/lib/db/sessions', () => ({
+  saveSession: vi.fn(async () => {}),
+  recordActivity: vi.fn(async () => {}),
+}))
 
 // Player falso: pronto na hora; registra seek/play/pause.
 const player = {
@@ -63,6 +68,7 @@ function renderDictation(query = 'pausa=fim&velocidade=1&correcao=tolerante') {
       <Routes>
         <Route path="/praticar/:videoId/ditado" element={<Dictation />} />
         <Route path="/musica/:videoId" element={<p>Tela da música</p>} />
+        <Route path="/resultado/:sessionId" element={<p>Tela do resultado</p>} />
       </Routes>
     </MemoryRouter>,
   )
@@ -82,7 +88,7 @@ beforeEach(() => {
 })
 
 describe('Ditado', () => {
-  it('fluxo completo: ouvir, digitar, corrigir, seguir, pular e ver o resumo', async () => {
+  it('fluxo completo: ouvir, digitar, corrigir, seguir, pular, salvar e abrir o Resultado', async () => {
     renderDictation()
     const start = await readyToStart()
 
@@ -107,8 +113,36 @@ describe('Ditado', () => {
     expect(input).toHaveValue('')
 
     await userEvent.click(screen.getByRole('button', { name: 'Pular' }))
-    expect(screen.getByRole('heading', { name: '43%' })).toBeInTheDocument()
-    expect(screen.getByRole('region', { name: 'RESUMO' })).toHaveTextContent('Versos pulados1')
+    expect(await screen.findByText('Tela do resultado')).toBeInTheDocument()
+
+    expect(saveSession).toHaveBeenCalledOnce()
+    const saved = vi.mocked(saveSession).mock.calls[0]![0]
+    expect(saved).toMatchObject({
+      videoId: VID,
+      mode: 'ditado',
+      lineCount: 2,
+      correction: 'tolerant',
+    })
+    expect(saved.accuracy).toBeCloseTo(6 / 7 / 2)
+    expect(saved.lines.map((line) => [line.lineIndex, line.skipped])).toEqual([
+      [0, false],
+      [1, true],
+    ])
+    expect(recordActivity).toHaveBeenCalledWith(expect.any(String), saved.durationSec, 1)
+  })
+
+  it('só os versos escolhidos (?versos=2)', async () => {
+    renderDictation('pausa=fim&velocidade=1&correcao=tolerante&versos=2')
+    const start = await screen.findByRole('button', { name: 'Ouvir o verso 2' }, { timeout: 5_000 })
+    await vi.waitFor(() => expect(start).toBeEnabled(), { timeout: 5_000 })
+    expect(screen.getByRole('banner')).toHaveTextContent('01/01')
+
+    await userEvent.click(start)
+    expect(player.seekTo).toHaveBeenLastCalledWith(15_800) // sem recuar além do verso 1
+    await userEvent.type(screen.getByLabelText('O QUE VOCÊ OUVIU?'), 'hold on{Enter}')
+    await userEvent.click(screen.getByRole('button', { name: 'Ver resultado' }))
+    expect(await screen.findByText('Tela do resultado')).toBeInTheDocument()
+    expect(vi.mocked(saveSession).mock.calls[0]![0].lines[0]?.lineIndex).toBe(1)
   })
 
   it('dica mostra a 1ª letra de cada palavra e conta uma vez', async () => {
@@ -165,6 +199,9 @@ describe('Ditado', () => {
     confirm.mockReturnValue(true)
     await userEvent.click(screen.getByRole('button', { name: '← SAIR' }))
     expect(screen.getByText('Tela da música')).toBeInTheDocument()
+    // Não salva a sessão, mas soma o tempo do dia.
+    expect(saveSession).not.toHaveBeenCalled()
+    expect(recordActivity).toHaveBeenCalledWith(expect.any(String), expect.any(Number), 0)
   })
 
   it('aplica a velocidade escolhida no Setup', async () => {

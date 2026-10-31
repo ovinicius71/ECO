@@ -178,3 +178,88 @@
     border-top: var(--eco-border);
   }
 }
+
+/* ---------- Biblioteca e STATUS ---------- */
+
+.progress {
+  width: 100%;
+  max-width: var(--eco-page-max);
+  margin: 0 auto;
+  padding: 0 var(--eco-gutter) var(--eco-space-6);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--eco-space-7);
+  align-items: flex-start;
+}
+
+.library {
+  flex: 999 1 560px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.libraryPanel {
+  border-top: var(--eco-border);
+}
+
+.libraryPanel > ul {
+  border-top: 0;
+}
+
+.empty {
+  margin: 0;
+  padding: var(--eco-space-4) 0;
+  color: var(--eco-ink-2);
+}
+
+.rowNumber {
+  width: 28px;
+  font-family: var(--eco-font-mono);
+  font-size: var(--eco-text-label);
+  opacity: 0.8;
+}
+
+.rowTitle {
+  flex: 1 1 200px;
+  min-width: 0;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.rowArtist {
+  flex: 1 1 140px;
+  min-width: 0;
+  font-size: var(--eco-text-sm);
+  opacity: 0.85;
+}
+
+.rowMode {
+  width: 120px;
+  font-size: var(--eco-text-label);
+  letter-spacing: 0.1em;
+  opacity: 0.85;
+}
+
+.rowScore {
+  width: 56px;
+  text-align: right;
+  font-family: var(--eco-font-mono);
+  font-size: var(--eco-text-sm);
+}
+
+.status {
+  flex: 1 1 300px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.statusLabel {
+  margin: 0;
+  padding: var(--eco-space-4) 0 var(--eco-space-2);
+  font-size: var(--eco-text-label);
+  letter-spacing: 0.18em;
+  color: var(--eco-ink-2);
+}

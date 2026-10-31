@@ -32,17 +32,22 @@ interface Line {
 
 interface Token { text: string; norm: string; cefr?: Cefr; isFunctionWord?: boolean; }
 
-interface PracticeSession {      // tabela: sessions (pk: id, índices: videoId, mode, startedAt)
+interface PracticeSession {      // tabela: sessions (pk: id, índices: videoId, mode, startedAt, [videoId+mode]) — schema v2, Parte 10
   id: string; videoId: string; mode: ModeId;
+  title: string; artist: string; // cópia no momento da prática (Biblioteca sem abrir a música)
   settings: ModeSettings;
-  startedAt: string; endedAt?: string;
+  correction: 'tolerant' | 'strict';
+  startedAt: string; endedAt: string;
+  durationSec: number;           // tempo ativo (intervalos parados > 2 min não contam)
+  lineCount: number;             // versos praticados (todos ou só os escolhidos)
   lines: LineAttempt[];
   accuracy: number;              // 0..1
   wpm?: number;
   replays: number; hintsUsed: number;
 }
+// Só sessões concluídas são salvas (decisão da Parte 10). Sair no meio só soma minutos em `activity`.
 
-interface LineAttempt { lineIndex: number; typed: string; result: LineScore; replays: number; hintsUsed: number; }
+interface LineAttempt { lineIndex: number; expected: string; typed: string; skipped: boolean; result: LineScore; replays: number; hintsUsed: number; }
 
 interface VocabItem {            // tabela: vocab (pk: id, índices: term+lang, dueAt, box)
   id: string; term: string; lang: Lang;
@@ -62,7 +67,7 @@ interface Settings {             // tabela: settings (pk: 'app')
   uiLang: 'pt-BR';
 }
 
-interface ActivityDay {          // tabela: activity (pk: date 'AAAA-MM-DD')
+interface ActivityDay {          // tabela: activity (pk: date 'AAAA-MM-DD', fuso local) — schema v2, Parte 10
   date: string; minutes: number; sessions: number;
 }
 ```

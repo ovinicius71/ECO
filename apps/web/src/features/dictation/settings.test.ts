@@ -5,6 +5,7 @@ import {
   parseDictationSettings,
   seekPointFor,
   settingsFromLabels,
+  settingsFromSession,
 } from './settings'
 
 describe('ajustes do ditado', () => {
@@ -13,6 +14,14 @@ describe('ajustes do ditado', () => {
     const query = dictationQuery(settings)
     expect(query).toBe('pausa=desligada&velocidade=0.75&correcao=estrita')
     expect(parseDictationSettings(new URLSearchParams(query))).toEqual(settings)
+  })
+
+  it('só alguns versos: 1-based na URL, 0-based no app, sem repetidos e em ordem', () => {
+    const settings = parseDictationSettings(new URLSearchParams('versos=14,6,x,0,6'))
+    expect(settings.lines).toEqual([5, 13])
+    expect(dictationQuery({ ...DEFAULT_DICTATION_SETTINGS, lines: [5, 13] })).toContain(
+      'versos=6%2C14',
+    )
   })
 
   it('query vazia ou inválida usa o padrão', () => {
@@ -47,5 +56,19 @@ describe('seekPointFor', () => {
   it('nunca negativo e 0 para índice inválido', () => {
     expect(seekPointFor([{ startMs: 200, endMs: 900 }], 0, 1_000)).toBe(0)
     expect(seekPointFor(lines, 9, 300)).toBe(0)
+  })
+})
+
+describe('settingsFromSession', () => {
+  it('reconstrói os ajustes salvos na sessão', () => {
+    expect(
+      settingsFromSession({
+        settings: { pauseAtEnd: false, rate: 0.75, lines: '5,13' },
+        correction: 'strict',
+      }),
+    ).toEqual({ pauseAtEnd: false, rate: 0.75, correction: 'strict', lines: [5, 13] })
+    expect(settingsFromSession({ settings: {}, correction: 'tolerant' })).toEqual(
+      DEFAULT_DICTATION_SETTINGS,
+    )
   })
 })

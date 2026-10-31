@@ -34,3 +34,11 @@ export async function updateSongOffset(
 ): Promise<void> {
   await db.songs.update(videoId, { offsetMs })
 }
+
+export async function setFavorite(videoId: string, favorite: boolean, db: EcoDb = defaultDb) {
+  await db.songs.update(videoId, { favorite })
+}
+
+export function listSongs(db: EcoDb = defaultDb) {
+  return db.songs.toArray()
+}
