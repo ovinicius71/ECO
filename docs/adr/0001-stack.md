@@ -1,6 +1,6 @@
 # ADR 0001 — Stack inicial
 
-Status: **proposta**. Precisa ser confirmada pelo dono no brainstorm da Parte 00 (pergunta A).
+Status: **aceita** pelo dono no brainstorm da Parte 00 (pergunta A), em 2026-10-31. Gerenciador do front: **npm** (pergunta B).
 Data: 2026-10-31
 
 ## Contexto
