@@ -1,9 +1,21 @@
-import type { ReactNode } from 'react'
+import { useState, type ReactNode } from 'react'
 import { Button, ButtonLink } from '@/components/Button/Button'
 import { Chip } from '@/components/Chip/Chip'
 import { Gauge } from '@/components/Gauge/Gauge'
+import { Segmented } from '@/components/Segmented/Segmented'
+import { SelectList } from '@/components/SelectList/SelectList'
+import { StatusPanel, StatusRow } from '@/components/StatusPanel/StatusPanel'
 import { KeyHintBar } from '@/layout/KeyHintBar/KeyHintBar'
 import styles from './DevUi.module.css'
+
+// Dados inventados (os mesmos dos artboards); nunca músicas reais.
+const SONGS = [
+  { title: 'Paper Moon Radio', artist: 'The Quiet Arcade', mode: 'DITADO', score: '94%' },
+  { title: 'Northbound Lights', artist: 'Halcyon Wire', mode: 'PREENCHER', score: '88%' },
+  { title: 'Glass Garden', artist: 'Mira Vale', mode: 'DIGITAR JUNTO', score: '97%' },
+]
+
+type Correction = 'tolerant' | 'strict'
 
 function Section({ title, children }: { title: string; children: ReactNode }) {
   return (
@@ -15,6 +27,9 @@ function Section({ title, children }: { title: string; children: ReactNode }) {
 }
 
 export function DevUi() {
+  const [correction, setCorrection] = useState<Correction>('tolerant')
+  const [activated, setActivated] = useState('—')
+
   return (
     <div className={styles.page}>
       <main className={styles.main}>
@@ -51,6 +66,46 @@ export function DevUi() {
             <Gauge value={0.7} label="Meta de hoje" />
             <br />
             <Gauge value={1} label="Completo" />
+          </div>
+        </Section>
+
+        <Section title="SEGMENTED · ← → TROCAM">
+          <Segmented
+            label="Correção"
+            value={correction}
+            onChange={setCorrection}
+            options={[
+              { value: 'tolerant', label: 'Tolerante' },
+              { value: 'strict', label: 'Estrita' },
+            ]}
+          />
+        </Section>
+
+        <Section title={`SELECTLIST · MOUSE OU ↑ ↓ · ENTER ATIVA · ÚLTIMA: ${activated}`}>
+          <SelectList
+            label="Recentes"
+            items={SONGS}
+            getKey={(song) => song.title}
+            onActivate={(song) => setActivated(song.title)}
+            renderItem={(song, { index }) => (
+              <>
+                <span className={styles.mono}>{String(index + 1).padStart(2, '0')}</span>
+                <span className={styles.grow}>{song.title}</span>
+                <span className={styles.grow}>{song.artist}</span>
+                <span>{song.mode}</span>
+                <span className={styles.mono}>{song.score}</span>
+              </>
+            )}
+          />
+        </Section>
+
+        <Section title="STATUSPANEL">
+          <div className={styles.narrow}>
+            <StatusPanel>
+              <StatusRow label="Nível estimado" value="B1" />
+              <StatusRow label="Músicas praticadas" value="23" />
+              <StatusRow label="Precisão média" value="91%" />
+            </StatusPanel>
           </div>
         </Section>
       </main>

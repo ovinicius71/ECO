@@ -47,3 +47,13 @@
 .narrow {
   max-width: 420px;
 }
+
+.mono {
+  font-family: var(--eco-font-mono);
+  font-size: var(--eco-text-label);
+}
+
+.grow {
+  flex: 1 1 140px;
+  min-width: 0;
+}

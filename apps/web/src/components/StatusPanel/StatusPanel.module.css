@@ -1,0 +1,31 @@
+.panel {
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  margin: 0;
+  padding-bottom: var(--eco-space-2);
+  border-bottom: var(--eco-border-strong);
+  font-size: var(--eco-text-sm);
+  font-weight: 500;
+  letter-spacing: 0.18em;
+}
+
+.list {
+  margin: 0;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--eco-space-3);
+  padding: 10px 0;
+  border-bottom: var(--eco-border);
+  font-size: var(--eco-text-sm);
+}
+
+.value {
+  margin: 0;
+  font-family: var(--eco-font-mono);
+}
