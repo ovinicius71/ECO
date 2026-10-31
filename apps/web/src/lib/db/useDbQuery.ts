@@ -13,7 +13,9 @@ export function useDbQuery<T>(query: () => Promise<T>, deps: readonly unknown[])
 
   useEffect(() => {
     let cancelled = false
-    query()
+    // Promise.resolve().then: erro síncrono (ex.: navegador sem IndexedDB) também vira 'error'.
+    Promise.resolve()
+      .then(query)
       .then((data) => {
         if (!cancelled) setResult({ key, value: { status: 'ready', data } })
       })

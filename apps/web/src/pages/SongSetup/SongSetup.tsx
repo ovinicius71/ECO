@@ -9,8 +9,10 @@ import { countWords } from '@/features/lyrics/toLines'
 import { OFFSET_STEP_MS, formatOffset } from '@/features/player/sync'
 import { useOffsetPersistence } from '@/features/player/useOffsetPersistence'
 import { usePlayer, usePlayerState } from '@/features/player/usePlayer'
+import { useStreak } from '@/features/progress/useProgress'
 import { AppHeader } from '@/layout/AppHeader/AppHeader'
 import { KeyHintBar } from '@/layout/KeyHintBar/KeyHintBar'
+import { setFavorite } from '@/lib/db/songs'
 import type { Song, SyncKind } from '@/types/song'
 import { DurationNotice } from './DurationNotice'
 import { ModePicker } from './ModePicker'
@@ -41,6 +43,7 @@ export function SongSetup() {
   const { videoId = '' } = useParams()
   const navigate = useNavigate()
   const [attempt, setAttempt] = useState(0)
+  const streak = useStreak()
   // O resultado guarda a chave da requisição: chave diferente = ainda carregando.
   const requestKey = `${videoId}#${attempt}`
   const [result, setResult] = useState<{ key: string; state: State } | null>(null)
@@ -85,7 +88,7 @@ export function SongSetup() {
 
   return (
     <div className={styles.page}>
-      <AppHeader />
+      <AppHeader streakDays={streak || undefined} />
       <main className={styles.main}>
         {state.kind === 'loading' && (
           <div role="status" className={styles.loading}>
@@ -141,6 +144,7 @@ function SongColumn({
   onPickVersion: (lrclibId: number) => Promise<void>
 }) {
   const [picking, setPicking] = useState(false)
+  const [favorite, setFavoriteState] = useState(song.favorite)
   // Controles nativos do YouTube aqui; a PlayerBar do Eco fica para as telas de prática.
   const { containerRef, engine } = usePlayer({
     videoId: song.videoId,
@@ -169,6 +173,18 @@ function SongColumn({
       <div>
         <h1 className={styles.songTitle}>{song.title}</h1>
         <p className={styles.songArtist}>{song.artist}</p>
+        <button
+          type="button"
+          className={styles.textButton}
+          aria-pressed={favorite}
+          onClick={() => {
+            const next = !favorite
+            setFavoriteState(next)
+            void setFavorite(song.videoId, next).catch(() => setFavoriteState(!next))
+          }}
+        >
+          {favorite ? 'Nas favoritas ✓' : 'Adicionar às favoritas'}
+        </button>
       </div>
       <StatusPanel title="MÚSICA">
         <StatusRow label="Idioma detectado" value={song.lang.toUpperCase()} />

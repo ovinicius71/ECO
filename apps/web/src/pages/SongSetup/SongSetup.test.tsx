@@ -5,13 +5,18 @@ import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { loadSong, switchVersion } from '@/features/lyrics/loadSong'
 import { toLines } from '@/features/lyrics/toLines'
 import { lyricsCandidates } from '@/lib/api/songs'
+import { setFavorite } from '@/lib/db/songs'
 import type { PlayerEvents } from '@/features/player/controller'
 import type { Song } from '@/types/song'
 import { SongSetup } from './SongSetup'
 
 vi.mock('@/features/lyrics/loadSong', () => ({ loadSong: vi.fn(), switchVersion: vi.fn() }))
 vi.mock('@/lib/api/songs', () => ({ lyricsCandidates: vi.fn() }))
-vi.mock('@/lib/db/songs', () => ({ updateSongOffset: vi.fn(async () => {}) }))
+vi.mock('@/lib/db/songs', () => ({
+  updateSongOffset: vi.fn(async () => {}),
+  setFavorite: vi.fn(async () => {}),
+}))
+vi.mock('@/lib/db/sessions', () => ({ listActivity: vi.fn(async () => []) }))
 
 // Player falso no lugar da IFrame API: fica pronto na hora, no tempo e na duração definidos aqui.
 const fakeVideo = { timeMs: 0, durationMs: 221_000 }
@@ -224,5 +229,19 @@ describe('SongSetup', () => {
 
     fireEvent.mouseEnter(screen.getByRole('option', { name: /Preencher/ }))
     expect(screen.getByRole('button', { name: /Começar · em breve/ })).toBeDisabled()
+  })
+
+  it('favoritar grava na música', async () => {
+    vi.mocked(loadSong).mockResolvedValue({ status: 'found', song: song() })
+    renderSetup()
+    const button = await screen.findByRole('button', { name: 'Adicionar às favoritas' })
+    expect(button).toHaveAttribute('aria-pressed', 'false')
+
+    await userEvent.click(button)
+    expect(screen.getByRole('button', { name: 'Nas favoritas ✓' })).toHaveAttribute(
+      'aria-pressed',
+      'true',
+    )
+    expect(setFavorite).toHaveBeenCalledWith(VID, true)
   })
 })
