@@ -1,0 +1,23 @@
+.meter {
+  display: grid;
+  gap: 6px;
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--eco-space-1);
+  font-size: 11px;
+  color: var(--eco-ink-2);
+}
+
+.box {
+  width: 100%;
+  aspect-ratio: 1;
+  border: var(--eco-border-strong);
+}
+
+.filled {
+  background: var(--eco-bar);
+}

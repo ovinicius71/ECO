@@ -1,0 +1,20 @@
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--eco-space-2) 28px;
+}
+
+.tab {
+  padding: 0;
+  border: 0;
+  background: none;
+  font-size: var(--eco-text-lyric);
+  font-weight: 500;
+  color: var(--eco-ink-3); /* ≥ 22px: contraste de texto grande */
+  cursor: pointer;
+}
+
+.tab:hover,
+.selected {
+  color: var(--eco-ink);
+}
