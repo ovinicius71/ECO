@@ -147,7 +147,9 @@ const hasDigit = (text: string) => /\p{N}/u.test(text)
 function toWordResult(word: Word, own: TokenResult[], typed: string | undefined): WordResult {
   const status = combine(own.map((r) => r.status))
   let hint: WordHint | undefined = own.find((r) => r.hint)?.hint
-  if (!hint && word.tokens.length > 1 && status !== 'ok') hint = 'contraction'
+  if (!hint && word.tokens.length > 1 && (status === 'near' || status === 'wrong')) {
+    hint = 'contraction'
+  }
   if (!hint && status === 'ok' && typed && hasDigit(word.text) !== hasDigit(typed)) hint = 'number'
 
   const result: WordResult = { expected: word.text, status }

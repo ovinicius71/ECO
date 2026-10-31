@@ -130,6 +130,11 @@ describe('scoreLine — extras e nota', () => {
     expect(scoreLine('open', 'x y z w v', 'strict').score).toBe(0)
   })
 
+  it('contração não digitada fica só como faltando, sem dica', () => {
+    const r = scoreLine('I’ll be', 'be', 'tolerant')
+    expect(r.words[0]).toEqual({ expected: 'I’ll', status: 'missing' })
+  })
+
   it('nada digitado: tudo faltando, nota 0', () => {
     const r = scoreLine('for the rain', '', 'tolerant')
     expect(r.words.map((w) => w.status)).toEqual(['missing', 'missing', 'missing'])
