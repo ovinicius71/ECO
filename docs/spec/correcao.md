@@ -50,7 +50,7 @@ Cada palavra **esperada** sai com um status:
 
 As palavras digitadas a mais (`extra`) aparecem na interface riscadas, mas **não descontam** pontos. No modo estrito, descontam 0,25 cada, com mínimo 0.
 
-Junções e separações: `all most` contra `almost` deve dar `near` no tolerante (`wrong` no estrito, que não tem "quase") com a sugestão "é uma palavra só" (decisão do dono, Parte 04). Sem essa regra, o alinhamento sozinho também daria `near` (most≈almost), mas deixaria "all" como extra e sem dica. Detecte quando duas palavras digitadas concatenadas são iguais a uma esperada (ou o contrário) e devolva `hint: 'merge' | 'split'`.
+Junções e separações: `all most` contra `almost` deve dar `near` no tolerante (`wrong` no estrito, que não tem "quase") com a sugestão "é uma palavra só" (decisão do dono, Parte 04). Sem essa regra, o alinhamento sozinho também daria `near` (most≈almost), mas deixaria "all" como extra e sem dica. Detecte quando duas palavras digitadas concatenadas são iguais **ou quase** a uma esperada (`lev ≤ limiteQuase`; no estrito, só iguais), ou o contrário, e devolva `hint: 'merge' | 'split'`. O "quase" é necessário para o próprio exemplo: `all`+`most` = `allmost`, a distância 1 de `almost`. Limitação conhecida: a comparação usa os tokens já normalizados, então `any one` × `anyone` não é detectado (`one` vira `1`).
 
 ## 4. Saída
 

@@ -74,3 +74,4 @@ A lógica pura que compara o verso esperado com o que o usuário digitou, nos mo
 - Nota de linha sem palavras esperadas (ex.: instrumental) = 1 — decidido por padrão
 - NB1–NB7, NB9, NB10 → decididos por padrão
 - NB4 ajustada na implementação → empates de custo são decididos **a favor de mais pares exatos** (ex.: `we will be` × `we be here` dá will=missing, be=ok, here=extra (2/3), e não will=wrong, be=wrong (1/3)). Depois disso, a ordem é par → faltando → extra. Custos internos em inteiros. Decidido por padrão.
+- Achado na implementação → a regra "concatenação igual" da spec não pegava o próprio exemplo (`all`+`most` = `allmost` ≠ `almost`). A junção/separação passa a valer com a concatenação **igual ou quase** (`lev ≤ limiteQuase`) e, no estrito, só igual. Limitação: os números normalizados ficam de fora (`any one` × `anyone`). Spec atualizada. Decidido por padrão.
