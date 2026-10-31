@@ -1,15 +1,22 @@
-import { Link, NavLink } from 'react-router'
+import { Link, useLocation } from 'react-router'
 import { Chip } from '@/components/Chip/Chip'
 import { Icon } from '@/components/Icon/Icon'
 import { cx } from '@/lib/utils/cx'
 import styles from './AppHeader.module.css'
 
 const NAV = [
-  { to: '/', label: 'ESTUDAR' },
-  { to: '/vocabulario', label: 'VOCABULÁRIO' },
-  { to: '/progresso', label: 'PROGRESSO' },
-  { to: '/ajustes', label: 'AJUSTES' },
+  // ESTUDAR cobre o fluxo de estudo inteiro: Home, tela da música e prática.
+  { to: '/', label: 'ESTUDAR', prefixes: ['/musica/', '/praticar/'] },
+  { to: '/vocabulario', label: 'VOCABULÁRIO', prefixes: [] },
+  { to: '/progresso', label: 'PROGRESSO', prefixes: [] },
+  { to: '/ajustes', label: 'AJUSTES', prefixes: [] },
 ] as const
+
+function isActive(pathname: string, item: (typeof NAV)[number]): boolean {
+  if (pathname === item.to) return true
+  if (item.to !== '/' && pathname.startsWith(`${item.to}/`)) return true
+  return item.prefixes.some((prefix) => pathname.startsWith(prefix))
+}
 
 interface AppHeaderProps {
   /** Dias seguidos com prática. Sem valor, o chip não aparece. */
@@ -18,6 +25,7 @@ interface AppHeaderProps {
 
 /** Cabeçalho das telas fora da prática: logo, nav com o item ativo invertido e streak. */
 export function AppHeader({ streakDays }: AppHeaderProps) {
+  const { pathname } = useLocation()
   return (
     <header className={styles.header}>
       <Link to="/" className={styles.logo}>
@@ -27,16 +35,19 @@ export function AppHeader({ streakDays }: AppHeaderProps) {
         </span>
       </Link>
       <nav aria-label="Principal" className={styles.nav}>
-        {NAV.map((item) => (
-          <NavLink
-            key={item.to}
-            to={item.to}
-            end={item.to === '/'}
-            className={({ isActive }) => cx(styles.link, isActive && styles.active)}
-          >
-            {item.label}
-          </NavLink>
-        ))}
+        {NAV.map((item) => {
+          const active = isActive(pathname, item)
+          return (
+            <Link
+              key={item.to}
+              to={item.to}
+              aria-current={active ? 'page' : undefined}
+              className={cx(styles.link, active && styles.active)}
+            >
+              {item.label}
+            </Link>
+          )
+        })}
       </nav>
       {streakDays !== undefined && (
         <Chip variant="square" icon={<Icon name="flame" size={14} className={styles.flame} />}>
