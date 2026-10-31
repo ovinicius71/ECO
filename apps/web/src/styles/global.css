@@ -1,4 +1,4 @@
-/* Base global. Valores sempre via tokens (tokens.css). */
+/* Base global. O fundo de papel, a fonte e o foco vêm de tokens.css. */
 *,
 *::before,
 *::after {
@@ -6,17 +6,11 @@
 }
 
 body {
-  margin: 0;
   min-height: 100vh;
-  background-color: var(--eco-paper);
-  background-image: radial-gradient(var(--eco-paper-dot) 1px, transparent 1px);
-  background-size: 6px 6px;
-  color: var(--eco-ink);
-  font-family: var(--eco-font-sans);
   font-size: var(--eco-text-body);
 }
 
-:focus-visible {
-  outline: 2px solid var(--eco-focus);
-  outline-offset: 2px;
+button {
+  font: inherit;
+  color: inherit;
 }

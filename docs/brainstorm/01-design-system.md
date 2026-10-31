@@ -61,3 +61,7 @@ Criar os tokens, as fontes e os componentes base reutilizáveis, mais uma págin
 8. `docs(entrega): parte 01 — design-system`
 
 ## Decisões (preenchido depois das respostas)
+- P1 → A: self-host via `@fontsource`, sem o `@import` do Google (dono, 2026-10-31)
+- P2 → A: os componentes do roadmap + o Chip (dono, 2026-10-31)
+- P3 → A: o hover move a barra (estilo NieR), `↑↓` move a barra e o foco, `Enter` ativa (dono, 2026-10-31)
+- NB1–NB6 → decididos por padrão
