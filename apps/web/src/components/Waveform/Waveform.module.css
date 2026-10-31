@@ -1,0 +1,20 @@
+.wave {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  height: 72px;
+  padding: 10px 0;
+  border-top: var(--eco-border);
+  border-bottom: var(--eco-border);
+}
+
+.bar,
+.played {
+  flex: 1;
+  min-width: 2px;
+  background: var(--eco-rule);
+}
+
+.played {
+  background: var(--eco-bar);
+}

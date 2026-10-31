@@ -1,0 +1,77 @@
+.header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--eco-space-3) 28px;
+  padding: 14px var(--eco-gutter);
+  border-bottom: var(--eco-border);
+}
+
+.exit {
+  padding: 0;
+  border: 0;
+  background: none;
+  font-size: var(--eco-text-label);
+  letter-spacing: var(--eco-tracking-label);
+  cursor: pointer;
+}
+
+.exit:hover {
+  text-decoration: underline;
+}
+
+.song {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  min-width: 0;
+}
+
+.title {
+  font-size: 17px;
+  font-weight: 500;
+}
+
+.artist {
+  font-size: var(--eco-text-sm);
+  color: var(--eco-ink-2);
+}
+
+.mode {
+  padding: 4px 14px;
+  background: var(--eco-bar);
+  color: var(--eco-on-bar);
+  font-size: var(--eco-text-label);
+  letter-spacing: 0.18em;
+}
+
+.progress {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: auto;
+  font-size: var(--eco-text-label);
+  letter-spacing: 0.16em;
+  color: var(--eco-ink-2);
+}
+
+.mono {
+  font-family: var(--eco-font-mono);
+  color: var(--eco-ink);
+}
+
+.gauge {
+  width: 140px;
+}
+
+.metric {
+  font-family: var(--eco-font-mono);
+  font-size: var(--eco-text-sm);
+}
+
+.metricLabel {
+  font-family: var(--eco-font-sans);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  color: var(--eco-ink-2);
+}
