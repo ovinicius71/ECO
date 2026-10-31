@@ -109,44 +109,32 @@
   text-decoration: underline;
 }
 
-.video {
-  position: relative;
-  aspect-ratio: 16 / 9;
+/* Prévia do verso atual, para calibrar o ajuste de sincronia. */
+.now {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  border: var(--eco-border-strong);
-  background-color: var(--eco-paper-raised);
-  background-image: repeating-linear-gradient(
-    135deg,
-    transparent 0 9px,
-    var(--eco-paper-hatch) 9px 10px
-  );
-  color: var(--eco-bar);
+  flex-direction: column;
+  gap: var(--eco-space-1);
+  padding-bottom: var(--eco-space-2);
+  border-bottom: var(--eco-border);
 }
 
-.videoUrl,
-.videoTime {
-  position: absolute;
-  bottom: var(--eco-space-2);
-  font-family: var(--eco-font-mono);
-  font-size: 11px;
+.nowLine {
+  margin: 0;
+  min-height: 1.4em;
+  font-size: var(--eco-text-lg);
 }
 
-.videoUrl {
-  left: 10px;
-  right: 64px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  color: var(--eco-ink-2);
+.notice {
+  display: flex;
+  flex-direction: column;
+  gap: var(--eco-space-3);
+  padding: var(--eco-space-3) var(--eco-space-4);
+  border: 1px dashed var(--eco-ink-3);
+  font-size: var(--eco-text-sm);
 }
 
-.videoTime {
-  right: 10px;
-  padding: 1px 6px;
-  background: var(--eco-bar);
-  color: var(--eco-on-bar);
+.notice p {
+  margin: 0;
 }
 
 .songTitle {
