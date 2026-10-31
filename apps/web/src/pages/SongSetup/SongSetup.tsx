@@ -1,14 +1,18 @@
 import { useCallback, useEffect, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router'
 import { Button, ButtonLink } from '@/components/Button/Button'
-import { Icon } from '@/components/Icon/Icon'
 import { StatusPanel, StatusRow } from '@/components/StatusPanel/StatusPanel'
+import { Stepper } from '@/components/Stepper/Stepper'
+import { VideoFrame } from '@/components/VideoFrame/VideoFrame'
 import { loadSong, switchVersion } from '@/features/lyrics/loadSong'
 import { countWords } from '@/features/lyrics/toLines'
+import { OFFSET_STEP_MS, formatOffset } from '@/features/player/sync'
+import { useOffsetPersistence } from '@/features/player/useOffsetPersistence'
+import { usePlayer, usePlayerState } from '@/features/player/usePlayer'
 import { AppHeader } from '@/layout/AppHeader/AppHeader'
 import { KeyHintBar } from '@/layout/KeyHintBar/KeyHintBar'
-import { formatDuration } from '@/lib/utils/time'
 import type { Song, SyncKind } from '@/types/song'
+import { DurationNotice } from './DurationNotice'
 import { ModePicker } from './ModePicker'
 import styles from './SongSetup.module.css'
 import { VersionPicker } from './VersionPicker'
@@ -137,20 +141,30 @@ function SongColumn({
   onPickVersion: (lrclibId: number) => Promise<void>
 }) {
   const [picking, setPicking] = useState(false)
+  // Controles nativos do YouTube aqui; a PlayerBar do Eco fica para as telas de prática.
+  const { containerRef, engine } = usePlayer({
+    videoId: song.videoId,
+    lines: song.lines,
+    offsetMs: song.offsetMs,
+    controls: true,
+  })
+  useOffsetPersistence(engine, song.videoId)
+  const status = usePlayerState(engine, (s) => s.status)
+  const error = usePlayerState(engine, (s) => s.error)
+  const lineIndex = usePlayerState(engine, (s) => s.lineIndex)
+  const videoMs = usePlayerState(engine, (s) => s.videoMs)
+  const durationMs = usePlayerState(engine, (s) => s.durationMs)
+  const offsetMs = usePlayerState(engine, (s) => s.offsetMs)
 
   return (
     <section aria-label="Música" className={styles.song}>
       <Link to="/" className={styles.back}>
         ← VOLTAR
       </Link>
-      <div
-        className={styles.video}
-        role="img"
-        aria-label="Prévia do vídeo (o player chega na Parte 03)"
-      >
-        <Icon name="play" size={54} strokeWidth={1.2} />
-        <span className={styles.videoUrl}>youtube.com/watch?v={song.videoId}</span>
-        <span className={styles.videoTime}>{formatDuration(song.durationSec)}</span>
+      <VideoFrame ref={containerRef} videoId={song.videoId} status={status} error={error} />
+      <div className={styles.now}>
+        <p className={styles.label}>AGORA</p>
+        <p className={styles.nowLine}>{song.lines[lineIndex]?.text ?? (videoMs > 0 ? '♪' : '—')}</p>
       </div>
       <div>
         <h1 className={styles.songTitle}>{song.title}</h1>
@@ -166,6 +180,15 @@ function SongColumn({
         />
         <StatusRow label="Dificuldade" value="—" />
       </StatusPanel>
+      <Stepper
+        label="AJUSTE DE SINCRONIA"
+        value={formatOffset(offsetMs)}
+        decrementLabel="Atrasar letra"
+        incrementLabel="Adiantar letra"
+        onDecrement={() => engine.setOffset(offsetMs - OFFSET_STEP_MS)}
+        onIncrement={() => engine.setOffset(offsetMs + OFFSET_STEP_MS)}
+      />
+      <DurationNotice song={song} videoMs={durationMs} onPickVersion={onPickVersion} />
       <div className={styles.wrong}>
         <p className={styles.label}>LETRA ERRADA?</p>
         <button

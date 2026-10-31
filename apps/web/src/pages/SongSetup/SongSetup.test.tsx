@@ -5,11 +5,31 @@ import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { loadSong, switchVersion } from '@/features/lyrics/loadSong'
 import { toLines } from '@/features/lyrics/toLines'
 import { lyricsCandidates } from '@/lib/api/songs'
+import type { PlayerEvents } from '@/features/player/controller'
 import type { Song } from '@/types/song'
 import { SongSetup } from './SongSetup'
 
 vi.mock('@/features/lyrics/loadSong', () => ({ loadSong: vi.fn(), switchVersion: vi.fn() }))
 vi.mock('@/lib/api/songs', () => ({ lyricsCandidates: vi.fn() }))
+vi.mock('@/lib/db/songs', () => ({ updateSongOffset: vi.fn(async () => {}) }))
+
+// Player falso no lugar da IFrame API: fica pronto na hora, no tempo e na duração definidos aqui.
+const fakeVideo = { timeMs: 0, durationMs: 221_000 }
+vi.mock('@/features/player/youtube', () => ({
+  createYouTubePlayer: vi.fn(async (_el: HTMLElement, _id: string, events: PlayerEvents) => {
+    setTimeout(() => events.onReady())
+    return {
+      play: vi.fn(),
+      pause: vi.fn(),
+      seekTo: vi.fn(),
+      setRate: vi.fn(),
+      getTimeMs: () => fakeVideo.timeMs,
+      getDurationMs: () => fakeVideo.durationMs,
+      getAvailableRates: () => [0.5, 0.75, 1],
+      destroy: vi.fn(),
+    }
+  }),
+}))
 
 const VID = 'abcdefghijk'
 
@@ -45,6 +65,8 @@ function renderSetup() {
 }
 
 beforeEach(() => {
+  fakeVideo.timeMs = 0
+  fakeVideo.durationMs = 221_000
   vi.mocked(loadSong).mockReset()
   vi.mocked(switchVersion).mockReset()
   vi.mocked(lyricsCandidates).mockReset()
@@ -135,5 +157,54 @@ describe('SongSetup', () => {
 
     await userEvent.keyboard('{Escape}')
     expect(screen.getByText('Home')).toBeInTheDocument()
+  })
+
+  it('player pronto: prévia do verso e ajuste de sincronia', async () => {
+    fakeVideo.timeMs = 13_000
+    vi.mocked(loadSong).mockResolvedValue({ status: 'found', song: song() })
+    renderSetup()
+
+    const group = await screen.findByRole('group', { name: 'AJUSTE DE SINCRONIA' })
+    expect(group).toHaveTextContent('0,0 s')
+    await userEvent.click(screen.getByRole('button', { name: 'Adiantar letra' }))
+    await userEvent.click(screen.getByRole('button', { name: 'Adiantar letra' }))
+    expect(group).toHaveTextContent('+0,2 s')
+    await userEvent.click(screen.getByRole('button', { name: 'Atrasar letra' }))
+    expect(group).toHaveTextContent('+0,1 s')
+
+    // O ajuste recalcula o verso atual na hora: 13 s + 0,1 s ainda é o 1º verso.
+    expect(screen.getByText('I left the window open for the rain')).toBeInTheDocument()
+  })
+
+  it('duração diferente: avisa e oferece a versão com a duração do vídeo', async () => {
+    fakeVideo.durationMs = 230_000
+    vi.mocked(loadSong).mockResolvedValue({ status: 'found', song: song() })
+    vi.mocked(lyricsCandidates).mockResolvedValue([
+      {
+        lrclibId: 1,
+        artist: 'The Quiet Arcade',
+        track: 'Paper Moon Radio',
+        album: null,
+        durationSec: 221,
+        synced: true,
+      },
+      {
+        lrclibId: 9,
+        artist: 'The Quiet Arcade',
+        track: 'Paper Moon Radio',
+        album: null,
+        durationSec: 230,
+        synced: true,
+      },
+    ])
+    vi.mocked(switchVersion).mockResolvedValue(song({ lrclibId: 9, durationSec: 230 }))
+    renderSetup()
+
+    const note = await screen.findByRole('note')
+    expect(note).toHaveTextContent('A letra tem 3:41 e o vídeo 3:50')
+    await userEvent.click(await screen.findByRole('button', { name: 'Usar a versão de 3:50' }))
+
+    expect(switchVersion).toHaveBeenCalledWith(VID, 9)
+    await vi.waitFor(() => expect(screen.queryByRole('note')).not.toBeInTheDocument())
   })
 })

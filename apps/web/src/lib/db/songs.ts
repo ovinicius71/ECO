@@ -25,3 +25,12 @@ export async function saveSong(song: Song, db: EcoDb = defaultDb): Promise<Song>
     return merged
   })
 }
+
+/** Grava só o ajuste de sincronia da música (não mexe no resto). */
+export async function updateSongOffset(
+  videoId: string,
+  offsetMs: number,
+  db: EcoDb = defaultDb,
+): Promise<void> {
+  await db.songs.update(videoId, { offsetMs })
+}

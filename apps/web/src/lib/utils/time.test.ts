@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { formatDuration } from './time'
+import { formatDuration, formatRate } from './time'
 
 describe('formatDuration', () => {
   it.each([
@@ -10,5 +10,12 @@ describe('formatDuration', () => {
     [-5, '0:00'],
   ])('%s s → %s', (sec, text) => {
     expect(formatDuration(sec)).toBe(text)
+  })
+})
+
+describe('formatRate', () => {
+  it('usa vírgula e ×', () => {
+    expect(formatRate(0.75)).toBe('0,75×')
+    expect(formatRate(1)).toBe('1×')
   })
 })

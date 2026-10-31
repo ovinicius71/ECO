@@ -21,6 +21,8 @@ O `docs/adr/` continua sendo só para as decisões de arquitetura. O status ofic
 | 0008 | 2026-10-31 | 04 | Motor de correção | [geral](geral/0008-motor-correcao.md) | [técnico](tecnico/0008-motor-correcao.md) |
 | 0009 | 2026-10-31 | 02 | Servidor busca o vídeo e a letra | [geral](geral/0009-api-busca-letra.md) | [técnico](tecnico/0009-api-busca-letra.md) |
 | 0010 | 2026-10-31 | 02 | Home e tela Configurar música | [geral](geral/0010-telas-busca-letra.md) | [técnico](tecnico/0010-telas-busca-letra.md) |
+| 0011 | 2026-10-31 | 03 | O player do Eco (sincronia, loop, pausa, velocidade) | [geral](geral/0011-nucleo-do-player.md) | [técnico](tecnico/0011-nucleo-do-player.md) |
+| 0012 | 2026-10-31 | 03 | Vídeo e ajuste de sincronia na tela da música | [geral](geral/0012-player-no-setup.md) | [técnico](tecnico/0012-player-no-setup.md) |
 
 ## Modelo — geral
 

@@ -6,3 +6,6 @@ export function formatDuration(totalSec: number): string {
   const s = String(sec % 60).padStart(2, '0')
   return h ? `${h}:${String(m).padStart(2, '0')}:${s}` : `${m}:${s}`
 }
+
+/** 0.75 → "0,75×". */
+export const formatRate = (rate: number) => `${String(rate).replace('.', ',')}×`
