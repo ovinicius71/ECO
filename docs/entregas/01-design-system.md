@@ -1,7 +1,7 @@
 # Entrega — Parte 01: Design system
 
 Branch: `feat/01-design-system` · Base: `main`
-Status: 🟡 pronta para push
+Status: ✅ mergeada na `main` (`40e14cc`, 2026-10-31)
 
 ## O que foi entregue
 - Fontes self-hosted (`@fontsource`): Jost, IBM Plex Mono e Noto Sans JP, sem o Google Fonts.
