@@ -50,7 +50,7 @@ Cada palavra **esperada** sai com um status:
 
 As palavras digitadas a mais (`extra`) aparecem na interface riscadas, mas **não descontam** pontos. No modo estrito, descontam 0,25 cada, com mínimo 0.
 
-Junções e separações: `all most` contra `almost` deve dar `wrong` com a sugestão "é uma palavra só". Detecte quando duas palavras digitadas concatenadas são iguais a uma esperada (ou o contrário) e devolva `hint: 'merge' | 'split'`.
+Junções e separações: `all most` contra `almost` deve dar `near` no tolerante (`wrong` no estrito, que não tem "quase") com a sugestão "é uma palavra só" (decisão do dono, Parte 04). Sem essa regra, o alinhamento sozinho também daria `near` (most≈almost), mas deixaria "all" como extra e sem dica. Detecte quando duas palavras digitadas concatenadas são iguais a uma esperada (ou o contrário) e devolva `hint: 'merge' | 'split'`.
 
 ## 4. Saída
 
@@ -59,7 +59,7 @@ type WordStatus = 'ok' | 'near' | 'wrong' | 'missing';
 interface WordResult { expected: string; typed?: string; status: WordStatus; hint?: 'merge' | 'split' | 'number' | 'contraction'; }
 interface LineScore { words: WordResult[]; extras: string[]; score: number /* 0..1 */; }
 function scoreLine(expected: string, typed: string, mode: 'tolerant' | 'strict'): LineScore;
-function scoreChars(expected: string, typed: string, mode): CharResult[]; // Digitar Junto
+function scoreChars(expected: string, typed: string, mode): CharResult[]; // Digitar Junto — definido na Parte 06
 ```
 
 ## 5. Casos de teste obrigatórios (tolerante, salvo indicação)
@@ -71,7 +71,7 @@ function scoreChars(expected: string, typed: string, mode): CharResult[]; // Dig
 | Like a radio that plays it all | like a radio that plays it all **(estrito)** | Like=wrong |
 | I’ll be the echo | ill be the echo | I'll=near (apóstrofo faltando) |
 | I’ll be the echo | i will be the echo | tudo ok (contração) |
-| Hold on, the night is almost gone | hold on the night is all most gone | almost=wrong, hint=merge |
+| Hold on, the night is almost gone | hold on the night is all most gone | almost=near, hint=merge, typed="all most", sem extras |
 | Counting cars that never come my way | counting cars that never comes my way | come=near |
 | So call my name across the static sea | so call my name across the stating see | static=near (lev 2, limite 2 para 6 letras), sea=near |
 | So call my name across the static sea | so call my name across the stating see **(estrito)** | static=wrong, sea=wrong |

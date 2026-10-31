@@ -67,3 +67,9 @@ A lógica pura que compara o verso esperado com o que o usuário digitou, nos mo
 6. `docs(entrega): parte 04 — motor-correcao`
 
 ## Decisões (preenchido depois das respostas)
+- P1 → A: o `scoreChars` fica para a Parte 06 (dono, 2026-10-31)
+- P2 → B: junção = `near` + `hint: 'merge'` no tolerante e `wrong` + dica no estrito. A spec foi atualizada (dono, 2026-10-31)
+- NB8 ajustada pela P2: separação também vira `near` + `hint: 'split'` nas duas esperadas (`wrong` no estrito) — decidido por padrão, por simetria
+- NB11 (nova) → no tolerante, contrações digitadas sem apóstrofo valem como a contração (`dont` = `don't`), exceto as que colidem com palavras reais (`ill`, `well`, `cant`, `wont`, `its`, `were`, `lets`, `shed`, `hell`, `shell`, `wed`, `id`) — decidido por padrão (a spec manda ignorar pontuação, e o caso `ill` da spec continua `near`)
+- Nota de linha sem palavras esperadas (ex.: instrumental) = 1 — decidido por padrão
+- NB1–NB7, NB9, NB10 → decididos por padrão
