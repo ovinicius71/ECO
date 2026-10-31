@@ -72,3 +72,6 @@ Um wrapper da IFrame Player API do YouTube, com:
 6. `docs(acompanhamento): …` e `docs(entrega): parte 03 — player-sincronia`
 
 ## Decisões (preenchido depois das respostas)
+- P1 → A: Setup com player, ajuste de sincronia e prévia do verso, mais a PlayerBar e a página de dev `/dev/player/:videoId` (dono, 2026-10-31)
+- P2 → A: avisar quando a duração diverge (> 2 s) e sugerir a versão do LRCLIB com a duração do vídeo, se existir (dono, 2026-10-31)
+- NB1–NB11 → decididos por padrão
