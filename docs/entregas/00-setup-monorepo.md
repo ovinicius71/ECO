@@ -1,7 +1,7 @@
 # Entrega — Parte 00: Setup do monorepo
 
 Branch: `chore/00-setup-monorepo` · Base: `main`
-Status: 🟡 pronta para push
+Status: ✅ mergeada (o dono renomeou a branch para `main` com `git branch -M main` e aceitou como merge, sem commit de merge, em 2026-10-31)
 
 ## O que foi entregue
 - O repositório git foi iniciado (`main` com o commit inicial) e a Parte 00 fica na sua própria branch.
