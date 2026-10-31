@@ -75,3 +75,6 @@ Specs: `produto.md` (Resultado, Home), `dados.md` (`PracticeSession`, `ActivityD
 8. `docs(acompanhamento): …` e `docs(entrega): parte 10 — resultado-progresso`
 
 ## Decisões (preenchido depois das respostas)
+- P1 → A: "Palavras para salvar" fica para a Parte 09; a coluna não aparece por enquanto (dono, 2026-10-31)
+- P2 → A: só as sessões concluídas são salvas. Biblioteca com Recentes e Favoritas. Sair no meio conta os minutos do dia (dono, 2026-10-31)
+- NB1–NB12 → decididos por padrão
