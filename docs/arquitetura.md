@@ -56,7 +56,7 @@ eco/
 │       │   ├── dictation/        sessão do Ditado (reducer, estatísticas, dica)
 │       │   ├── blanks/           escolha de lacunas por CEFR/densidade
 │       │   ├── srs/              Leitner, agendamento de revisão
-│       │   ├── progress/         streak, metas, estatísticas
+│       │   ├── progress/         streak, semana, meta, precisão média, recorde, relógio de prática, notas, Biblioteca
 │       │   ├── translation/      busca e cache de tradução
 │       │   ├── dictionary/       popover de palavra
 │       │   └── speech/           reconhecimento de fala (Karaokê)
