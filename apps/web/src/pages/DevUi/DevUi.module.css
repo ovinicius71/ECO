@@ -1,0 +1,49 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main {
+  flex: 1;
+  width: 100%;
+  max-width: var(--eco-page-max);
+  margin: 0 auto;
+  padding: var(--eco-space-6) var(--eco-gutter);
+  display: flex;
+  flex-direction: column;
+  gap: var(--eco-space-7);
+}
+
+.title {
+  margin: 0;
+  font-size: var(--eco-text-title);
+  font-weight: 600;
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--eco-space-3);
+}
+
+.label {
+  margin: 0;
+  font-size: var(--eco-text-label);
+  font-weight: 400;
+  letter-spacing: var(--eco-tracking-label);
+  color: var(--eco-ink-2);
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--eco-space-3);
+}
+
+.narrow {
+  max-width: 420px;
+}

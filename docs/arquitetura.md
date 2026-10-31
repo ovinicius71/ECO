@@ -46,6 +46,7 @@ eco/
 │       │   │   ├── Karaoke/
 │       │   │   └── Watch/            (Assistir)
 │       │   ├── Result/
+│       │   ├── DevUi/            vitrine de componentes em /dev/ui (só em dev)
 │       │   └── Vocabulary/
 │       ├── features/             lógica por domínio (hooks + funções puras + testes)
 │       │   ├── player/           wrapper da IFrame API, useCurrentLine, offset, velocidade, loop
