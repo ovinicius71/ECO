@@ -1,7 +1,7 @@
 # Entrega — Parte 10: Resultado e progresso
 
 Branch: `feat/10-resultado-progresso` · Base: `main`
-Status: 🟡 pronta para push
+Status: ✅ mergeada na `main` (`900f253`, 2026-10-31)
 
 ## O que foi entregue
 - **Primeira versão usável:** colar o link → Ditado → Resultado.

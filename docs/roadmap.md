@@ -22,7 +22,7 @@ Este é o **status oficial** do projeto. O Claude Code atualiza este arquivo ao 
 | 07 | `feat/07-modo-preencher` | Lacunas por nível CEFR e densidade, e o modo Preencher | 03, 04 | ⬜ |
 | 08 | `feat/08-modo-assistir` | Modo Assistir, tradução por linha e popover de palavra (dicionário) | 03 | ⬜ |
 | 09 | `feat/09-vocabulario-srs` | Salvar palavras, tela Vocabulário, revisão Leitner (5 caixas), exportar para Anki | 08 | ⬜ |
-| 10 | `feat/10-resultado-progresso` | Persistir sessões, tela Resultado, status da Home (streak, meta, recentes) | 05 | 🟡 |
+| 10 | `feat/10-resultado-progresso` | Persistir sessões, tela Resultado, status da Home (streak, meta, recentes) | 05 | ✅ |
 | 11 | `feat/11-modo-multipla-escolha` | Distratores fonéticos (CMUdict) e o modo Múltipla escolha | 04, 07 | ⬜ |
 | 12 | `feat/12-modo-karaoke` | Reconhecimento de fala no navegador, nota por palavra e o modo Karaokê | 03 | ⬜ |
 | 13 | `feat/13-whisper-local` | Transcrição local com timestamps, como alternativa quando não há letra | 02 | ⬜ |
