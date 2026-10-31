@@ -29,4 +29,9 @@ export interface LanguageAdapter {
   normalize(word: string, mode: CorrectionMode): string[]
   /** Maior distância de edição que ainda conta como "quase" para este token esperado. */
   nearThreshold(token: string, mode: CorrectionMode): number
+  /**
+   * Forma "nua" da palavra (sem caixa, acento, pontuação nem apóstrofo), usada para
+   * reconhecer contração digitada sem apóstrofo ("were" × "We're"). Opcional por idioma.
+   */
+  bare?(word: string): string
 }

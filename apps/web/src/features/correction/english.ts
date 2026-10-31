@@ -38,6 +38,10 @@ export const english: LanguageAdapter = {
       .map((token) => NUMBER_WORDS.get(token) ?? token)
   },
 
+  bare(word) {
+    return fold(word).replace(PUNCTUATION, '').replaceAll("'", '')
+  },
+
   nearThreshold(token, mode) {
     if (mode === 'strict') return 0
     return token.length <= 4 ? 1 : 2

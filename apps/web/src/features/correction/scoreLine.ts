@@ -83,7 +83,19 @@ export function scoreLine(
     const own = results.filter((_, e) => exp.tokens[e]!.word === index)
     const typedWords = [...new Set(own.flatMap((r) => r.typed).map((t) => typ.tokens[t]!.word))]
     const typedText = typedWords.map((w) => typ.words[w]!.text).join(' ') || undefined
-    return toWordResult(word, own, typedText)
+    const result = toWordResult(word, own, typedText)
+    // Contração digitada só sem o apóstrofo ("were" × "We're"): vale quase, como "ill" × "I'll".
+    const bare = adapter.bare?.bind(adapter)
+    if (
+      mode === 'tolerant' &&
+      bare &&
+      result.status === 'wrong' &&
+      word.tokens.length > 1 &&
+      typedWords.some((w) => bare(typ.words[w]!.text) === bare(word.text))
+    ) {
+      result.status = 'near'
+    }
+    return result
   })
 
   const extras = typ.words
