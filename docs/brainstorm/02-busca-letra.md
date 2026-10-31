@@ -92,3 +92,14 @@ Data: 2026-10-31
 8. `docs(acompanhamento): …` e `docs(entrega): parte 02 — busca-letra`
 
 ## Decisões (preenchido depois das respostas)
+- P1 → A: tela Configurar música completa, com o Começar desabilitado ("EM BREVE") e o player e o offset na 03 (dono, 2026-10-31)
+- P2 → A: só os candidatos do LRCLIB ("Trocar versão da letra"); colar a letra fica para uma parte futura (dono, 2026-10-31)
+- P3 → **B**: o Dexie entra já. A música é salva no IndexedDB ao abrir a tela Configurar música, e quem reabre lê do navegador sem chamar a API (dono, 2026-10-31)
+- P4 → A: a Home mostra só o topo; Biblioteca e STATUS na 10 (dono, 2026-10-31)
+- Consequências da P3, decididas por padrão:
+  - schema v1 do Dexie **só com a tabela `songs`** (`videoId`, índice `lastPlayedAt`). As outras tabelas do `dados.md` entram com `version(n)` nas partes que as usam;
+  - tipos `Song`/`Line`/`Token` em `src/types/song.ts`;
+  - `fake-indexeddb` como dependência de **dev**, só para os testes do Dexie;
+  - "Trocar versão" busca os candidatos sob demanda (`/api/lyrics/candidates?q=`) e regrava a música;
+  - novo endpoint `GET /api/lyrics/{lrclibId}`, necessário para carregar o candidato escolhido (a spec `api.md` será atualizada).
+- NB1–NB16 → decididos por padrão
