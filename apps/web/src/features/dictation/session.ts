@@ -14,8 +14,10 @@ export type DictationPhase = 'ready' | 'answering' | 'checked' | 'finished'
 
 export interface DictationState {
   phase: DictationPhase
-  /** Verso que o usuário está respondendo (não é o verso tocando no player). */
+  /** Posição em `order` do verso que o usuário está respondendo (não é o verso tocando). */
   target: number
+  /** Índices dos versos da música a praticar, em ordem (todos, ou só os escolhidos). */
+  order: number[]
   lineCount: number
   attempts: DictationAttempt[]
   /** "Ouvir de novo" e dica do verso-alvo atual. */
@@ -32,15 +34,28 @@ export type DictationAction =
   | { type: 'next' }
   | { type: 'restart' }
 
-export function initialDictation(lineCount: number): DictationState {
-  return { phase: 'ready', target: 0, lineCount, attempts: [], replays: 0, hintUsed: false }
+/** `lines`: quantos versos a música tem, ou a lista dos índices a praticar. */
+export function initialDictation(lines: number | readonly number[]): DictationState {
+  const order = typeof lines === 'number' ? Array.from({ length: lines }, (_, i) => i) : [...lines]
+  return {
+    phase: 'ready',
+    target: 0,
+    order,
+    lineCount: order.length,
+    attempts: [],
+    replays: 0,
+    hintUsed: false,
+  }
 }
+
+/** Índice (na música) do verso que está sendo respondido. */
+export const targetLine = (state: DictationState) => state.order[state.target] ?? 0
 
 function record(state: DictationState, typed: string, skipped: boolean): DictationAttempt[] {
   return [
     ...state.attempts,
     {
-      lineIndex: state.target,
+      lineIndex: targetLine(state),
       typed,
       skipped,
       replays: state.replays,
@@ -74,7 +89,7 @@ export function dictationReducer(state: DictationState, action: DictationAction)
     case 'next':
       return state.phase === 'checked' ? advance(state, state.attempts) : state
     case 'restart':
-      return initialDictation(state.lineCount)
+      return initialDictation(state.order)
   }
 }
 

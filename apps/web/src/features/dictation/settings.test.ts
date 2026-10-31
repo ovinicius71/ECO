@@ -15,6 +15,14 @@ describe('ajustes do ditado', () => {
     expect(parseDictationSettings(new URLSearchParams(query))).toEqual(settings)
   })
 
+  it('só alguns versos: 1-based na URL, 0-based no app, sem repetidos e em ordem', () => {
+    const settings = parseDictationSettings(new URLSearchParams('versos=14,6,x,0,6'))
+    expect(settings.lines).toEqual([5, 13])
+    expect(dictationQuery({ ...DEFAULT_DICTATION_SETTINGS, lines: [5, 13] })).toContain(
+      'versos=6%2C14',
+    )
+  })
+
   it('query vazia ou inválida usa o padrão', () => {
     expect(parseDictationSettings(new URLSearchParams(''))).toEqual(DEFAULT_DICTATION_SETTINGS)
     expect(parseDictationSettings(new URLSearchParams('velocidade=3')).rate).toBe(1)
