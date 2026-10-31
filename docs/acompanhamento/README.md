@@ -12,6 +12,7 @@ O `docs/adr/` continua sendo só para as decisões de arquitetura. O status ofic
 | # | Data | Parte | Mudança | Geral | Técnico |
 | --- | --- | --- | --- | --- | --- |
 | 0001 | 2026-10-31 | 00 | Início do repositório e regras de trabalho | [geral](geral/0001-inicio-do-repositorio.md) | [técnico](tecnico/0001-inicio-do-repositorio.md) |
+| 0002 | 2026-10-31 | 00 | Esqueleto do site (apps/web) | [geral](geral/0002-scaffold-web.md) | [técnico](tecnico/0002-scaffold-web.md) |
 
 ## Modelo — geral
 
