@@ -53,7 +53,7 @@ Antes de criar um arquivo, confira em `docs/arquitetura.md` onde ele deve ficar.
    - **Bloqueantes**: mudam o que será construído. **Pare e pergunte ao dono.** Não comece a implementação até ter as respostas.
    - **Não bloqueantes**: têm um padrão razoável. Siga a recomendação, registre como "decidido por padrão" e cite no relatório da entrega.
 4. Faça commit do brainstorm: `docs(brainstorm): parte NN — <slug>`.
-5. Mostre as perguntas bloqueantes ao dono de forma curta e numerada, e espere.
+5. Faça as perguntas bloqueantes ao dono **pela ferramenta de perguntas do Claude Code** (`AskUserQuestion`), com a recomendação como primeira opção marcada "(Recomendado)", e espere. Não liste as perguntas só em texto.
 
 Registre as respostas do dono no próprio arquivo de brainstorm, na seção "Decisões". Se a resposta mudar a arquitetura, crie também um ADR em `docs/adr/`.
 
