@@ -68,6 +68,13 @@ function renderDictation(query = 'pausa=fim&velocidade=1&correcao=tolerante') {
   )
 }
 
+/** Espera o botão inicial habilitado (com folga: a suíte inteira deixa o jsdom mais lento). */
+async function readyToStart() {
+  const start = await screen.findByRole('button', { name: 'Ouvir o verso 1' }, { timeout: 5_000 })
+  await vi.waitFor(() => expect(start).toBeEnabled(), { timeout: 5_000 })
+  return start
+}
+
 beforeEach(() => {
   player.timeMs = 0
   vi.clearAllMocks()
@@ -77,8 +84,7 @@ beforeEach(() => {
 describe('Ditado', () => {
   it('fluxo completo: ouvir, digitar, corrigir, seguir, pular e ver o resumo', async () => {
     renderDictation()
-    const start = await screen.findByRole('button', { name: 'Ouvir o verso 1' })
-    await vi.waitFor(() => expect(start).toBeEnabled())
+    const start = await readyToStart()
 
     await userEvent.click(start)
     expect(player.seekTo).toHaveBeenLastCalledWith(11_340) // 1 s antes do verso 1
@@ -107,8 +113,7 @@ describe('Ditado', () => {
 
   it('dica mostra a 1ª letra de cada palavra e conta uma vez', async () => {
     renderDictation()
-    const start = await screen.findByRole('button', { name: 'Ouvir o verso 1' })
-    await vi.waitFor(() => expect(start).toBeEnabled())
+    const start = await readyToStart()
     await userEvent.click(start)
 
     await userEvent.click(screen.getByRole('button', { name: 'Dica: 1ª letra' }))
@@ -123,8 +128,7 @@ describe('Ditado', () => {
 
   it('ouvir de novo volta ao verso-alvo e conta', async () => {
     renderDictation()
-    const start = await screen.findByRole('button', { name: 'Ouvir o verso 1' })
-    await vi.waitFor(() => expect(start).toBeEnabled())
+    const start = await readyToStart()
     await userEvent.click(start)
 
     player.timeMs = 15_850 // a pausa chegou um pouco depois da borda
@@ -135,8 +139,7 @@ describe('Ditado', () => {
 
   it('trocar para estrita recalcula a precisão', async () => {
     renderDictation()
-    const start = await screen.findByRole('button', { name: 'Ouvir o verso 1' })
-    await vi.waitFor(() => expect(start).toBeEnabled())
+    const start = await readyToStart()
     await userEvent.click(start)
     await userEvent.type(
       screen.getByLabelText('O QUE VOCÊ OUVIU?'),
@@ -151,8 +154,7 @@ describe('Ditado', () => {
   it('Esc com progresso pede confirmação antes de sair', async () => {
     const confirm = vi.spyOn(window, 'confirm').mockReturnValue(false)
     renderDictation()
-    const start = await screen.findByRole('button', { name: 'Ouvir o verso 1' })
-    await vi.waitFor(() => expect(start).toBeEnabled())
+    const start = await readyToStart()
     await userEvent.click(start)
     await userEvent.type(screen.getByLabelText('O QUE VOCÊ OUVIU?'), 'x{Enter}')
 
