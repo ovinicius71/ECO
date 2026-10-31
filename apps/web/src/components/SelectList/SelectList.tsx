@@ -19,6 +19,8 @@ interface SelectListProps<T> {
   renderItem: (item: T, state: { index: number; selected: boolean }) => ReactNode
   /** Clique ou Enter/Espaço na linha. */
   onActivate?: (item: T, index: number) => void
+  /** A barra mudou de linha (mouse, teclado ou clique). */
+  onSelectedChange?: (item: T, index: number) => void
   defaultIndex?: number
 }
 
@@ -32,10 +34,21 @@ export function SelectList<T>({
   getKey,
   renderItem,
   onActivate,
+  onSelectedChange,
   defaultIndex = 0,
 }: SelectListProps<T>) {
-  const [selected, setSelected] = useState(defaultIndex)
+  const [selected, setSelectedState] = useState(defaultIndex)
+  // Ref além do estado: o foco programático dispara onFocus no mesmo tick, antes do re-render.
+  const selectedRef = useRef(defaultIndex)
   const refs = useRef<Array<HTMLLIElement | null>>([])
+
+  function setSelected(index: number) {
+    if (index === selectedRef.current) return
+    selectedRef.current = index
+    setSelectedState(index)
+    const item = items[index]
+    if (item !== undefined) onSelectedChange?.(item, index)
+  }
 
   function focusIndex(index: number) {
     setSelected(index)

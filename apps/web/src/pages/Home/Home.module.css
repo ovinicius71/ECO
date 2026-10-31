@@ -1,27 +1,180 @@
-.root {
-  display: grid;
-  place-content: center;
-  gap: 8px;
+.page {
+  display: flex;
+  flex-direction: column;
   min-height: 100vh;
-  padding: 0 16px;
-  text-align: center;
 }
 
-.logo {
-  margin: 0;
-  font-size: var(--eco-text-title);
-  font-weight: 600;
-  letter-spacing: var(--eco-tracking-label);
+.main {
+  flex: 1;
+  width: 100%;
+  max-width: var(--eco-page-max);
+  margin: 0 auto;
+  padding: 48px var(--eco-gutter) var(--eco-space-6);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 48px;
+  align-items: stretch;
 }
 
-.logo span {
-  font-family: var(--eco-font-jp);
-  font-weight: 400;
+.hero {
+  flex: 999 1 560px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
 }
 
 .label {
   margin: 0;
   font-size: var(--eco-text-label);
+  font-weight: 400;
   letter-spacing: var(--eco-tracking-label);
   color: var(--eco-ink-2);
+}
+
+.title {
+  margin: 0;
+  max-width: 760px;
+  font-size: var(--eco-text-display);
+  font-weight: 300;
+  line-height: 1.02;
+  letter-spacing: -0.01em;
+}
+
+.title strong {
+  font-weight: 500;
+}
+
+.motto {
+  margin: 0;
+  font-size: var(--eco-text-sm);
+  letter-spacing: 0.1em;
+  color: var(--eco-ink-2);
+}
+
+.motto span {
+  font-family: var(--eco-font-jp);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--eco-space-2);
+  max-width: 760px;
+  margin-top: var(--eco-space-3);
+}
+
+.field {
+  display: flex;
+  flex-wrap: wrap;
+  border: var(--eco-border-strong);
+  background: var(--eco-paper-raised);
+}
+
+.field:focus-within {
+  outline: 2px solid var(--eco-focus);
+  outline-offset: 2px;
+}
+
+.fieldIcon {
+  align-self: center;
+  margin: 0 var(--eco-space-1) 0 14px;
+  color: var(--eco-bar);
+}
+
+.input {
+  flex: 1 1 220px;
+  min-width: 0;
+  padding: 18px var(--eco-space-2);
+  border: 0;
+  background: transparent;
+  color: var(--eco-ink);
+  font-family: var(--eco-font-mono);
+  font-size: 16px;
+}
+
+.input::placeholder {
+  color: var(--eco-placeholder);
+}
+
+/* O anel de foco fica no campo inteiro (.field:focus-within). */
+.input:focus-visible {
+  outline: none;
+}
+
+.submit {
+  flex: 1 0 auto;
+  min-height: 56px;
+}
+
+.error {
+  margin: 0;
+  font-size: var(--eco-text-sm);
+  color: var(--eco-error);
+}
+
+.note {
+  margin: 0;
+  font-size: var(--eco-text-sm);
+  color: var(--eco-ink-2);
+}
+
+.howTo {
+  flex: 1 1 300px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding-left: var(--eco-space-6);
+  border-left: var(--eco-border);
+}
+
+.steps {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.step {
+  display: flex;
+  gap: var(--eco-space-4);
+  align-items: baseline;
+}
+
+/* Vermelhão permitido na numeração do "como funciona" (design/README.md §1). */
+.stepNumber {
+  font-family: var(--eco-font-mono);
+  font-size: var(--eco-text-sm);
+  color: var(--eco-error);
+}
+
+.stepTitle {
+  margin: 0;
+  font-size: var(--eco-text-lg);
+  font-weight: 500;
+}
+
+.stepText {
+  margin: 0;
+  font-size: var(--eco-text-sm);
+  color: var(--eco-ink-2);
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: var(--eco-space-1);
+}
+
+@media (max-width: 600px) {
+  .howTo {
+    padding-left: 0;
+    border-left: 0;
+    padding-top: var(--eco-space-5);
+    border-top: var(--eco-border);
+  }
 }

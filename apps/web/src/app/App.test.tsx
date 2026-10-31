@@ -3,9 +3,9 @@ import { describe, expect, it } from 'vitest'
 import { App } from './App'
 
 describe('App', () => {
-  it('mostra o logo na Home', () => {
+  it('abre a Home em /', () => {
     render(<App />)
-    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('ECO')
+    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('Aprenda inglês')
   })
 
   it('abre a vitrine em /dev/ui (dev)', async () => {
