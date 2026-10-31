@@ -1,0 +1,6 @@
+dist
+coverage
+node_modules
+package-lock.json
+# copia literal de design/tokens.css
+src/styles/tokens.css

@@ -1,0 +1,27 @@
+.root {
+  display: grid;
+  place-content: center;
+  gap: 8px;
+  min-height: 100vh;
+  padding: 0 16px;
+  text-align: center;
+}
+
+.logo {
+  margin: 0;
+  font-size: var(--eco-text-title);
+  font-weight: 600;
+  letter-spacing: var(--eco-tracking-label);
+}
+
+.logo span {
+  font-family: var(--eco-font-jp);
+  font-weight: 400;
+}
+
+.label {
+  margin: 0;
+  font-size: var(--eco-text-label);
+  letter-spacing: var(--eco-tracking-label);
+  color: var(--eco-ink-2);
+}
