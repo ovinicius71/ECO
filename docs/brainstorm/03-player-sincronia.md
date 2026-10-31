@@ -75,3 +75,7 @@ Um wrapper da IFrame Player API do YouTube, com:
 - P1 → A: Setup com player, ajuste de sincronia e prévia do verso, mais a PlayerBar e a página de dev `/dev/player/:videoId` (dono, 2026-10-31)
 - P2 → A: avisar quando a duração diverge (> 2 s) e sugerir a versão do LRCLIB com a duração do vídeo, se existir (dono, 2026-10-31)
 - NB1–NB11 → decididos por padrão
+- Na implementação, decidido por padrão:
+  - **Tab = repetir verso só no corpo da página ou num campo de digitação.** Nos botões, o Tab continua navegando, e o Shift+Tab nunca é capturado. Motivo: acessibilidade de teclado (CLAUDE.md §7).
+  - **Bug achado no navegador e corrigido:** no StrictMode, o player cancelado era destruído depois que o novo já estava montado e levava o novo junto. Cada player agora tem um slot próprio.
+  - **Observação para a Parte 05:** a pausa no fim do verso acontece algumas dezenas de ms depois da borda, e o "verso atual" já mostra o seguinte. O Ditado deve usar o verso-alvo (o que terminou), e não o `lineIndex`.
