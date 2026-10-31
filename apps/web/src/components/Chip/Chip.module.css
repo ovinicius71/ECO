@@ -1,0 +1,32 @@
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--eco-space-2);
+  font-size: var(--eco-text-label);
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+}
+
+.solid,
+.dashed {
+  padding: 3px var(--eco-space-3);
+  border-radius: var(--eco-radius-pill);
+  text-transform: uppercase;
+}
+
+.solid {
+  border: 1px solid var(--eco-bar);
+}
+
+.dashed {
+  border: 1px dashed var(--eco-ink-3);
+  color: var(--eco-ink-2);
+}
+
+.square {
+  padding: 6px var(--eco-space-3);
+  border: var(--eco-border);
+  font-family: var(--eco-font-mono);
+  font-size: var(--eco-text-sm);
+  letter-spacing: 0;
+}

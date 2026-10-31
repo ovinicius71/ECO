@@ -1,0 +1,50 @@
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--eco-space-3);
+  min-height: var(--eco-hit);
+  padding: 0 var(--eco-space-5);
+  border: 0;
+  border-radius: var(--eco-radius);
+  font-size: var(--eco-text-body);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.primary {
+  background: var(--eco-bar);
+  color: var(--eco-on-bar);
+}
+
+.primary:hover:not(:disabled) {
+  background: var(--eco-ink);
+}
+
+.outline {
+  background: transparent;
+  color: var(--eco-ink);
+  border: var(--eco-border-strong);
+}
+
+/* Hover inverte, como a seleção. */
+.outline:hover:not(:disabled) {
+  background: var(--eco-bar);
+  color: var(--eco-on-bar);
+}
+
+.ghost {
+  background: transparent;
+  color: var(--eco-ink);
+}
+
+.ghost:hover:not(:disabled) {
+  text-decoration: underline;
+}
