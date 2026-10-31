@@ -8,7 +8,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.config import Settings, get_settings
 from app.errors import install_error_handlers
-from app.routers import health, songs
+from app.routers import health, lyrics, songs
 from app.services.cache import Cache
 
 
@@ -37,6 +37,7 @@ def create_app(settings: Settings | None = None, cache: Cache | None = None) -> 
     install_error_handlers(app)
     app.include_router(health.router, prefix="/api")
     app.include_router(songs.router, prefix="/api")
+    app.include_router(lyrics.router, prefix="/api")
     return app
 
 
