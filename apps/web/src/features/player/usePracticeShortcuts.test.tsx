@@ -12,8 +12,14 @@ function fakeEngine() {
   } as unknown as PlayerEngine
 }
 
-function Harness({ engine }: { engine: PlayerEngine }) {
-  usePracticeShortcuts(engine)
+function Harness({
+  engine,
+  options,
+}: {
+  engine: PlayerEngine
+  options?: Parameters<typeof usePracticeShortcuts>[1]
+}) {
+  usePracticeShortcuts(engine, options)
   return (
     <>
       <input aria-label="resposta" />
@@ -51,5 +57,19 @@ describe('usePracticeShortcuts', () => {
     getByLabelText('resposta').focus()
     await userEvent.tab({ shift: true })
     expect(engine.replayLine).toHaveBeenCalledOnce()
+  })
+
+  it('aceita um "repetir" próprio e a dica com Ctrl+H', async () => {
+    const engine = fakeEngine()
+    const onReplay = vi.fn()
+    const onHint = vi.fn()
+    const { getByLabelText } = render(<Harness engine={engine} options={{ onReplay, onHint }} />)
+
+    getByLabelText('resposta').focus()
+    await userEvent.tab()
+    await userEvent.keyboard('{Control>}h{/Control}')
+    expect(onReplay).toHaveBeenCalledOnce()
+    expect(engine.replayLine).not.toHaveBeenCalled()
+    expect(onHint).toHaveBeenCalledOnce()
   })
 })

@@ -53,6 +53,7 @@ eco/
 │       │   ├── player/           wrapper da IFrame API, useCurrentLine, offset, velocidade, loop
 │       │   ├── lyrics/           tipos, tokenização, helpers de Line/Token
 │       │   ├── correction/       motor de correção (docs/spec/correcao.md) + contractions.ts
+│       │   ├── dictation/        sessão do Ditado (reducer, estatísticas, dica)
 │       │   ├── blanks/           escolha de lacunas por CEFR/densidade
 │       │   ├── srs/              Leitner, agendamento de revisão
 │       │   ├── progress/         streak, metas, estatísticas

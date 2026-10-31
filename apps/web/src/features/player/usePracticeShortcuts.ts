@@ -6,11 +6,19 @@ const isTyping = (target: EventTarget | null) =>
 
 /**
  * Atalhos globais da prática (docs/spec/produto.md):
- * Ctrl+Espaço pausa/continua, Ctrl+↓/↑ muda a velocidade e Tab repete o verso.
+ * Ctrl+Espaço pausa/continua, Ctrl+↓/↑ muda a velocidade, Tab repete o verso e Ctrl+H dá a dica.
  * O Tab só é capturado no corpo da página ou num campo de digitação, para não
  * quebrar a navegação por teclado nos botões (Shift+Tab nunca é capturado).
  */
-export function usePracticeShortcuts(engine: PlayerEngine) {
+interface ShortcutOptions {
+  /** Substitui o "repetir verso" padrão (ex.: o Ditado repete o verso-alvo, não o que está tocando). */
+  onReplay?: () => void
+  /** Ctrl+H (dica), nos modos que têm dica. */
+  onHint?: () => void
+}
+
+export function usePracticeShortcuts(engine: PlayerEngine, options: ShortcutOptions = {}) {
+  const { onReplay, onHint } = options
   useEffect(() => {
     function onKeyDown(event: KeyboardEvent) {
       if (event.ctrlKey && event.code === 'Space') {
@@ -28,10 +36,14 @@ export function usePracticeShortcuts(engine: PlayerEngine) {
         (event.target === document.body || isTyping(event.target))
       ) {
         event.preventDefault()
-        engine.replayLine()
+        if (onReplay) onReplay()
+        else engine.replayLine()
+      } else if (onHint && event.ctrlKey && event.key.toLowerCase() === 'h') {
+        event.preventDefault()
+        onHint()
       }
     }
     window.addEventListener('keydown', onKeyDown)
     return () => window.removeEventListener('keydown', onKeyDown)
-  }, [engine])
+  }, [engine, onReplay, onHint])
 }

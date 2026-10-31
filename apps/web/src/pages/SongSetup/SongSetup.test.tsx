@@ -88,7 +88,10 @@ describe('SongSetup', () => {
     expect(info).toHaveTextContent('2 · 15')
     expect(screen.getByRole('option', { name: /Ditado/ })).toHaveAttribute('aria-selected', 'true')
     expect(screen.getByRole('heading', { level: 2, name: 'Ditado' })).toBeInTheDocument()
-    expect(screen.getByRole('button', { name: /Começar/ })).toBeDisabled()
+    expect(screen.getByRole('link', { name: 'Começar' })).toHaveAttribute(
+      'href',
+      `/praticar/${VID}/ditado?pausa=fim&velocidade=1&correcao=tolerante`,
+    )
   })
 
   it('trocar de modo troca o detalhe e os ajustes', async () => {
@@ -206,5 +209,20 @@ describe('SongSetup', () => {
 
     expect(switchVersion).toHaveBeenCalledWith(VID, 9)
     await vi.waitFor(() => expect(screen.queryByRole('note')).not.toBeInTheDocument())
+  })
+
+  it('o Começar leva os ajustes escolhidos; modos que ainda não existem ficam em breve', async () => {
+    vi.mocked(loadSong).mockResolvedValue({ status: 'found', song: song() })
+    renderSetup()
+
+    await userEvent.click(await screen.findByRole('radio', { name: 'Estrita' }))
+    await userEvent.click(screen.getByRole('radio', { name: '0,75×' }))
+    expect(screen.getByRole('link', { name: 'Começar' })).toHaveAttribute(
+      'href',
+      `/praticar/${VID}/ditado?pausa=fim&velocidade=0.75&correcao=estrita`,
+    )
+
+    fireEvent.mouseEnter(screen.getByRole('option', { name: /Preencher/ }))
+    expect(screen.getByRole('button', { name: /Começar · em breve/ })).toBeDisabled()
   })
 })

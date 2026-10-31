@@ -1,0 +1,30 @@
+.token {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.word {
+  border-bottom: 2px solid transparent;
+}
+
+/* "Quase" é sempre tracejado, nunca só cor (design/README.md §1). */
+.near .word {
+  border-bottom: 2px dashed var(--eco-near);
+}
+
+.wrong .word,
+.missing .word {
+  font-weight: 500;
+  border-bottom-color: var(--eco-error);
+}
+
+.typed {
+  font-size: var(--eco-text-sm);
+  line-height: 1;
+  color: var(--eco-error);
+}
+
+.wrong .typed {
+  text-decoration: line-through;
+}
