@@ -124,7 +124,7 @@ export function SongSetup() {
         {state.kind === 'found' && (
           <>
             <SongColumn song={state.song} onPickVersion={pickVersion} />
-            <ModePicker />
+            <ModePicker videoId={state.song.videoId} />
           </>
         )}
       </main>

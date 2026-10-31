@@ -1,3 +1,4 @@
+import { dictationQuery, settingsFromLabels } from '@/features/dictation/settings'
 import type { ModeId } from '@/types/practice'
 
 export interface ModeSetting {
@@ -104,3 +105,23 @@ export const MODES: readonly PracticeMode[] = [
 
 /** O artboard abre com o Ditado selecionado. */
 export const DEFAULT_MODE_INDEX = 2
+
+/**
+ * Rota da prática com os ajustes escolhidos (rótulo por ajuste), ou null se o modo ainda
+ * não existe. Cada parte de modo acrescenta o seu caso aqui.
+ */
+export function practiceUrl(
+  mode: PracticeMode,
+  videoId: string,
+  chosen: Record<string, string>,
+): string | null {
+  if (mode.id === 'ditado') {
+    const settings = settingsFromLabels({
+      pause: chosen['PAUSA AUTOMÁTICA'],
+      speed: chosen['VELOCIDADE'],
+      correction: chosen['CORREÇÃO'],
+    })
+    return `/praticar/${videoId}/ditado?${dictationQuery(settings)}`
+  }
+  return null
+}

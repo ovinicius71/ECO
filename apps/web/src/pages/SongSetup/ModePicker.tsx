@@ -1,16 +1,28 @@
 import { useId, useState } from 'react'
-import { Button } from '@/components/Button/Button'
+import { useNavigate } from 'react-router'
+import { Button, ButtonLink } from '@/components/Button/Button'
 import { Segmented } from '@/components/Segmented/Segmented'
 import { SelectList } from '@/components/SelectList/SelectList'
-import { DEFAULT_MODE_INDEX, MODES } from './modes'
+import { DEFAULT_MODE_INDEX, MODES, practiceUrl, type PracticeMode } from './modes'
 import styles from './SongSetup.module.css'
 
 /** Coluna "02 / MODO DE PRÁTICA" e o detalhe do modo escolhido. */
-export function ModePicker() {
+export function ModePicker({ videoId }: { videoId: string }) {
   const titleId = useId()
+  const navigate = useNavigate()
   const [modeIndex, setModeIndex] = useState(DEFAULT_MODE_INDEX)
   const [picks, setPicks] = useState<Record<string, string>>({})
   const mode = MODES[modeIndex] ?? MODES[0]!
+
+  /** Rótulo escolhido em cada ajuste do modo (ou o padrão). */
+  const chosen = (m: PracticeMode) =>
+    Object.fromEntries(
+      m.settings.map((setting) => [
+        setting.label,
+        picks[`${m.id}-${setting.label}`] ?? setting.options[setting.defaultIndex ?? 0] ?? '',
+      ]),
+    )
+  const url = practiceUrl(mode, videoId, chosen(mode))
 
   return (
     <>
@@ -22,6 +34,10 @@ export function ModePicker() {
           defaultIndex={DEFAULT_MODE_INDEX}
           getKey={(m) => m.id}
           onSelectedChange={(_, index) => setModeIndex(index)}
+          onActivate={(m) => {
+            const target = practiceUrl(m, videoId, chosen(m))
+            if (target) navigate(target)
+          }}
           renderItem={(m, { index }) => (
             <>
               <span className={styles.modeNumber}>{String(index + 1).padStart(2, '0')}</span>
@@ -72,10 +88,18 @@ export function ModePicker() {
             TEMPO: <span className={styles.metaValue}>~{mode.time}</span>
           </span>
         </p>
-        <Button disabled icon="arrowRight" className={styles.start}>
-          Começar · em breve
-        </Button>
-        <p className={styles.soon}>Este modo chega na {mode.availableIn}.</p>
+        {url ? (
+          <ButtonLink to={url} icon="arrowRight" className={styles.start}>
+            Começar
+          </ButtonLink>
+        ) : (
+          <>
+            <Button disabled icon="arrowRight" className={styles.start}>
+              Começar · em breve
+            </Button>
+            <p className={styles.soon}>Este modo chega na {mode.availableIn}.</p>
+          </>
+        )}
       </section>
     </>
   )
