@@ -1,0 +1,58 @@
+.header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--eco-space-4) var(--eco-space-6);
+  padding: 18px var(--eco-gutter);
+  border-bottom: var(--eco-border);
+  background: var(--eco-paper);
+}
+
+.logo {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  color: var(--eco-ink);
+  text-decoration: none;
+}
+
+.wordmark {
+  font-size: 26px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+}
+
+.kana {
+  font-family: var(--eco-font-jp);
+  font-size: var(--eco-text-sm);
+  color: var(--eco-ink-2);
+}
+
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--eco-space-1);
+  margin-left: auto;
+  font-size: var(--eco-text-sm);
+  letter-spacing: 0.14em;
+}
+
+.link {
+  padding: 6px 18px;
+  color: var(--eco-ink);
+  text-decoration: none;
+}
+
+.link:hover:not(.active) {
+  text-decoration: underline;
+}
+
+.active {
+  background: var(--eco-bar);
+  color: var(--eco-on-bar);
+}
+
+/* Vermelhão permitido só no destaque do streak (design/README.md §1). */
+.flame {
+  color: var(--eco-error);
+}

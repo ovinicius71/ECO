@@ -1,12 +1,10 @@
-import styles from './App.module.css'
+import { BrowserRouter } from 'react-router'
+import { AppRoutes } from './router'
 
 export function App() {
   return (
-    <main className={styles.root}>
-      <h1 className={styles.logo}>
-        ECO <span lang="ja">エコ</span>
-      </h1>
-      <p className={styles.label}>EM CONSTRUÇÃO</p>
-    </main>
+    <BrowserRouter>
+      <AppRoutes />
+    </BrowserRouter>
   )
 }

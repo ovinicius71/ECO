@@ -1,0 +1,23 @@
+.list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: var(--eco-border);
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--eco-space-2) var(--eco-space-4);
+  min-height: var(--eco-hit);
+  padding: 13px 14px;
+  border-bottom: var(--eco-border);
+  color: var(--eco-ink);
+  cursor: pointer;
+}
+
+.selected {
+  background: var(--eco-bar);
+  color: var(--eco-on-bar);
+}

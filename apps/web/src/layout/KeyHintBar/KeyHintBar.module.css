@@ -1,0 +1,31 @@
+.bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--eco-space-2) 28px;
+  padding: 14px var(--eco-gutter);
+  border-top: var(--eco-border);
+  font-size: var(--eco-text-label);
+  letter-spacing: 0.12em;
+  color: var(--eco-ink-2);
+}
+
+.list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--eco-space-2) 28px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.key {
+  margin-right: 6px;
+  padding: 1px 6px;
+  border: 1px solid var(--eco-ink-3);
+  font-family: var(--eco-font-mono);
+  font-size: inherit;
+}
+
+.aside {
+  margin-left: auto;
+}

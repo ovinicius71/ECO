@@ -18,8 +18,12 @@
     "test:watch": "vitest"
   },
   "dependencies": {
+    "@fontsource/ibm-plex-mono": "^5.3.0",
+    "@fontsource/jost": "^5.3.0",
+    "@fontsource/noto-sans-jp": "^5.3.1",
     "react": "^19.3.1",
-    "react-dom": "^19.3.1"
+    "react-dom": "^19.3.1",
+    "react-router": "^7.18.5"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",

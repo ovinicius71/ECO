@@ -1,5 +1,4 @@
-/* Eco — design tokens (fonte única). Copiar para apps/web/src/styles/tokens.css. */
-@import url("https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+JP:wght@400;500&display=swap");
+/* Eco — design tokens (fonte única). Copiar para apps/web/src/styles/tokens.css. Fontes: self-host via @fontsource (apps/web/src/styles/fonts.css). */
 
 :root {
   /* ---------- cor: papel ---------- */

@@ -67,9 +67,9 @@ Registre as respostas do dono no próprio arquivo de brainstorm, na seção "Dec
 O trabalho está dividido em partes numeradas em `docs/roadmap.md`. Cada parte:
 
 - tem **uma branch**;
-- é pequena o bastante para ser revisada de uma vez (alvo: até ~600 linhas alteradas, sem contar lockfiles);
+- **não tem limite de tamanho** (não existe um número ideal de linhas). Mantenha os commits separados por bloco lógico para facilitar a revisão;
 - termina com algo testável;
-- se ficar grande demais, divida em `NNa`, `NNb`… e atualize o roadmap antes de seguir.
+- só é dividida (`NNa`, `NNb`…) se o dono pedir. Nesse caso, atualize o roadmap antes de seguir.
 
 ### Nome das branches
 
