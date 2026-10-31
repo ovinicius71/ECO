@@ -75,3 +75,7 @@ Spec: `produto.md` (§ Ditado e "Comum a todos os modos"). Design: `artboards/Di
 6. `docs(…)`: ADR/spec (conforme a P1), acompanhamento e entrega
 
 ## Decisões (preenchido depois das respostas)
+- P1 → A: vídeo sempre visível, sem capa, com aviso sobre clipes com legenda embutida. ADR 0002, spec e `design/README.md` atualizados (dono, 2026-10-31)
+- P2 → A: barras decorativas como progresso do verso (dono, 2026-10-31)
+- P3 → A: resumo na própria tela, sem salvar; a sessão é salva na Parte 10 (dono, 2026-10-31)
+- NB1–NB15 → decididos por padrão

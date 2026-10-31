@@ -56,7 +56,7 @@ Se a letra não for encontrada:
 
 ### 3. Ditado (書き取り)
 
-- **Sem a letra na tela.** O vídeo fica oculto por padrão, porque alguns clipes têm legenda embutida, mas pode ser mostrado.
+- **Sem a letra na tela.** O vídeo fica **visível** ao lado (as regras do YouTube proíbem cobrir ou esconder o player; ver ADR 0002). Um aviso lembra que clipes com legenda embutida podem mostrar a letra.
 - Pausa automática no **fim de cada verso**. O usuário digita o verso inteiro e confirma com `Enter`.
 - O resultado palavra a palavra aparece com a tradução. `Enter` vai para o próximo verso.
 - Ouvir de novo é ilimitado e contado. Há opção de deixar mais devagar. A dica mostra a primeira letra de cada palavra.

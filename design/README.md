@@ -41,6 +41,11 @@
   - Os dados de exemplo são inventados ("Paper Moon Radio — The Quiet Arcade") e servem como fixtures.
   - O copy das telas (textos em pt-BR) deve ser reaproveitado como está.
 
+## Desvios aprovados
+
+- **Player sempre visível (ADR 0002):** a capa "VÍDEO OCULTO" do `Ditado.dc.html` não é usada. As regras do YouTube proíbem elementos na frente do player e player escondido tocando. No lugar dela entra um aviso sobre clipes com legenda embutida.
+- **"Forma de onda" é progresso do verso:** a IFrame API não dá acesso ao áudio. As barras do Ditado são decorativas e mostram quanto do verso já tocou (rótulo acessível "Progresso do verso").
+
 ## Lacunas conhecidas do design
 
 Proponha no brainstorm da parte em que surgirem, no mesmo estilo:
