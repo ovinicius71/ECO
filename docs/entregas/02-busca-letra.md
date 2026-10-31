@@ -1,7 +1,7 @@
 # Entrega — Parte 02: Busca de letra
 
 Branch: `feat/02-busca-letra` · Base: `main`
-Status: 🟡 pronta para push
+Status: ✅ mergeada na `main` (`c4a5779`, 2026-10-31)
 
 ## O que foi entregue
 - **API:**
