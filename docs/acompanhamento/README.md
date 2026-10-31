@@ -18,6 +18,7 @@ O `docs/adr/` continua sendo só para as decisões de arquitetura. O status ofic
 | 0005 | 2026-10-31 | 00 | Parte 00 na main e GitHub configurado | [geral](geral/0005-parte-00-na-main.md) | [técnico](tecnico/0005-parte-00-na-main.md) |
 | 0006 | 2026-10-31 | 01 | Fontes próprias e vitrine /dev/ui | [geral](geral/0006-fontes-e-vitrine.md) | [técnico](tecnico/0006-fontes-e-vitrine.md) |
 | 0007 | 2026-10-31 | 01 | Componentes base do visual | [geral](geral/0007-componentes-base.md) | [técnico](tecnico/0007-componentes-base.md) |
+| 0008 | 2026-10-31 | 04 | Motor de correção | [geral](geral/0008-motor-correcao.md) | [técnico](tecnico/0008-motor-correcao.md) |
 
 ## Modelo — geral
 
