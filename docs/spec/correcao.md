@@ -1,0 +1,85 @@
+# Motor de correção
+
+**Local:** `apps/web/src/features/correction/` (lógica pura em TypeScript, sem React).
+**Usado por:** Ditado, Preencher, Digitar Junto (modo por caractere), Resultado e revisão de vocabulário.
+
+## 1. Modos
+
+| Modo | Maiúsculas | Acentos | Pontuação | Contrações equivalentes | Status "quase" |
+| --- | --- | --- | --- | --- | --- |
+| **Tolerante** (padrão) | ignora | ignora | ignora | sim | sim |
+| **Estrita** | conta | conta | conta (exceto espaços extras) | não | não (vira erro) |
+
+## 2. Normalização (modo tolerante)
+
+1. `NFKC`, depois `NFD` e remoção de diacríticos (`\p{M}`).
+2. Minúsculas.
+3. Apóstrofos tipográficos (`’ ‘ ʼ`) viram `'`.
+4. Expansão de contrações: `I'm → i am`, `you'll → you will`, `won't → will not`, `gonna → going to`, `wanna → want to`, `'cause → because`… A lista fica em `contractions.ts` e deve ser **fácil de estender**.
+5. Remoção de pontuação (`[^\p{L}\p{N}\s']`), depois remoção de apóstrofos soltos.
+6. Números: `2 ↔ two` e `10 ↔ ten` são equivalentes até 20, mais dezenas redondas.
+7. Tokenização por espaço.
+
+No modo estrito, só se faz o trim e o colapso de espaços.
+
+## 3. Alinhamento (palavra a palavra)
+
+Use **alinhamento global de Needleman–Wunsch** entre as palavras esperadas e as digitadas:
+
+- custo de match = 0;
+- custo de substituição = `0,5` se `lev(a,b) ≤ limiteQuase(a)`, senão `1`;
+- custo de inserção ou remoção = `1`.
+
+O limite do "quase" é `limiteQuase(w) = w.length <= 4 ? 1 : 2` no modo tolerante, e `0` no estrito.
+
+O algoritmo guloso do protótipo (`design/artboards/Ditado.dc.html`) serve **só de ilustração**. Não reutilize.
+
+Cada palavra **esperada** sai com um status:
+
+| status | quando | pontos |
+| --- | --- | --- |
+| `ok` | igual depois da normalização | 1 |
+| `near` | substituição dentro do limite do quase | 0,5 |
+| `wrong` | substituição fora do limite | 0 |
+| `missing` | não foi digitada | 0 |
+
+**Contrações expandidas:** a normalização pode transformar uma palavra original em vários tokens (`We’ll → we will`). Guarde o mapeamento token → palavra original. O status da palavra original segue estas regras:
+- `ok` se todos os seus tokens estão `ok`;
+- `near` se há mistura de `ok`/`near` com `missing`/`wrong`;
+- o pior status, caso contrário.
+
+As palavras digitadas a mais (`extra`) aparecem na interface riscadas, mas **não descontam** pontos. No modo estrito, descontam 0,25 cada, com mínimo 0.
+
+Junções e separações: `all most` contra `almost` deve dar `wrong` com a sugestão "é uma palavra só". Detecte quando duas palavras digitadas concatenadas são iguais a uma esperada (ou o contrário) e devolva `hint: 'merge' | 'split'`.
+
+## 4. Saída
+
+```ts
+type WordStatus = 'ok' | 'near' | 'wrong' | 'missing';
+interface WordResult { expected: string; typed?: string; status: WordStatus; hint?: 'merge' | 'split' | 'number' | 'contraction'; }
+interface LineScore { words: WordResult[]; extras: string[]; score: number /* 0..1 */; }
+function scoreLine(expected: string, typed: string, mode: 'tolerant' | 'strict'): LineScore;
+function scoreChars(expected: string, typed: string, mode): CharResult[]; // Digitar Junto
+```
+
+## 5. Casos de teste obrigatórios (tolerante, salvo indicação)
+
+| esperado | digitado | resultado |
+| --- | --- | --- |
+| Like a radio that plays it all | like a radyo that play it all | radio=near, plays=near, resto ok; score 6/7 |
+| Like a radio that plays it all | Like a radio that plays it all. | tudo ok |
+| Like a radio that plays it all | like a radio that plays it all **(estrito)** | Like=wrong |
+| I’ll be the echo | ill be the echo | I'll=near (apóstrofo faltando) |
+| I’ll be the echo | i will be the echo | tudo ok (contração) |
+| Hold on, the night is almost gone | hold on the night is all most gone | almost=wrong, hint=merge |
+| Counting cars that never come my way | counting cars that never comes my way | come=near |
+| So call my name across the static sea | so call my name across the stating see | static=near (lev 2, limite 2 para 6 letras), sea=near |
+| So call my name across the static sea | so call my name across the stating see **(estrito)** | static=wrong, sea=wrong |
+| We’ll be dancing when the lights come on | we be dancing when lights come on | We'll=near (parte “will” faltando), the=missing |
+| two hearts | 2 hearts | ok (número) |
+
+A última coluna pode ser ajustada no brainstorm da Parte 04. Depois de definida, vira teste.
+
+## 6. Japonês (futuro, Parte 14)
+
+A comparação deve ser feita em **kana**: o romaji é convertido para kana (ex.: wanakana), e kanji usam a leitura vinda de um tokenizador (ex.: kuromoji). O módulo deve aceitar um `LanguageAdapter { normalize, tokenize, nearThreshold }` desde a Parte 04, para não precisar ser reescrito.

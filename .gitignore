@@ -1,0 +1,34 @@
+# deps / build
+node_modules/
+dist/
+.vite/
+coverage/
+
+# python
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+
+# env / segredos
+.env
+.env.*
+!.env.example
+
+# cache local da API e modelos
+apps/api/.cache/
+apps/api/models/
+*.wav
+*.mp3
+*.m4a
+
+# SO / editores
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/extensions.json
+
+# Claude Code (configuração local pessoal)
+.claude/settings.local.json

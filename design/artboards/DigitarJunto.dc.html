@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Eco · Digitar Junto</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600&amp;family=IBM+Plex+Mono:wght@400;500&amp;family=Noto+Sans+JP:wght@400;500&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#DAD5C1}
+a{color:#3F3C33}a:hover{color:#9E3A1B}
+@keyframes blink{50%{opacity:0}}
+</style>
+</helmet>
+<div style="min-height: 100vh; background: #DAD5C1; background-image: radial-gradient(#C9C3AC 1px, transparent 1px); background-size: 6px 6px; color: #3F3C33; font-family: Jost, 'Futura', sans-serif; display: flex; flex-direction: column;">
+
+<header style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px 28px; padding: 14px 40px; border-bottom: 1px solid #A39E8A;">
+  <a href="Setup.dc.html" style="font-size: 12px; letter-spacing: 0.2em; text-decoration: none;">← SAIR</a>
+  <div style="display: flex; align-items: baseline; gap: 10px; min-width: 0;">
+    <span style="font-size: 17px; font-weight: 500;">Paper Moon Radio</span>
+    <span style="font-size: 14px; color: #5C5849;">The Quiet Arcade</span>
+  </div>
+  <span style="background: #45423A; color: #E4E0CE; padding: 4px 14px; font-size: 12px; letter-spacing: 0.18em;">DIGITAR JUNTO</span>
+  <div style="display: flex; align-items: center; gap: 10px; margin-left: auto; font-size: 12px; letter-spacing: 0.16em; color: #5C5849;">
+    VERSO <span style="font-family: 'IBM Plex Mono', monospace; color: #3F3C33;">03/32</span>
+    <div style="width: 140px; height: 10px; border: 1.5px solid #45423A; border-radius: 99px; padding: 2px; box-sizing: border-box;"><div style="width: 9%; height: 100%; background: #45423A; border-radius: 99px;"></div></div>
+  </div>
+  <div style="display: flex; gap: 18px; font-family: 'IBM Plex Mono', monospace; font-size: 14px;">
+    <span><span style="font-family: Jost, sans-serif; font-size: 11px; letter-spacing: 0.18em; color: #5C5849;">PRECISÃO </span>96%</span>
+    <span><span style="font-family: Jost, sans-serif; font-size: 11px; letter-spacing: 0.18em; color: #5C5849;">PPM </span>42</span>
+  </div>
+</header>
+
+<main style="flex: 1; width: 100%; max-width: 1360px; margin: 0 auto; box-sizing: border-box; padding: 40px 40px 24px; display: flex; flex-wrap: wrap; gap: 40px; align-items: flex-start;">
+
+  <section aria-label="Letra" style="flex: 999 1 600px; min-width: 0; display: flex; flex-direction: column; gap: 26px; padding-top: 12px;">
+    <div style="display: flex; flex-direction: column; gap: 10px;">
+      <div style="display: flex; align-items: baseline; gap: 14px; font-size: 22px; color: #77735F;"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; width: 26px;">01</span>I left the window open for the rain <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px;">100%</span></div>
+      <div style="display: flex; align-items: baseline; gap: 14px; font-size: 22px; color: #77735F;"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; width: 26px;">02</span>Counting cars that never come my way <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px;">92%</span></div>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 14px; border-top: 1.5px solid #45423A; border-bottom: 1.5px solid #45423A; padding: 28px 0;">
+      <div style="display: flex; justify-content: space-between; font-size: 12px; letter-spacing: 0.2em; color: #5C5849;"><span>03 · AGORA</span><span>TERMINA EM 1,8 S</span></div>
+      <div aria-label="Verso atual: Your voice still echoes down the hall" style="font-size: 44px; line-height: 1.25; font-weight: 400; letter-spacing: 0.005em;">
+        <span>Your voice stil</span><span style="color: #9E3A1B; text-decoration: underline; text-decoration-thickness: 3px; text-underline-offset: 6px;">l</span><span> ech</span><span style="display: inline-block; width: 3px; height: 0.9em; background: #3F3C33; vertical-align: -0.1em; margin: 0 1px; animation: blink 1s steps(1) infinite;"></span><span style="color: #77735F;">oes down the hall</span>
+      </div>
+      <div style="height: 4px; background: #C9C3AC;"><div style="width: 62%; height: 100%; background: #45423A;"></div></div>
+      <sc-if value="{{showTr}}" hint-placeholder-val="{{ true }}">
+        <div style="font-size: 18px; color: #5C5849;">Sua voz ainda ecoa pelo corredor</div>
+      </sc-if>
+      <div style="font-size: 13px; color: #5C5849;">Você digitou <span style="font-family: 'IBM Plex Mono', monospace; color: #9E3A1B;">k</span> no lugar de <span style="font-family: 'IBM Plex Mono', monospace;">l</span>. O erro conta, mas o verso continua.</div>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 10px;">
+      <div style="display: flex; align-items: baseline; gap: 14px; font-size: 22px; color: #5C5849;"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; width: 26px;">04</span>Like a radio that plays it all</div>
+      <div style="display: flex; align-items: baseline; gap: 14px; font-size: 22px; color: #77735F;"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; width: 26px;">05</span>Hold on, the night is almost gone</div>
+    </div>
+  </section>
+
+  <aside style="flex: 1 1 300px; min-width: 0; max-width: 380px; display: flex; flex-direction: column; gap: 16px;">
+    <div style="position: relative; aspect-ratio: 16 / 9; border: 1.5px solid #45423A; background: #E4E0CE; background-image: repeating-linear-gradient(135deg, transparent 0 9px, #CFC9B3 9px 10px); display: flex; align-items: center; justify-content: center;">
+      <span style="font-size: 11px; letter-spacing: 0.2em; color: #5C5849; background: #E4E0CE; padding: 2px 8px;">VÍDEO · YOUTUBE</span>
+    </div>
+    <div style="display: flex; flex-direction: column; font-size: 14px;">
+      <div style="font-size: 13px; letter-spacing: 0.18em; font-weight: 500; padding-bottom: 8px; border-bottom: 1.5px solid #45423A;">SESSÃO</div>
+      <div style="display: flex; justify-content: space-between; padding: 9px 0; border-bottom: 1px solid #A39E8A;"><span>Caracteres certos</span><span style="font-family: 'IBM Plex Mono', monospace;">88 / 92</span></div>
+      <div style="display: flex; justify-content: space-between; padding: 9px 0; border-bottom: 1px solid #A39E8A;"><span>Sequência sem erro</span><span style="font-family: 'IBM Plex Mono', monospace;">19</span></div>
+      <div style="display: flex; justify-content: space-between; padding: 9px 0; border-bottom: 1px solid #A39E8A;"><span>Correção</span><span style="font-family: 'IBM Plex Mono', monospace;">TOLERANTE</span></div>
+    </div>
+    <div style="font-size: 13px; color: #5C5849; line-height: 1.5;">Acentos, pontuação e maiúsculas não contam no modo tolerante.</div>
+  </aside>
+</main>
+
+<div style="border-top: 1px solid #A39E8A; padding: 14px 40px; display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px;">
+  <button aria-label="Pausar" style="width: 48px; height: 48px; border: 0; border-radius: 99px; background: #45423A; display: flex; align-items: center; justify-content: center; cursor: pointer;">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="#E4E0CE" aria-hidden="true"><rect x="6" y="5" width="4" height="14"></rect><rect x="14" y="5" width="4" height="14"></rect></svg>
+  </button>
+  <span style="font-family: 'IBM Plex Mono', monospace; font-size: 13px;">0:24</span>
+  <div style="flex: 1 1 240px; position: relative; height: 18px; display: flex; align-items: center;" role="img" aria-label="Linha do tempo da música">
+    <div style="position: absolute; left: 0; right: 0; height: 2px; background: #A39E8A;"></div>
+    <div style="position: absolute; left: 0; width: 11%; height: 2px; background: #45423A;"></div>
+    <div style="position: absolute; left: 11%; width: 12px; height: 12px; margin-left: -6px; background: #45423A; transform: rotate(45deg);"></div>
+  </div>
+  <span style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #5C5849;">3:41</span>
+  <button style="min-height: 40px; padding: 0 14px; border: 1px solid #A39E8A; background: transparent; font: inherit; font-size: 13px; color: #3F3C33; cursor: pointer;">↺ Verso</button>
+  <button style="min-height: 40px; padding: 0 14px; border: 1px solid #A39E8A; background: transparent; font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #3F3C33; cursor: pointer;">1×</button>
+  <button aria-pressed="{{showTr}}" style="min-height: 40px; padding: 0 14px; border: 1px solid #A39E8A; background: transparent; font: inherit; font-size: 13px; color: #3F3C33; cursor: pointer;">Tradução</button>
+</div>
+<footer style="display: flex; flex-wrap: wrap; gap: 8px 28px; padding: 10px 40px 14px; font-size: 12px; letter-spacing: 0.12em; color: #5C5849;">
+  <span><span style="font-family: 'IBM Plex Mono', monospace; border: 1px solid #77735F; padding: 1px 6px; margin-right: 6px;">TAB</span>REPETIR VERSO</span>
+  <span><span style="font-family: 'IBM Plex Mono', monospace; border: 1px solid #77735F; padding: 1px 6px; margin-right: 6px;">CTRL ESPAÇO</span>PAUSAR</span>
+  <span><span style="font-family: 'IBM Plex Mono', monospace; border: 1px solid #77735F; padding: 1px 6px; margin-right: 6px;">CTRL ↓</span>MAIS DEVAGAR</span>
+  <a href="Resultado.dc.html" style="margin-left: auto; letter-spacing: 0.12em;">VER RESULTADO →</a>
+</footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"showTranslation":{"editor":"boolean","default":true},"$preview":{"width":1440,"height":960}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return { showTr: this.props.showTranslation ?? true };
+  }
+}
+</script>
+</body>
+</html>

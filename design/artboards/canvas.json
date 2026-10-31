@@ -1,0 +1,136 @@
+{
+  "v": 3,
+  "attachments": {},
+  "boards": {
+    "Assistir.dc.html": {
+      "expand": "fill",
+      "h": 960,
+      "is_interactive": true,
+      "title": "Modo · Assistir",
+      "w": 1440,
+      "x": 7600,
+      "y": 1400
+    },
+    "DigitarJunto.dc.html": {
+      "expand": "fill",
+      "h": 960,
+      "is_interactive": true,
+      "title": "Modo · Digitar Junto",
+      "w": 1440,
+      "x": 0,
+      "y": 1400
+    },
+    "Ditado.dc.html": {
+      "expand": "fill",
+      "h": 960,
+      "is_interactive": true,
+      "title": "Modo · Ditado",
+      "w": 1440,
+      "x": 3040,
+      "y": 1400
+    },
+    "Karaoke.dc.html": {
+      "expand": "fill",
+      "h": 960,
+      "is_interactive": true,
+      "title": "Modo · Karaokê",
+      "w": 1440,
+      "x": 6080,
+      "y": 1400
+    },
+    "Main.dc.html": {
+      "expand": "fill",
+      "h": 960,
+      "is_interactive": true,
+      "title": "Home",
+      "w": 1440,
+      "x": 0,
+      "y": 0
+    },
+    "MultiplaEscolha.dc.html": {
+      "expand": "fill",
+      "h": 960,
+      "is_interactive": true,
+      "title": "Modo · Múltipla escolha",
+      "w": 1440,
+      "x": 4560,
+      "y": 1400
+    },
+    "Preencher.dc.html": {
+      "expand": "fill",
+      "h": 960,
+      "is_interactive": true,
+      "title": "Modo · Preencher",
+      "w": 1440,
+      "x": 1520,
+      "y": 1400
+    },
+    "Resultado.dc.html": {
+      "expand": "fill",
+      "h": 960,
+      "is_interactive": true,
+      "title": "Resultado",
+      "w": 1440,
+      "x": 3040,
+      "y": 0
+    },
+    "Setup.dc.html": {
+      "expand": "fill",
+      "h": 960,
+      "is_interactive": true,
+      "title": "Configurar música",
+      "w": 1440,
+      "x": 1520,
+      "y": 0
+    },
+    "Vocabulario.dc.html": {
+      "expand": "fill",
+      "h": 960,
+      "is_interactive": true,
+      "title": "Vocabulário",
+      "w": 1440,
+      "x": 4560,
+      "y": 0
+    }
+  },
+  "createdOnFiles": {
+    "at": "2026-10-31T13:50:00Z",
+    "v": 1
+  },
+  "designSystems": [],
+  "launch": {
+    "view": "canvas"
+  },
+  "notes": {
+    "t1": {
+      "kind": "title1",
+      "maxW": 5960,
+      "text": "Eco — fluxo principal",
+      "w": 240,
+      "x": 0,
+      "y": -300
+    },
+    "t2": {
+      "kind": "title1",
+      "maxW": 8000,
+      "text": "Modos de prática",
+      "w": 240,
+      "x": 0,
+      "y": 1100
+    }
+  },
+  "order": [
+    "Main.dc.html",
+    "Setup.dc.html",
+    "Resultado.dc.html",
+    "Vocabulario.dc.html",
+    "DigitarJunto.dc.html",
+    "Preencher.dc.html",
+    "Ditado.dc.html",
+    "MultiplaEscolha.dc.html",
+    "Karaoke.dc.html",
+    "Assistir.dc.html"
+  ],
+  "pages": [],
+  "title": "Eco — Protótipo"
+}

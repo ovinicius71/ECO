@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Eco · Resultado</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+JP:wght@400;500&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#DAD5C1}
+a{color:#3F3C33}a:hover{color:#9E3A1B}
+</style>
+</helmet>
+<div style="min-height: 100vh; background: #DAD5C1; background-image: radial-gradient(#C9C3AC 1px, transparent 1px); background-size: 6px 6px; color: #3F3C33; font-family: Jost, 'Futura', sans-serif; display: flex; flex-direction: column;">
+
+<header style="display: flex; flex-wrap: wrap; align-items: center; gap: 16px 32px; padding: 18px 40px; border-bottom: 1px solid #A39E8A; background: #DAD5C1;">
+  <a href="Main.dc.html" style="display: flex; align-items: baseline; gap: 10px; text-decoration: none; color: #3F3C33;">
+    <span style="font-size: 26px; font-weight: 600; letter-spacing: 0.18em;">ECO</span>
+    <span style="font-family: 'Noto Sans JP', sans-serif; font-size: 13px; color: #5C5849;">エコ</span>
+  </a>
+  <nav aria-label="Principal" style="display: flex; flex-wrap: wrap; gap: 4px; margin-left: auto; font-size: 13px; letter-spacing: 0.14em;">
+    <a href="Main.dc.html" style="padding: 6px 18px; background: #45423A; color: #E4E0CE; text-decoration: none;">ESTUDAR</a>
+    <a href="Vocabulario.dc.html" style="padding: 6px 18px; text-decoration: none;">VOCABULÁRIO</a>
+    <a href="Resultado.dc.html" style="padding: 6px 18px; text-decoration: none;">PROGRESSO</a>
+    <a href="#" style="padding: 6px 18px; text-decoration: none;">AJUSTES</a>
+  </nav>
+</header>
+
+<main style="flex: 1; width: 100%; max-width: 1360px; margin: 0 auto; box-sizing: border-box; padding: 36px 40px; display: flex; flex-direction: column; gap: 36px;">
+
+  <section style="display: flex; flex-wrap: wrap; gap: 32px 56px; align-items: flex-end; border-bottom: 1.5px solid #45423A; padding-bottom: 28px;">
+    <div style="display: flex; flex-direction: column; gap: 6px;">
+      <div style="font-size: 12px; letter-spacing: 0.22em; color: #5C5849;">RESULTADO · DITADO · 書き取り</div>
+      <h1 style="margin: 0; font-size: 26px; font-weight: 500;">Paper Moon Radio <span style="font-weight: 400; color: #5C5849;">— The Quiet Arcade</span></h1>
+      <div style="display: flex; align-items: flex-end; gap: 18px; margin-top: 8px;">
+        <span style="font-size: 148px; line-height: 0.82; font-weight: 300; letter-spacing: -0.04em;">94<span style="font-size: 64px;">%</span></span>
+        <div style="display: flex; flex-direction: column; gap: 8px; padding-bottom: 6px;">
+          <span style="font-size: 12px; letter-spacing: 0.22em; color: #5C5849;">PRECISÃO</span>
+          <span style="border: 1.5px solid #9E3A1B; color: #9E3A1B; padding: 3px 12px; border-radius: 99px; font-size: 12px; letter-spacing: 0.14em; width: fit-content;">NOVO RECORDE</span>
+          <span style="font-size: 13px; color: #5C5849;">+1 dia de sequência · 13 dias</span>
+        </div>
+      </div>
+    </div>
+    <div style="flex: 1 1 420px; min-width: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; border-top: 1px solid #A39E8A; border-left: 1px solid #A39E8A;">
+      <sc-for list="{{stats}}" as="s" hint-placeholder-count="6">
+        <div style="padding: 14px 16px; border-right: 1px solid #A39E8A; border-bottom: 1px solid #A39E8A; display: flex; flex-direction: column; gap: 4px;">
+          <span style="font-size: 11px; letter-spacing: 0.2em; color: #5C5849;">{{s.k}}</span>
+          <span style="font-family: 'IBM Plex Mono', monospace; font-size: 22px;">{{s.v}}</span>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <section style="display: flex; flex-direction: column; gap: 10px;">
+    <div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; font-size: 12px; letter-spacing: 0.2em; color: #5C5849;">
+      <span>PRECISÃO POR VERSO</span>
+      <span><span style="display: inline-block; width: 10px; height: 10px; background: #45423A; margin-right: 6px;"></span>CERTO <span style="display: inline-block; width: 10px; height: 10px; background: #B89A55; margin: 0 6px 0 14px;"></span>QUASE <span style="display: inline-block; width: 10px; height: 10px; background: #9E3A1B; margin: 0 6px 0 14px;"></span>ERRO</span>
+    </div>
+    <div role="img" aria-label="32 versos: 27 certos, 2 quase certos, 3 com erro" style="display: grid; grid-template-columns: repeat(32, minmax(0, 1fr)); gap: 4px; align-items: end; height: 64px;">
+      <sc-for list="{{bars}}" as="b" hint-placeholder-count="32">
+        <div style="{{b.style}}"></div>
+      </sc-for>
+    </div>
+  </section>
+
+  <section style="display: flex; flex-wrap: wrap; gap: 40px; align-items: flex-start;">
+    <div style="flex: 999 1 560px; min-width: 0; display: flex; flex-direction: column;">
+      <div style="font-size: 13px; letter-spacing: 0.18em; font-weight: 500; padding-bottom: 8px; border-bottom: 1.5px solid #45423A;">VERSOS PARA REVER</div>
+      <sc-for list="{{lines}}" as="l" hint-placeholder-count="3">
+        <div style="display: flex; gap: 16px; padding: 14px 0; border-bottom: 1px solid #A39E8A; align-items: baseline;">
+          <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #5C5849; width: 28px;">{{l.n}}</span>
+          <div style="flex: 1; display: flex; flex-direction: column; gap: 4px;">
+            <div style="font-size: 19px; line-height: 1.5;">
+              <sc-for list="{{l.w}}" as="w" hint-placeholder-count="6"><span style="{{w.style}}">{{w.t}}</span> </sc-for>
+            </div>
+            <div style="font-size: 13px; color: #5C5849;">{{l.note}}</div>
+          </div>
+          <a href="Ditado.dc.html" aria-label="Ouvir o verso de novo" style="display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; border: 1px solid #A39E8A;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 12a8 8 0 1 0 3-6.2M4 4v4h4"/></svg>
+          </a>
+        </div>
+      </sc-for>
+    </div>
+
+    <aside style="flex: 1 1 320px; min-width: 0; display: flex; flex-direction: column;">
+      <div style="font-size: 13px; letter-spacing: 0.18em; font-weight: 500; padding-bottom: 8px; border-bottom: 1.5px solid #45423A;">PALAVRAS PARA SALVAR</div>
+      <sc-for list="{{words}}" as="w" hint-placeholder-count="4">
+        <label style="display: flex; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid #A39E8A; cursor: pointer; min-height: 44px; box-sizing: border-box;">
+          <input type="checkbox" checked="{{w.on}}" onChange="{{w.toggle}}" style="width: 18px; height: 18px; accent-color: #45423A; margin: 0;">
+          <span style="flex: 1; font-size: 17px; font-weight: 500;">{{w.t}}</span>
+          <span style="font-size: 14px; color: #5C5849;">{{w.pt}}</span>
+          <span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; border: 1px solid #77735F; padding: 0 5px;">{{w.lvl}}</span>
+        </label>
+      </sc-for>
+      <a href="Vocabulario.dc.html" style="margin-top: 16px; display: flex; justify-content: space-between; align-items: center; border: 1.5px solid #45423A; padding: 14px 16px; text-decoration: none; font-size: 14px; letter-spacing: 0.1em;">SALVAR {{count}} NO VOCABULÁRIO
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+      </a>
+    </aside>
+  </section>
+
+  <section style="display: flex; flex-wrap: wrap; gap: 12px;">
+    <a href="Ditado.dc.html" style="display: flex; align-items: center; gap: 12px; background: #45423A; color: #E4E0CE; text-decoration: none; padding: 16px 24px; font-size: 14px; letter-spacing: 0.16em;">PRATICAR SÓ OS VERSOS COM ERRO</a>
+    <a href="Ditado.dc.html" style="display: flex; align-items: center; border: 1.5px solid #45423A; text-decoration: none; padding: 16px 24px; font-size: 14px; letter-spacing: 0.16em;">REPETIR</a>
+    <a href="Setup.dc.html" style="display: flex; align-items: center; border: 1.5px solid #45423A; text-decoration: none; padding: 16px 24px; font-size: 14px; letter-spacing: 0.16em;">OUTRO MODO</a>
+    <a href="Main.dc.html" style="display: flex; align-items: center; text-decoration: none; padding: 16px 24px; font-size: 14px; letter-spacing: 0.16em; margin-left: auto;">NOVA MÚSICA →</a>
+  </section>
+</main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":960}}'>
+class Component extends DCLogic {
+  constructor(p){ super(p); this.state = { off: {} }; }
+  renderVals() {
+    const stats = [
+      { k: 'VERSOS', v: '32/32' }, { k: 'PALAVRAS CERTAS', v: '201/214' }, { k: 'QUASE CERTAS', v: '6' },
+      { k: 'ERRADAS', v: '7' }, { k: 'TEMPO', v: '8:12' }, { k: 'REPETIÇÕES', v: '11' }
+    ];
+    const err = { 5: 'e', 7: 'n', 13: 'e', 19: 'n', 25: 'e' };
+    const hs = [92,100,100,96,100,62,100,84,100,100,100,96,100,58,100,100,92,100,100,86,100,100,100,96,100,66,100,100,92,100,100,100];
+    const bars = hs.map((h, i) => ({ style: 'height:' + h + '%;background:' + (err[i] === 'e' ? '#9E3A1B' : err[i] === 'n' ? '#B89A55' : '#45423A') + ';' }));
+    const ok = 'color:#3F3C33;';
+    const bad = 'color:#9E3A1B;text-decoration:line-through;';
+    const fix = 'color:#3F3C33;border-bottom:2px solid #9E3A1B;font-weight:500;';
+    const near = 'color:#3F3C33;border-bottom:2px dashed #8A6A1E;font-weight:500;';
+    const W = (t, s) => ({ t, style: s || ok });
+    const lines = [
+      { n: '06', note: 'Você escreveu “comes” — quase: o sujeito “cars” pede “come”.',
+        w: [W('Counting'), W('cars'), W('that'), W('never'), W('come', near), W('my'), W('way')] },
+      { n: '14', note: 'Você escreveu “all most” — “almost” é uma palavra só.',
+        w: [W('Hold'), W('on,'), W('the'), W('night'), W('is'), W('all most', bad), W('almost', fix), W('gone')] },
+      { n: '26', note: 'Você escreveu “stating see” — atenção ao /t/ e ao som de “sea”.',
+        w: [W('So'), W('call'), W('my'), W('name'), W('across'), W('the'), W('stating see', bad), W('static sea', fix)] }
+    ];
+    const data = [['almost', 'quase', 'A2'], ['static', 'estática', 'B2'], ['across', 'através de', 'A2'], ['echo', 'eco', 'B1']];
+    const words = data.map((d, i) => {
+      const on = !this.state.off[i];
+      return { t: d[0], pt: d[1], lvl: d[2], on, toggle: () => this.setState({ off: { ...this.state.off, [i]: on } }) };
+    });
+    return { stats, bars, lines, words, count: words.filter(w => w.on).length };
+  }
+}
+</script>
+</body>
+</html>

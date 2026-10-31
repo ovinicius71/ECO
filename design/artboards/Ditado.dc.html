@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Eco · Ditado</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+JP:wght@400;500&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#DAD5C1}
+a{color:#3F3C33}a:hover{color:#9E3A1B}
+input::placeholder{color:#6B6757}
+</style>
+</helmet>
+<div style="min-height: 100vh; background: #DAD5C1; background-image: radial-gradient(#C9C3AC 1px, transparent 1px); background-size: 6px 6px; color: #3F3C33; font-family: Jost, 'Futura', sans-serif; display: flex; flex-direction: column;">
+
+<header style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px 28px; padding: 14px 40px; border-bottom: 1px solid #A39E8A;">
+  <a href="Setup.dc.html" style="font-size: 12px; letter-spacing: 0.2em; text-decoration: none;">← SAIR</a>
+  <div style="display: flex; align-items: baseline; gap: 10px; min-width: 0;">
+    <span style="font-size: 17px; font-weight: 500;">Paper Moon Radio</span>
+    <span style="font-size: 14px; color: #5C5849;">The Quiet Arcade</span>
+  </div>
+  <span style="background: #45423A; color: #E4E0CE; padding: 4px 14px; font-size: 12px; letter-spacing: 0.18em;">DITADO</span>
+  <div style="display: flex; align-items: center; gap: 10px; margin-left: auto; font-size: 12px; letter-spacing: 0.16em; color: #5C5849;">
+    VERSO <span style="font-family: 'IBM Plex Mono', monospace; color: #3F3C33;">04/32</span>
+    <div style="width: 140px; height: 10px; border: 1.5px solid #45423A; border-radius: 99px; padding: 2px; box-sizing: border-box;"><div style="width: 12%; height: 100%; background: #45423A; border-radius: 99px;"></div></div>
+  </div>
+  <div style="display: flex; gap: 18px; font-family: 'IBM Plex Mono', monospace; font-size: 14px;">
+    <span><span style="font-family: Jost, sans-serif; font-size: 11px; letter-spacing: 0.18em; color: #5C5849;">PRECISÃO </span>95%</span>
+  </div>
+</header>
+
+<main style="flex: 1; width: 100%; max-width: 1360px; margin: 0 auto; box-sizing: border-box; padding: 36px 40px 28px; display: flex; flex-wrap: wrap; gap: 40px; align-items: flex-start;">
+
+  <section aria-label="Ditado" style="flex: 999 1 600px; min-width: 0; display: flex; flex-direction: column; gap: 22px;">
+    <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 8px;">
+      <h1 style="margin: 0; font-size: 46px; font-weight: 600; letter-spacing: 0.04em;">OUÇA.</h1>
+      <span style="font-size: 12px; letter-spacing: 0.2em; color: #5C5849;">{{status}}</span>
+    </div>
+
+    <div role="img" aria-label="Forma de onda do verso 4, pausado no fim" style="display: flex; align-items: center; gap: 3px; height: 72px; border-top: 1px solid #A39E8A; border-bottom: 1px solid #A39E8A; padding: 10px 0;">
+      <sc-for list="{{wave}}" as="b" hint-placeholder-count="64">
+        <div style="{{b}}"></div>
+      </sc-for>
+    </div>
+
+    <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+      <button onClick="{{replay}}" style="min-height: 44px; padding: 0 16px; border: 1.5px solid #45423A; background: transparent; font: inherit; font-size: 14px; color: #3F3C33; cursor: pointer;">↺ Ouvir de novo <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #5C5849;">{{plays}}×</span></button>
+      <button style="min-height: 44px; padding: 0 16px; border: 1px solid #A39E8A; background: transparent; font: inherit; font-size: 14px; color: #3F3C33; cursor: pointer;">Mais devagar <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px;">0,75×</span></button>
+      <button onClick="{{hint}}" style="min-height: 44px; padding: 0 16px; border: 1px solid #A39E8A; background: transparent; font: inherit; font-size: 14px; color: #3F3C33; cursor: pointer;">Dica: 1ª letra</button>
+      <button style="min-height: 44px; padding: 0 16px; border: 0; background: transparent; font: inherit; font-size: 14px; color: #5C5849; cursor: pointer;">Pular</button>
+    </div>
+
+    <form onSubmit="{{submit}}" style="display: flex; flex-direction: column; gap: 8px;">
+      <label for="dict" style="font-size: 12px; letter-spacing: 0.2em; color: #5C5849;">O QUE VOCÊ OUVIU?</label>
+      <div style="display: flex; flex-wrap: wrap; border: 1.5px solid #45423A; background: #E4E0CE;">
+        <input id="dict" value="{{val}}" onInput="{{onType}}" autocomplete="off" spellcheck="false" placeholder="{{placeholder}}" style="flex: 1 1 300px; min-width: 0; border: 0; background: transparent; font-family: Jost, sans-serif; font-size: 30px; color: #3F3C33; padding: 16px 18px; outline: none;">
+        <button type="submit" style="min-height: 64px; padding: 0 24px; border: 0; background: #45423A; color: #E4E0CE; font: inherit; font-size: 14px; letter-spacing: 0.16em; cursor: pointer;">CONFIRMAR ↵</button>
+      </div>
+    </form>
+
+    <sc-if value="{{checked}}" hint-placeholder-val="{{ false }}">
+      <div style="display: flex; flex-direction: column; gap: 10px; border-left: 3px solid #45423A; padding: 4px 0 4px 18px;">
+        <div style="display: flex; flex-wrap: wrap; gap: 0 0.35em; font-size: 30px; line-height: 1.5;">
+          <sc-for list="{{res}}" as="r" hint-placeholder-count="7">
+            <span style="display: inline-flex; flex-direction: column; align-items: flex-start;"><span style="{{r.style}}">{{r.t}}</span><sc-if value="{{r.showTyped}}" hint-placeholder-val="{{ false }}"><span style="font-size: 14px; color: #9E3A1B; text-decoration: line-through; line-height: 1;">{{r.typed}}</span></sc-if></span>
+          </sc-for>
+        </div>
+        <div style="font-size: 16px; color: #5C5849;">Como um rádio que toca tudo</div>
+        <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px 24px;">
+          <span style="font-family: 'IBM Plex Mono', monospace; font-size: 15px;">VERSO {{score}}%</span>
+          <a href="Resultado.dc.html" style="display: flex; align-items: center; gap: 10px; background: #45423A; color: #E4E0CE; text-decoration: none; padding: 12px 20px; font-size: 13px; letter-spacing: 0.16em;">PRÓXIMO VERSO →</a>
+        </div>
+      </div>
+    </sc-if>
+
+    <div style="display: flex; flex-direction: column; margin-top: 8px;">
+      <div style="font-size: 12px; letter-spacing: 0.2em; color: #5C5849; padding-bottom: 6px; border-bottom: 1px solid #A39E8A;">VERSOS ANTERIORES</div>
+      <div style="display: flex; gap: 14px; padding: 9px 0; border-bottom: 1px solid #A39E8A; font-size: 17px; align-items: baseline;"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #5C5849; width: 26px;">03</span><span style="flex: 1;">Your voice still <span style="border-bottom: 2px dashed #8A6A1E;">echoes</span> down the hall</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 13px;">93%</span></div>
+      <div style="display: flex; gap: 14px; padding: 9px 0; border-bottom: 1px solid #A39E8A; font-size: 17px; align-items: baseline;"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #5C5849; width: 26px;">02</span><span style="flex: 1;">Counting cars that never come my way</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 13px;">100%</span></div>
+    </div>
+  </section>
+
+  <aside style="flex: 1 1 300px; min-width: 0; max-width: 360px; display: flex; flex-direction: column; gap: 18px;">
+    <div style="aspect-ratio: 16 / 9; border: 1.5px solid #45423A; background: #45423A; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; color: #E4E0CE; text-align: center; padding: 16px; box-sizing: border-box;">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#E4E0CE" stroke-width="1.6" aria-hidden="true"><path d="M3 3l18 18M10.6 6.1A9.7 9.7 0 0 1 12 6c5 0 9 6 9 6a17 17 0 0 1-3 3.6M6.6 6.6C4.4 8.1 3 12 3 12s4 6 9 6a8.6 8.6 0 0 0 4.2-1.1"/></svg>
+      <span style="font-size: 12px; letter-spacing: 0.2em;">VÍDEO OCULTO</span>
+      <span style="font-size: 13px; opacity: 0.85;">Esconde legendas embutidas no clipe</span>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 6px;">
+      <div style="font-size: 12px; letter-spacing: 0.2em; color: #5C5849;">CORREÇÃO</div>
+      <div style="display: flex; border: 1.5px solid #45423A; width: fit-content;">
+        <button onClick="{{setTol}}" aria-pressed="{{tol}}" style="{{tolStyle}}">Tolerante</button>
+        <button onClick="{{setStrict}}" aria-pressed="{{strict}}" style="{{strictStyle}}">Estrita</button>
+      </div>
+      <div style="font-size: 13px; color: #5C5849; line-height: 1.5;">{{corrNote}}</div>
+    </div>
+    <div style="display: flex; flex-direction: column; font-size: 14px;">
+      <div style="font-size: 13px; letter-spacing: 0.18em; font-weight: 500; padding-bottom: 8px; border-bottom: 1.5px solid #45423A;">SESSÃO</div>
+      <div style="display: flex; justify-content: space-between; padding: 9px 0; border-bottom: 1px solid #A39E8A;"><span>Palavras certas</span><span style="font-family: 'IBM Plex Mono', monospace;">20 / 21</span></div>
+      <div style="display: flex; justify-content: space-between; padding: 9px 0; border-bottom: 1px solid #A39E8A;"><span>Repetições usadas</span><span style="font-family: 'IBM Plex Mono', monospace;">4</span></div>
+      <div style="display: flex; justify-content: space-between; padding: 9px 0; border-bottom: 1px solid #A39E8A;"><span>Dicas usadas</span><span style="font-family: 'IBM Plex Mono', monospace;">0</span></div>
+    </div>
+  </aside>
+</main>
+
+<footer style="display: flex; flex-wrap: wrap; gap: 8px 28px; padding: 14px 40px; border-top: 1px solid #A39E8A; font-size: 12px; letter-spacing: 0.12em; color: #5C5849;">
+  <span><span style="font-family: 'IBM Plex Mono', monospace; border: 1px solid #77735F; padding: 1px 6px; margin-right: 6px;">ENTER</span>CONFIRMAR</span>
+  <span><span style="font-family: 'IBM Plex Mono', monospace; border: 1px solid #77735F; padding: 1px 6px; margin-right: 6px;">TAB</span>OUVIR DE NOVO</span>
+  <span><span style="font-family: 'IBM Plex Mono', monospace; border: 1px solid #77735F; padding: 1px 6px; margin-right: 6px;">CTRL ↓</span>MAIS DEVAGAR</span>
+  <span><span style="font-family: 'IBM Plex Mono', monospace; border: 1px solid #77735F; padding: 1px 6px; margin-right: 6px;">CTRL H</span>DICA</span>
+</footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":960}}'>
+class Component extends DCLogic {
+  constructor(p){ super(p); this.state = { val: 'like a radyo that play it all', checked: true, strict: false, plays: 2, hint: false }; }
+  norm(s, strict) {
+    if (strict) return s.trim().split(/\s+/).filter(Boolean);
+    const C = { "it's": 'it is', "i'm": 'i am', "you'll": 'you will', "i'll": 'i will', "we'll": 'we will', gonna: 'going to', wanna: 'want to' };
+    let t = s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[’]/g, "'");
+    t = t.split(/\s+/).map(w => C[w.replace(/[^a-z']/g, '')] || w).join(' ');
+    return t.replace(/[^a-z0-9\s]/g, '').split(/\s+/).filter(Boolean);
+  }
+  lev(a, b) {
+    const d = Array.from({ length: a.length + 1 }, (_, i) => [i]);
+    for (let j = 1; j <= b.length; j++) d[0][j] = j;
+    for (let i = 1; i <= a.length; i++) for (let j = 1; j <= b.length; j++)
+      d[i][j] = Math.min(d[i-1][j] + 1, d[i][j-1] + 1, d[i-1][j-1] + (a[i-1] === b[j-1] ? 0 : 1));
+    return d[a.length][b.length];
+  }
+  renderVals() {
+    const TARGET = 'Like a radio that plays it all';
+    const strict = this.state.strict;
+    const shown = TARGET.split(' ');
+    const tw = this.norm(TARGET, strict), uw = this.norm(this.state.val, strict);
+    const res = []; let j = 0, pts = 0;
+    tw.forEach((w, i) => {
+      const u = uw[j];
+      let kind = 'wrong';
+      if (u === w) kind = 'ok';
+      else if (u !== undefined && !strict && this.lev(u, w) <= 1) kind = 'near';
+      else if (uw[j + 1] === w) { j++; kind = 'ok'; }
+      pts += kind === 'ok' ? 1 : kind === 'near' ? 0.5 : 0;
+      res.push({ t: shown[i], typed: u || '—', showTyped: kind === 'wrong',
+        style: kind === 'ok' ? 'color:#3F3C33;border-bottom:2px solid transparent;' :
+               kind === 'near' ? 'color:#3F3C33;border-bottom:2px dashed #8A6A1E;' :
+               'color:#3F3C33;font-weight:500;border-bottom:2px solid #9E3A1B;' });
+      if (u !== undefined) j++;
+    });
+    const hs = [30,46,62,40,72,88,64,50,34,58,80,92,70,44,38,60,76,54,30,26,48,66,84,96,78,52,40,62,74,58,42,30,24,44,60,82,90,70,56,38,48,66,58,40,32,52,70,86,64,46,36,28,40,56,48,34,26,20,30,22,16,12,10,8];
+    const wave = hs.map((h, i) => 'flex:1;min-width:2px;height:' + h + '%;background:' + (i < 58 ? '#45423A' : '#A39E8A') + ';');
+    const seg = (on) => 'min-height:40px;padding:0 16px;border:0;font:inherit;font-size:14px;cursor:pointer;' + (on ? 'background:#45423A;color:#E4E0CE;' : 'background:transparent;color:#3F3C33;');
+    return {
+      val: this.state.val, checked: this.state.checked, res, score: Math.round(pts / tw.length * 100),
+      plays: this.state.plays, wave,
+      status: this.state.checked ? 'CORRIGIDO · ENTER PARA SEGUIR' : 'PAUSADO NO FIM DO VERSO',
+      placeholder: this.state.hint ? 'L… a r… t… p… i… a…' : 'Digite o verso…',
+      onType: (e) => this.setState({ val: e.target.value, checked: false }),
+      submit: (e) => { e.preventDefault(); this.setState({ checked: true }); },
+      replay: () => this.setState({ plays: this.state.plays + 1 }),
+      hint: () => this.setState({ hint: true, val: '' , checked: false }),
+      tol: !strict, strict,
+      tolStyle: seg(!strict), strictStyle: seg(strict),
+      setTol: () => this.setState({ strict: false }), setStrict: () => this.setState({ strict: true }),
+      corrNote: strict ? 'Tem que bater exatamente: maiúsculas, acentos e pontuação contam.' : 'Ignora acentos, pontuação e maiúsculas. Uma letra trocada conta como “quase”.'
+    };
+  }
+}
+</script>
+</body>
+</html>

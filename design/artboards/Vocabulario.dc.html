@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Eco · Vocabulário</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+JP:wght@400;500&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#DAD5C1}
+a{color:#3F3C33}a:hover{color:#9E3A1B}
+</style>
+</helmet>
+<div style="min-height: 100vh; background: #DAD5C1; background-image: radial-gradient(#C9C3AC 1px, transparent 1px); background-size: 6px 6px; color: #3F3C33; font-family: Jost, 'Futura', sans-serif; display: flex; flex-direction: column;">
+
+<header style="display: flex; flex-wrap: wrap; align-items: center; gap: 16px 32px; padding: 18px 40px; border-bottom: 1px solid #A39E8A; background: #DAD5C1;">
+  <a href="Main.dc.html" style="display: flex; align-items: baseline; gap: 10px; text-decoration: none; color: #3F3C33;">
+    <span style="font-size: 26px; font-weight: 600; letter-spacing: 0.18em;">ECO</span>
+    <span style="font-family: 'Noto Sans JP', sans-serif; font-size: 13px; color: #5C5849;">エコ</span>
+  </a>
+  <nav aria-label="Principal" style="display: flex; flex-wrap: wrap; gap: 4px; margin-left: auto; font-size: 13px; letter-spacing: 0.14em;">
+    <a href="Main.dc.html" style="padding: 6px 18px; text-decoration: none;">ESTUDAR</a>
+    <a href="Vocabulario.dc.html" style="padding: 6px 18px; background: #45423A; color: #E4E0CE; text-decoration: none;">VOCABULÁRIO</a>
+    <a href="Resultado.dc.html" style="padding: 6px 18px; text-decoration: none;">PROGRESSO</a>
+    <a href="#" style="padding: 6px 18px; text-decoration: none;">AJUSTES</a>
+  </nav>
+</header>
+
+<main style="flex: 1; width: 100%; max-width: 1360px; margin: 0 auto; box-sizing: border-box; padding: 32px 40px; display: flex; flex-direction: column; gap: 22px;">
+
+  <div role="tablist" aria-label="Filtro" style="display: flex; flex-wrap: wrap; gap: 8px 30px; font-size: 24px; font-weight: 500;">
+    <sc-for list="{{tabs}}" as="t" hint-placeholder-count="4">
+      <button role="tab" aria-selected="{{t.on}}" onClick="{{t.pick}}" style="{{t.style}}">{{t.label}}</button>
+    </sc-for>
+  </div>
+
+  <div style="display: flex; flex-wrap: wrap; gap: 32px; align-items: flex-start;">
+    <section aria-label="Palavras" style="flex: 1 1 260px; min-width: 0; max-width: 320px; display: flex; flex-direction: column; border-top: 1px solid #A39E8A; border-right: 1px solid #A39E8A;">
+      <sc-for list="{{list}}" as="r" hint-placeholder-count="10">
+        <button onClick="{{r.pick}}" aria-pressed="{{r.on}}" style="{{r.style}}">
+          <span style="flex: 1; text-align: left;">{{r.w}}</span>
+          <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; opacity: 0.85;">{{r.box}}</span>
+        </button>
+      </sc-for>
+    </section>
+
+    <section aria-label="Detalhe" style="flex: 999 1 460px; min-width: 0; display: flex; flex-direction: column; gap: 18px;">
+      <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 8px; border-bottom: 1.5px solid #45423A; padding-bottom: 10px;">
+        <h1 style="margin: 0; font-size: 56px; line-height: 1; font-weight: 600; letter-spacing: 0.02em; text-transform: uppercase;">{{cur.w}}</h1>
+        <span style="font-family: 'IBM Plex Mono', monospace; font-size: 13px;">{{cur.lvl}} · {{cur.cls}}</span>
+      </div>
+      <div style="display: flex; align-items: center; gap: 14px;">
+        <button aria-label="Ouvir pronúncia" style="width: 44px; height: 44px; border: 1.5px solid #45423A; background: transparent; display: flex; align-items: center; justify-content: center; cursor: pointer;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#45423A" stroke-width="1.8" aria-hidden="true"><path d="M4 10v4h4l5 4V6L8 10z"/><path d="M16 9a4 4 0 0 1 0 6M18.5 6.5a7.5 7.5 0 0 1 0 11"/></svg>
+        </button>
+        <span style="font-family: 'IBM Plex Mono', monospace; font-size: 18px;">{{cur.ipa}}</span>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 4px;">
+        <div style="font-size: 12px; letter-spacing: 0.2em; color: #5C5849;">SIGNIFICADO</div>
+        <div style="font-size: 22px;">{{cur.pt}}</div>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 8px; background: #E4E0CE; border: 1px solid #A39E8A; padding: 18px 20px;">
+        <div style="font-size: 12px; letter-spacing: 0.2em; color: #5C5849;">NA MÚSICA</div>
+        <div style="font-size: 21px; line-height: 1.4;">{{cur.pre}}<span style="background: #45423A; color: #E4E0CE; padding: 0 5px;">{{cur.hit}}</span>{{cur.post}}</div>
+        <div style="font-size: 15px; color: #5C5849;">{{cur.tr}}</div>
+        <div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; font-size: 13px; margin-top: 4px;">
+          <span>{{cur.song}}</span>
+          <a href="Assistir.dc.html">Ouvir este trecho →</a>
+        </div>
+      </div>
+      <div style="font-size: 13px; color: #5C5849;">Pronúncia, significado e exemplos gerados quando a palavra é salva.</div>
+    </section>
+
+    <aside style="flex: 1 1 280px; min-width: 0; max-width: 340px; display: flex; flex-direction: column;">
+      <div style="font-size: 13px; letter-spacing: 0.18em; font-weight: 500; padding-bottom: 8px; border-bottom: 1.5px solid #45423A;">STATUS</div>
+      <div style="display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #A39E8A; font-size: 14px;"><span>Caixa de revisão</span><span style="font-family: 'IBM Plex Mono', monospace;">{{cur.box}} / 5</span></div>
+      <div style="display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #A39E8A; font-size: 14px;"><span>Próxima revisão</span><span style="font-family: 'IBM Plex Mono', monospace;">{{cur.next}}</span></div>
+      <div style="display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #A39E8A; font-size: 14px;"><span>Acertos</span><span style="font-family: 'IBM Plex Mono', monospace;">{{cur.hits}}</span></div>
+      <div style="display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #A39E8A; font-size: 14px;"><span>Salva em</span><span style="font-family: 'IBM Plex Mono', monospace;">{{cur.saved}}</span></div>
+      <div style="padding: 16px 0 8px; font-size: 12px; letter-spacing: 0.18em; color: #5C5849;">MEMÓRIA</div>
+      <div style="display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 6px;">
+        <sc-for list="{{cur.boxes}}" as="b" hint-placeholder-count="5">
+          <div style="{{b}}"></div>
+        </sc-for>
+      </div>
+      <a href="#" style="margin-top: 24px; display: flex; justify-content: space-between; align-items: center; background: #45423A; color: #E4E0CE; text-decoration: none; padding: 16px 18px; font-size: 14px; letter-spacing: 0.14em;">REVISAR 14 AGORA
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+      <a href="#" style="margin-top: 8px; display: flex; justify-content: space-between; align-items: center; border: 1.5px solid #45423A; text-decoration: none; padding: 14px 18px; font-size: 14px; letter-spacing: 0.14em;">EXPORTAR PARA ANKI
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>
+      </a>
+      <button style="margin-top: 8px; min-height: 44px; border: 0; background: transparent; font: inherit; font-size: 13px; color: #9E3A1B; text-align: left; cursor: pointer; padding: 0;">Remover do vocabulário</button>
+    </aside>
+  </div>
+</main>
+
+<footer style="display: flex; flex-wrap: wrap; gap: 8px 28px; padding: 14px 40px; border-top: 1px solid #A39E8A; font-size: 12px; letter-spacing: 0.12em; color: #5C5849;">
+  <span><span style="font-family: 'IBM Plex Mono', monospace; border: 1px solid #77735F; padding: 1px 6px; margin-right: 6px;">↑ ↓</span>NAVEGAR</span>
+  <span><span style="font-family: 'IBM Plex Mono', monospace; border: 1px solid #77735F; padding: 1px 6px; margin-right: 6px;">P</span>OUVIR</span>
+  <span style="margin-left: auto;">86 PALAVRAS · 5 MÚSICAS</span>
+</footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":960}}'>
+class Component extends DCLogic {
+  constructor(p){ super(p); this.state = { tab: 0, sel: 0 }; }
+  renderVals() {
+    const PM = 'Paper Moon Radio — The Quiet Arcade';
+    const D = [
+      { w: 'static', ipa: '/ˈstæt.ɪk/', cls: 'SUBST./ADJ.', lvl: 'B2', pt: 'estática; parado, sem movimento', line: 'So call my name across the static sea', tr: 'Então chame meu nome pelo mar de estática', song: PM, box: 1, next: 'hoje', hits: '1 / 3', saved: '31/10' },
+      { w: 'almost', ipa: '/ˈɔːl.moʊst/', cls: 'ADV.', lvl: 'A2', pt: 'quase', line: 'Hold on, the night is almost gone', tr: 'Aguenta firme, a noite está quase no fim', song: PM, box: 1, next: 'hoje', hits: '0 / 1', saved: '31/10' },
+      { w: 'hold on', ipa: '/hoʊld ɒn/', cls: 'PHRASAL VERB', lvl: 'B1', pt: 'aguentar firme; esperar', line: 'Hold on, the night is almost gone', tr: 'Aguenta firme, a noite está quase no fim', song: PM, box: 2, next: 'hoje', hits: '2 / 3', saved: '29/10' },
+      { w: 'drift', ipa: '/drɪft/', cls: 'VERBO', lvl: 'B2', pt: 'vagar, ser levado (pela corrente)', line: 'We drift along the northbound lights', tr: 'Vagamos ao longo das luzes rumo ao norte', song: 'Northbound Lights — Halcyon Wire', box: 2, next: 'amanhã', hits: '3 / 4', saved: '27/10' },
+      { w: 'echo', ipa: '/ˈek.oʊ/', cls: 'SUBST./VERBO', lvl: 'B1', pt: 'eco; ecoar', line: 'I’ll be the echo, you’ll come back to me', tr: 'Eu serei o eco, você vai voltar pra mim', song: PM, box: 3, next: '03/11', hits: '4 / 4', saved: '26/10' },
+      { w: 'bloom', ipa: '/bluːm/', cls: 'VERBO', lvl: 'B2', pt: 'florescer', line: 'Everything I touch begins to bloom', tr: 'Tudo que eu toco começa a florescer', song: 'Glass Garden — Mira Vale', box: 3, next: '04/11', hits: '5 / 6', saved: '22/10' },
+      { w: 'counting', ipa: '/ˈkaʊn.tɪŋ/', cls: 'VERBO', lvl: 'A2', pt: 'contando', line: 'Counting cars that never come my way', tr: 'Contando carros que nunca vêm para mim', song: PM, box: 4, next: '08/11', hits: '6 / 6', saved: '20/10' },
+      { w: 'orbit', ipa: '/ˈɔːr.bɪt/', cls: 'SUBST.', lvl: 'B2', pt: 'órbita', line: 'I’m caught inside your slow orbit', tr: 'Estou preso na sua órbita lenta', song: 'Slow Satellite — June Atlas', box: 4, next: '10/11', hits: '7 / 8', saved: '18/10' },
+      { w: 'hall', ipa: '/hɔːl/', cls: 'SUBST.', lvl: 'A2', pt: 'corredor; salão', line: 'Your voice still echoes down the hall', tr: 'Sua voz ainda ecoa pelo corredor', song: PM, box: 5, next: '—', hits: '9 / 9', saved: '12/10' },
+      { w: 'come on', ipa: '/kʌm ɒn/', cls: 'PHRASAL VERB', lvl: 'B1', pt: '(luz) acender; vamos!', line: 'We’ll be dancing when the lights come on', tr: 'Estaremos dançando quando as luzes acenderem', song: PM, box: 5, next: '—', hits: '8 / 8', saved: '10/10' }
+    ];
+    const filters = [
+      { label: 'Para revisar (14)', f: d => d.next === 'hoje' },
+      { label: 'Aprendendo', f: d => d.box >= 2 && d.box <= 4 },
+      { label: 'Dominadas', f: d => d.box === 5 },
+      { label: 'Todas', f: () => true }
+    ];
+    const tab = this.state.tab;
+    const tabs = filters.map((t, i) => ({ label: t.label, on: i === tab,
+      pick: () => this.setState({ tab: i, sel: D.indexOf(D.filter(t.f)[0]) }),
+      style: 'background:none;border:0;padding:0;cursor:pointer;font:inherit;color:' + (i === tab ? '#3F3C33' : '#77735F') }));
+    const shown = D.filter(filters[tab].f);
+    let sel = this.state.sel;
+    if (!shown.includes(D[sel])) sel = D.indexOf(shown[0]);
+    const list = shown.map(d => {
+      const i = D.indexOf(d); const on = i === sel;
+      return { w: d.w, box: '■'.repeat(d.box) + '□'.repeat(5 - d.box), on, pick: () => this.setState({ sel: i }),
+        style: 'display:flex;align-items:center;gap:12px;width:100%;min-height:44px;padding:10px 14px;border:0;border-bottom:1px solid #A39E8A;cursor:pointer;font:inherit;font-size:15px;font-weight:500;' +
+          (on ? 'background:#45423A;color:#E4E0CE;' : 'background:transparent;color:#3F3C33;') };
+    });
+    const c = D[sel];
+    const k = c.line.toLowerCase().indexOf(c.w);
+    const cur = { ...c, pre: c.line.slice(0, k), hit: c.line.slice(k, k + c.w.length), post: c.line.slice(k + c.w.length),
+      boxes: [1,2,3,4,5].map(n => 'height:14px;border:1.5px solid #45423A;' + (n <= c.box ? 'background:#45423A;' : '')) };
+    return { tabs, list, cur };
+  }
+}
+</script>
+</body>
+</html>

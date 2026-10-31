@@ -1,0 +1,32 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git status *)",
+      "Bash(git diff *)",
+      "Bash(git log *)",
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(git switch *)",
+      "Bash(git checkout -b *)",
+      "Bash(git branch)",
+      "Bash(git branch --list *)",
+      "Bash(git show *)",
+      "Bash(npm run *)",
+      "Bash(uv run *)"
+    ],
+    "ask": [
+      "Bash(git merge *)",
+      "Bash(git rebase *)",
+      "Bash(git reset --hard *)",
+      "Bash(git branch -D *)",
+      "Bash(git stash drop *)",
+      "Bash(git clean *)"
+    ],
+    "deny": [
+      "Bash(git push *)",
+      "Bash(gh pr merge *)",
+      "Read(./.env)",
+      "Read(./**/.env)"
+    ]
+  }
+}

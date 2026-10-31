@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Eco · Karaokê</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+JP:wght@400;500&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#DAD5C1}
+a{color:#3F3C33}a:hover{color:#9E3A1B}
+@keyframes pulse{50%{opacity:0.35}}
+</style>
+</helmet>
+<div style="min-height: 100vh; background: #DAD5C1; background-image: radial-gradient(#C9C3AC 1px, transparent 1px); background-size: 6px 6px; color: #3F3C33; font-family: Jost, 'Futura', sans-serif; display: flex; flex-direction: column;">
+
+<header style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px 28px; padding: 14px 40px; border-bottom: 1px solid #A39E8A;">
+  <a href="Setup.dc.html" style="font-size: 12px; letter-spacing: 0.2em; text-decoration: none;">← SAIR</a>
+  <div style="display: flex; align-items: baseline; gap: 10px; min-width: 0;">
+    <span style="font-size: 17px; font-weight: 500;">Paper Moon Radio</span>
+    <span style="font-size: 14px; color: #5C5849;">The Quiet Arcade</span>
+  </div>
+  <span style="background: #45423A; color: #E4E0CE; padding: 4px 14px; font-size: 12px; letter-spacing: 0.18em;">KARAOKÊ</span>
+  <div style="display: flex; align-items: center; gap: 10px; margin-left: auto; font-size: 12px; letter-spacing: 0.16em; color: #5C5849;">
+    VERSO <span style="font-family: 'IBM Plex Mono', monospace; color: #3F3C33;">07/32</span>
+    <div style="width: 140px; height: 10px; border: 1.5px solid #45423A; border-radius: 99px; padding: 2px; box-sizing: border-box;"><div style="width: 22%; height: 100%; background: #45423A; border-radius: 99px;"></div></div>
+  </div>
+  <div style="font-family: 'IBM Plex Mono', monospace; font-size: 14px;"><span style="font-family: Jost, sans-serif; font-size: 11px; letter-spacing: 0.18em; color: #5C5849;">PRONÚNCIA </span>{{avg}}%</div>
+</header>
+
+<main style="flex: 1; width: 100%; max-width: 1360px; margin: 0 auto; box-sizing: border-box; padding: 40px 40px 28px; display: flex; flex-wrap: wrap; gap: 48px; align-items: flex-start;">
+
+  <section aria-label="Letra cantada" style="flex: 999 1 600px; min-width: 0; display: flex; flex-direction: column; gap: 24px;">
+
+    <div style="display: flex; flex-direction: column; gap: 10px;">
+      <div style="font-size: 12px; letter-spacing: 0.2em; color: #5C5849;">06 · COMO VOCÊ CANTOU</div>
+      <div style="display: flex; flex-wrap: wrap; gap: 12px 10px;">
+        <sc-for list="{{prev}}" as="w" hint-placeholder-count="8">
+          <button onClick="{{w.pick}}" aria-pressed="{{w.on}}" style="{{w.style}}">
+            <span style="font-size: 20px;">{{w.t}}</span>
+            <span style="display: flex; gap: 3px;" aria-hidden="true"><span style="{{w.d1}}"></span><span style="{{w.d2}}"></span><span style="{{w.d3}}"></span></span>
+          </button>
+        </sc-for>
+      </div>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 16px; border-top: 1.5px solid #45423A; border-bottom: 1.5px solid #45423A; padding: 34px 0;">
+      <div style="display: flex; justify-content: space-between; font-size: 12px; letter-spacing: 0.2em; color: #5C5849;"><span>07 · CANTE AGORA</span><span>Então chame meu nome pelo mar de estática</span></div>
+      <div aria-label="Verso atual: So call my name across the static sea" style="display: flex; flex-wrap: wrap; gap: 6px 0.32em; font-size: 50px; line-height: 1.25; align-items: baseline;">
+        <span style="color: #3F3C33; font-weight: 500;">So call my name across</span>
+        <span style="background: #45423A; color: #E4E0CE; padding: 0 10px;">the</span>
+        <span style="color: #77735F;">static sea</span>
+      </div>
+      <div style="display: flex; align-items: center; gap: 14px;">
+        <span style="width: 10px; height: 10px; border-radius: 99px; background: #9E3A1B; animation: pulse 1.2s infinite;" aria-hidden="true"></span>
+        <span style="font-size: 12px; letter-spacing: 0.2em;">OUVINDO</span>
+        <div role="img" aria-label="Nível do microfone" style="display: flex; align-items: flex-end; gap: 3px; height: 26px;">
+          <sc-for list="{{meter}}" as="m" hint-placeholder-count="24"><div style="{{m}}"></div></sc-for>
+        </div>
+      </div>
+    </div>
+
+    <div style="font-size: 22px; color: #5C5849; display: flex; gap: 14px; align-items: baseline;"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; width: 26px;">08</span>I’ll be the echo, you’ll come back to me</div>
+  </section>
+
+  <aside style="flex: 1 1 300px; min-width: 0; max-width: 380px; display: flex; flex-direction: column; gap: 18px;">
+    <div style="display: flex; flex-direction: column; gap: 12px; background: #E4E0CE; border: 1.5px solid #45423A; padding: 20px;">
+      <div style="display: flex; justify-content: space-between; align-items: baseline;">
+        <span style="font-size: 12px; letter-spacing: 0.2em; color: #5C5849;">PALAVRA</span>
+        <span style="font-family: 'IBM Plex Mono', monospace; font-size: 14px;">{{sel.score}}%</span>
+      </div>
+      <div style="font-size: 38px; font-weight: 600; text-transform: uppercase; line-height: 1;">{{sel.t}}</div>
+      <div style="display: flex; flex-direction: column; gap: 4px; font-family: 'IBM Plex Mono', monospace; font-size: 15px;">
+        <span>esperado {{sel.ipa}}</span>
+        <span style="color: #9E3A1B;">ouvido&nbsp;&nbsp; {{sel.heard}}</span>
+      </div>
+      <p style="margin: 0; font-size: 15px; line-height: 1.5;">{{sel.tip}}</p>
+      <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+        <button style="min-height: 44px; padding: 0 14px; border: 1.5px solid #45423A; background: transparent; font: inherit; font-size: 13px; color: #3F3C33; cursor: pointer;">▶ Ouvir original</button>
+        <button style="min-height: 44px; padding: 0 14px; border: 1px solid #A39E8A; background: transparent; font: inherit; font-size: 13px; color: #3F3C33; cursor: pointer;">● Gravar de novo</button>
+      </div>
+    </div>
+    <div style="display: flex; flex-direction: column; font-size: 14px;">
+      <div style="font-size: 13px; letter-spacing: 0.18em; font-weight: 500; padding-bottom: 8px; border-bottom: 1.5px solid #45423A;">LEGENDA</div>
+      <div style="display: flex; align-items: center; gap: 12px; padding: 9px 0; border-bottom: 1px solid #A39E8A;"><span style="display: flex; gap: 3px;"><span style="width: 8px; height: 8px; background: #45423A;"></span><span style="width: 8px; height: 8px; background: #45423A;"></span><span style="width: 8px; height: 8px; background: #45423A;"></span></span>Clara</div>
+      <div style="display: flex; align-items: center; gap: 12px; padding: 9px 0; border-bottom: 1px solid #A39E8A;"><span style="display: flex; gap: 3px;"><span style="width: 8px; height: 8px; background: #45423A;"></span><span style="width: 8px; height: 8px; background: #45423A;"></span><span style="width: 8px; height: 8px; border: 1px solid #45423A; box-sizing: border-box;"></span></span>Entendível</div>
+      <div style="display: flex; align-items: center; gap: 12px; padding: 9px 0; border-bottom: 1px solid #A39E8A;"><span style="display: flex; gap: 3px;"><span style="width: 8px; height: 8px; background: #9E3A1B;"></span><span style="width: 8px; height: 8px; border: 1px solid #9E3A1B; box-sizing: border-box;"></span><span style="width: 8px; height: 8px; border: 1px solid #9E3A1B; box-sizing: border-box;"></span></span>Treinar</div>
+    </div>
+    <div style="font-size: 13px; color: #5C5849; line-height: 1.5;">O áudio do microfone é analisado no navegador e não é enviado nem salvo.</div>
+  </aside>
+</main>
+
+<footer style="display: flex; flex-wrap: wrap; gap: 8px 28px; padding: 14px 40px; border-top: 1px solid #A39E8A; font-size: 12px; letter-spacing: 0.12em; color: #5C5849;">
+  <span><span style="font-family: 'IBM Plex Mono', monospace; border: 1px solid #77735F; padding: 1px 6px; margin-right: 6px;">M</span>MICROFONE</span>
+  <span><span style="font-family: 'IBM Plex Mono', monospace; border: 1px solid #77735F; padding: 1px 6px; margin-right: 6px;">TAB</span>REPETIR VERSO</span>
+  <span><span style="font-family: 'IBM Plex Mono', monospace; border: 1px solid #77735F; padding: 1px 6px; margin-right: 6px;">CTRL ESPAÇO</span>PAUSAR</span>
+  <a href="Resultado.dc.html" style="margin-left: auto;">VER RESULTADO →</a>
+</footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":960}}'>
+class Component extends DCLogic {
+  constructor(p){ super(p); this.state = { sel: 2 }; }
+  renderVals() {
+    const P = [
+      { t: 'We’ll', s: 92, ipa: '/wiːl/', heard: '/wiːl/', tip: 'Contração de “we will”. Saiu certinho.' },
+      { t: 'be', s: 96, ipa: '/biː/', heard: '/biː/', tip: 'Vogal longa, bem feita.' },
+      { t: 'dancing', s: 54, ipa: '/ˈdæn.sɪŋ/', heard: '/ˈden.sɪŋ/', tip: 'O “a” de “dancing” é aberto, /æ/, como em “cat”. Abra mais a boca e puxe o som para baixo.' },
+      { t: 'when', s: 88, ipa: '/wen/', heard: '/wen/', tip: 'Boa. Lembre que o “h” é mudo.' },
+      { t: 'the', s: 80, ipa: '/ðə/', heard: '/də/', tip: 'Ponha a ponta da língua entre os dentes para o /ð/.' },
+      { t: 'lights', s: 61, ipa: '/laɪts/', heard: '/laɪtʃ/', tip: 'Termina em /ts/, não em “tch”. Solte o /t/ e o /s/ separados.' },
+      { t: 'come', s: 90, ipa: '/kʌm/', heard: '/kʌm/', tip: 'Vogal curta /ʌ/, bem feita.' },
+      { t: 'on', s: 94, ipa: '/ɒn/', heard: '/ɒn/', tip: 'Certinho.' }
+    ];
+    const sel = this.state.sel;
+    const dot = (fill, col) => 'width:8px;height:8px;box-sizing:border-box;' + (fill ? 'background:' + col + ';' : 'border:1px solid ' + col + ';');
+    const prev = P.map((w, i) => {
+      const lvl = w.s >= 85 ? 3 : w.s >= 70 ? 2 : 1;
+      const col = lvl === 1 ? '#9E3A1B' : '#45423A';
+      const on = i === sel;
+      return { t: w.t, on, pick: () => this.setState({ sel: i }),
+        d1: dot(true, col), d2: dot(lvl >= 2, col), d3: dot(lvl >= 3, col),
+        style: 'display:flex;flex-direction:column;align-items:center;gap:6px;min-height:44px;padding:6px 10px;font:inherit;cursor:pointer;background:transparent;color:' + (lvl === 1 ? '#9E3A1B' : '#3F3C33') + ';border:' + (on ? '1.5px solid #45423A' : '1.5px solid transparent') + ';' };
+    });
+    const hs = [20,35,50,70,85,60,90,75,55,40,65,80,95,70,50,30,45,60,40,25,15,10,8,6];
+    const meter = hs.map(h => 'width:5px;height:' + h + '%;background:#45423A;');
+    const avg = Math.round(P.reduce((s, w) => s + w.s, 0) / P.length);
+    return { prev, meter, avg, sel: { ...P[sel], score: P[sel].s } };
+  }
+}
+</script>
+</body>
+</html>

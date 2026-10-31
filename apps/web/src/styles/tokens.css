@@ -1,0 +1,78 @@
+/* Eco — design tokens (fonte única). Copiar para apps/web/src/styles/tokens.css. */
+@import url("https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+JP:wght@400;500&display=swap");
+
+:root {
+  /* ---------- cor: papel ---------- */
+  --eco-paper: #DAD5C1;          /* fundo da página */
+  --eco-paper-raised: #E4E0CE;   /* campos, cartões, painel de palavra */
+  --eco-paper-dot: #C9C3AC;      /* pontilhado do fundo (radial 1px, grade 6px) */
+  --eco-paper-hatch: #CFC9B3;    /* hachura de placeholders de vídeo */
+
+  /* ---------- cor: tinta ---------- */
+  --eco-ink: #3F3C33;            /* texto principal */
+  --eco-ink-2: #5C5849;          /* texto secundário, rótulos (4.5:1 no papel) */
+  --eco-ink-3: #77735F;          /* SÓ texto ≥ 24px ou decorativo (≈3:1), ex. abas inativas, versos futuros grandes */
+  --eco-placeholder: #6B6757;
+  --eco-rule: #A39E8A;           /* linhas finas 1px */
+  --eco-bar: #45423A;            /* barra invertida de seleção, botões primários, bordas fortes 1.5px */
+  --eco-on-bar: #E4E0CE;         /* texto sobre a barra */
+
+  /* ---------- cor: feedback ---------- */
+  --eco-error: #9E3A1B;          /* vermelhão: erro, streak, numeração do "como funciona" */
+  --eco-near: #8A6A1E;           /* "quase": sempre com sublinhado TRACEJADO */
+  --eco-near-fill: #B89A55;      /* "quase" em barras de gráfico */
+  --eco-focus: #9E3A1B;          /* anel de foco 2px, offset 2px */
+
+  /* ---------- tipografia ---------- */
+  --eco-font-sans: "Jost", "Futura", system-ui, sans-serif;
+  --eco-font-mono: "IBM Plex Mono", ui-monospace, monospace;
+  --eco-font-jp: "Noto Sans JP", sans-serif;
+
+  --eco-text-label: 12px;        /* caixa alta, letter-spacing .2em, cor ink-2 */
+  --eco-tracking-label: 0.2em;
+  --eco-text-sm: 13px;
+  --eco-text-body: 15px;
+  --eco-text-lg: 18px;
+  --eco-text-lyric: 22px;        /* versos fora de foco */
+  --eco-text-lyric-current: 44px;/* verso atual */
+  --eco-text-title: 46px;        /* títulos de modo/palavra: peso 600, caixa alta */
+  --eco-text-display: 60px;      /* hero da Home: peso 300 */
+  --eco-text-score: 148px;       /* precisão no Resultado: peso 300 */
+
+  /* ---------- espaço ---------- */
+  --eco-space-1: 4px;
+  --eco-space-2: 8px;
+  --eco-space-3: 12px;
+  --eco-space-4: 16px;
+  --eco-space-5: 24px;
+  --eco-space-6: 32px;
+  --eco-space-7: 40px;
+  --eco-space-8: 56px;
+  --eco-page-max: 1360px;
+  --eco-gutter: 40px;            /* 16px abaixo de 600px */
+
+  /* ---------- forma ---------- */
+  --eco-radius: 0;               /* padrão: cantos retos */
+  --eco-radius-pill: 99px;       /* só chips, gauges e botão play */
+  --eco-border: 1px solid var(--eco-rule);
+  --eco-border-strong: 1.5px solid var(--eco-bar);
+  --eco-hit: 44px;               /* alvo mínimo de toque */
+}
+
+body {
+  margin: 0;
+  background-color: var(--eco-paper);
+  background-image: radial-gradient(var(--eco-paper-dot) 1px, transparent 1px);
+  background-size: 6px 6px;
+  color: var(--eco-ink);
+  font-family: var(--eco-font-sans);
+}
+
+:focus-visible {
+  outline: 2px solid var(--eco-focus);
+  outline-offset: 2px;
+}
+
+@media (max-width: 600px) {
+  :root { --eco-gutter: 16px; --eco-text-lyric-current: 30px; --eco-text-display: 40px; }
+}

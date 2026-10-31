@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Eco · Preencher</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+JP:wght@400;500&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#DAD5C1}
+a{color:#3F3C33}a:hover{color:#9E3A1B}
+@keyframes blink{50%{opacity:0}}
+</style>
+</helmet>
+<div style="min-height: 100vh; background: #DAD5C1; background-image: radial-gradient(#C9C3AC 1px, transparent 1px); background-size: 6px 6px; color: #3F3C33; font-family: Jost, 'Futura', sans-serif; display: flex; flex-direction: column;">
+
+<header style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px 28px; padding: 14px 40px; border-bottom: 1px solid #A39E8A;">
+  <a href="Setup.dc.html" style="font-size: 12px; letter-spacing: 0.2em; text-decoration: none;">← SAIR</a>
+  <div style="display: flex; align-items: baseline; gap: 10px; min-width: 0;">
+    <span style="font-size: 17px; font-weight: 500;">Paper Moon Radio</span>
+    <span style="font-size: 14px; color: #5C5849;">The Quiet Arcade</span>
+  </div>
+  <span style="background: #45423A; color: #E4E0CE; padding: 4px 14px; font-size: 12px; letter-spacing: 0.18em;">PREENCHER</span>
+  <div style="display: flex; align-items: center; gap: 10px; margin-left: auto; font-size: 12px; letter-spacing: 0.16em; color: #5C5849;">
+    LACUNA <span style="font-family: 'IBM Plex Mono', monospace; color: #3F3C33;">{{done}}/{{total}}</span>
+    <div style="width: 140px; height: 10px; border: 1.5px solid #45423A; border-radius: 99px; padding: 2px; box-sizing: border-box;"><div style="width: {{pct}}%; height: 100%; background: #45423A; border-radius: 99px;"></div></div>
+  </div>
+  <div style="display: flex; gap: 18px; font-family: 'IBM Plex Mono', monospace; font-size: 14px;">
+    <span><span style="font-family: Jost, sans-serif; font-size: 11px; letter-spacing: 0.18em; color: #5C5849;">ACERTOS </span>{{right}}</span>
+  </div>
+</header>
+
+<main style="flex: 1; width: 100%; max-width: 1360px; margin: 0 auto; box-sizing: border-box; padding: 40px 40px 24px; display: flex; flex-wrap: wrap; gap: 40px; align-items: flex-start;">
+
+  <section aria-label="Letra com lacunas" style="flex: 999 1 600px; min-width: 0; display: flex; flex-direction: column; gap: 6px;">
+    <sc-for list="{{lines}}" as="l" hint-placeholder-count="8">
+      <div style="{{l.rowStyle}}">
+        <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; width: 26px; flex-shrink: 0; color: #5C5849;">{{l.n}}</span>
+        <div style="display: flex; flex-direction: column; gap: 6px; min-width: 0;">
+          <div style="{{l.textStyle}}">
+            <sc-for list="{{l.toks}}" as="t" hint-placeholder-count="7">
+              <sc-if value="{{t.blank}}" hint-placeholder-val="{{ false }}">
+                <span style="{{t.box}}"><span style="{{t.fillStyle}}">{{t.fill}}</span><sc-if value="{{t.active}}" hint-placeholder-val="{{ false }}"><span style="display: inline-block; width: 2px; height: 0.9em; background: #3F3C33; vertical-align: -0.1em; animation: blink 1s steps(1) infinite;"></span></sc-if><sc-if value="{{t.wrong}}" hint-placeholder-val="{{ false }}"><span style="font-size: 0.62em; color: #3F3C33; margin-left: 6px; font-weight: 500;">{{t.correct}}</span></sc-if></span>{{t.punct}}
+              </sc-if>
+              <sc-if value="{{t.plain}}" hint-placeholder-val="{{ true }}"><span>{{t.t}}</span></sc-if>
+            </sc-for>
+          </div>
+          <sc-if value="{{l.current}}" hint-placeholder-val="{{ false }}">
+            <div style="display: flex; flex-wrap: wrap; gap: 6px 20px; font-size: 13px; color: #5C5849;">
+              <span>Aguenta firme, a noite está quase no fim</span>
+              <span style="font-family: 'IBM Plex Mono', monospace; color: #3F3C33;">DICA · a _ _ _ _ _ (6)</span>
+            </div>
+          </sc-if>
+        </div>
+      </div>
+    </sc-for>
+  </section>
+
+  <aside style="flex: 1 1 300px; min-width: 0; max-width: 360px; display: flex; flex-direction: column; gap: 18px;">
+    <div style="position: relative; aspect-ratio: 16 / 9; border: 1.5px solid #45423A; background: #E4E0CE; background-image: repeating-linear-gradient(135deg, transparent 0 9px, #CFC9B3 9px 10px); display: flex; align-items: center; justify-content: center;">
+      <span style="font-size: 11px; letter-spacing: 0.2em; color: #5C5849; background: #E4E0CE; padding: 2px 8px;">VÍDEO · YOUTUBE</span>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 6px;">
+      <div style="font-size: 12px; letter-spacing: 0.2em; color: #5C5849;">NÍVEL DAS LACUNAS</div>
+      <div style="display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); border: 1.5px solid #45423A; font-family: 'IBM Plex Mono', monospace; font-size: 13px; text-align: center;">
+        <span style="padding: 8px 0;">A1</span><span style="padding: 8px 0; border-left: 1px solid #A39E8A;">A2</span><span style="padding: 8px 0; background: #45423A; color: #E4E0CE;">B1</span><span style="padding: 8px 0; border-left: 1px solid #A39E8A;">B2</span><span style="padding: 8px 0; border-left: 1px solid #A39E8A;">C1</span><span style="padding: 8px 0; border-left: 1px solid #A39E8A;">C2</span>
+      </div>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 8px;">
+      <div style="display: flex; justify-content: space-between; font-size: 12px; letter-spacing: 0.2em; color: #5C5849;"><span>DENSIDADE</span><span style="font-family: 'IBM Plex Mono', monospace; color: #3F3C33;">{{density}}%</span></div>
+      <div style="position: relative; height: 18px; display: flex; align-items: center;">
+        <div style="position: absolute; left: 0; right: 0; height: 2px; background: #A39E8A;"></div>
+        <div style="position: absolute; left: 0; width: {{densPos}}%; height: 2px; background: #45423A;"></div>
+        <div style="position: absolute; left: {{densPos}}%; width: 12px; height: 12px; margin-left: -6px; background: #45423A; transform: rotate(45deg);"></div>
+      </div>
+      <div style="display: flex; justify-content: space-between; font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #5C5849;"><span>10%</span><span>50%</span></div>
+    </div>
+    <div style="display: flex; flex-direction: column; font-size: 14px;">
+      <div style="font-size: 13px; letter-spacing: 0.18em; font-weight: 500; padding-bottom: 8px; border-bottom: 1.5px solid #45423A;">LEGENDA</div>
+      <div style="display: flex; align-items: center; gap: 12px; padding: 9px 0; border-bottom: 1px solid #A39E8A;"><span style="width: 36px; border-bottom: 2px solid #45423A;"></span>Certo</div>
+      <div style="display: flex; align-items: center; gap: 12px; padding: 9px 0; border-bottom: 1px solid #A39E8A;"><span style="width: 36px; border-bottom: 2px dashed #8A6A1E;"></span>Quase (1 letra)</div>
+      <div style="display: flex; align-items: center; gap: 12px; padding: 9px 0; border-bottom: 1px solid #A39E8A;"><span style="width: 36px; border-bottom: 2px solid #9E3A1B;"></span><span style="color: #9E3A1B; text-decoration: line-through;">Errado</span> + correção</div>
+    </div>
+  </aside>
+</main>
+
+<div style="border-top: 1px solid #A39E8A; padding: 14px 40px; display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px;">
+  <button aria-label="Pausar" style="width: 48px; height: 48px; border: 0; border-radius: 99px; background: #45423A; display: flex; align-items: center; justify-content: center; cursor: pointer;">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="#E4E0CE" aria-hidden="true"><rect x="6" y="5" width="4" height="14"/><rect x="14" y="5" width="4" height="14"/></svg>
+  </button>
+  <span style="font-family: 'IBM Plex Mono', monospace; font-size: 13px;">0:41</span>
+  <div style="flex: 1 1 240px; position: relative; height: 18px; display: flex; align-items: center;" role="img" aria-label="Linha do tempo da música">
+    <div style="position: absolute; left: 0; right: 0; height: 2px; background: #A39E8A;"></div>
+    <div style="position: absolute; left: 0; width: 19%; height: 2px; background: #45423A;"></div>
+    <div style="position: absolute; left: 19%; width: 12px; height: 12px; margin-left: -6px; background: #45423A; transform: rotate(45deg);"></div>
+  </div>
+  <span style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #5C5849;">3:41</span>
+  <button style="min-height: 40px; padding: 0 14px; border: 1px solid #A39E8A; background: transparent; font: inherit; font-size: 13px; color: #3F3C33; cursor: pointer;">↺ Verso</button>
+  <button style="min-height: 40px; padding: 0 14px; border: 1px solid #A39E8A; background: transparent; font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #3F3C33; cursor: pointer;">0,75×</button>
+  <button style="min-height: 40px; padding: 0 14px; border: 1px solid #A39E8A; background: transparent; font: inherit; font-size: 13px; color: #3F3C33; cursor: pointer;">Dica</button>
+</div>
+<footer style="display: flex; flex-wrap: wrap; gap: 8px 28px; padding: 10px 40px 14px; font-size: 12px; letter-spacing: 0.12em; color: #5C5849;">
+  <span><span style="font-family: 'IBM Plex Mono', monospace; border: 1px solid #77735F; padding: 1px 6px; margin-right: 6px;">ESPAÇO</span>PRÓXIMA LACUNA</span>
+  <span><span style="font-family: 'IBM Plex Mono', monospace; border: 1px solid #77735F; padding: 1px 6px; margin-right: 6px;">TAB</span>REPETIR VERSO</span>
+  <span><span style="font-family: 'IBM Plex Mono', monospace; border: 1px solid #77735F; padding: 1px 6px; margin-right: 6px;">CTRL H</span>DICA</span>
+  <span style="margin-left: auto;">A MÚSICA ESPERA NO FIM DO VERSO SE HOUVER LACUNA ABERTA</span>
+</footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"density":{"editor":"range","default":25,"min":10,"max":50,"step":5,"unit":"%"},"$preview":{"width":1440,"height":960}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const density = this.props.density ?? 25;
+    const L = [
+      'I left the window open for the rain',
+      'Counting cars that never come my way',
+      'Your voice still echoes down the hall',
+      'Like a radio that plays it all',
+      'Hold on, the night is almost gone',
+      'We’ll be dancing when the lights come on',
+      'So call my name across the static sea',
+      'I’ll be the echo, you’ll come back to me'
+    ];
+    const prio = ['4-5','6-6','2-3','0-3','1-0','5-2','3-2','6-5','7-3','2-2','5-5','0-6','4-3','1-3','3-4','6-3','2-5','7-7','0-1','5-6','4-1','1-1','2-1','3-0'];
+    const total = L.reduce((s, l) => s + l.split(' ').length, 0);
+    const n = Math.max(1, Math.min(prio.length, Math.round(total * density / 100)));
+    const blanks = new Set(prio.slice(0, n));
+    const answers = { '2-3': 'echos', '2-2': 'steel', '1-3': 'neve' };
+    const CUR = 4;
+    let activeSet = false, done = 0, right = 0;
+    const lines = L.map((line, li) => {
+      const toks = line.split(' ').map((w, wi) => {
+        const m = w.match(/^(.*?)([,.!?]*)$/);
+        const core = m[1], punct = m[2];
+        const key = li + '-' + wi;
+        if (!blanks.has(key)) return { plain: true, blank: false, t: w };
+        const ch = Math.max(core.length, 3) + 1;
+        const base = 'display:inline-block;min-width:' + ch + 'ch;text-align:center;padding:0 4px;';
+        if (li < CUR || (li === CUR && wi < 5)) {
+          done++;
+          const typed = answers[key] ?? core;
+          const near = typed !== core && (typed.length === core.length - 1 || typed.length === core.length) && key !== '2-2';
+          const wrong = typed !== core && !near;
+          if (!wrong) right++;
+          return { blank: true, plain: false, punct, fill: wrong ? typed : (near ? typed : core), wrong, correct: core,
+            fillStyle: wrong ? 'color:#9E3A1B;text-decoration:line-through;' : 'color:#3F3C33;font-weight:500;',
+            box: base + (wrong ? 'border-bottom:2px solid #9E3A1B;' : near ? 'border-bottom:2px dashed #8A6A1E;' : 'border-bottom:2px solid #45423A;') };
+        }
+        if (key === '4-5' && !activeSet) {
+          activeSet = true;
+          return { blank: true, plain: false, punct, active: true, fill: core.slice(0, 3), fillStyle: 'color:#3F3C33;',
+            box: base + 'background:#E4E0CE;border:2px solid #45423A;text-align:left;' };
+        }
+        return { blank: true, plain: false, punct, fill: '', fillStyle: '', box: base + 'border-bottom:2px solid #77735F;' };
+      });
+      const cur = li === CUR;
+      return { n: String(li + 1).padStart(2, '0'), toks, current: cur,
+        rowStyle: 'display:flex;gap:14px;align-items:baseline;padding:' + (cur ? '18px 0' : '8px 0') + ';' + (cur ? 'border-top:1.5px solid #45423A;border-bottom:1.5px solid #45423A;margin:10px 0;' : ''),
+        textStyle: 'display:flex;flex-wrap:wrap;gap:0 0.32em;align-items:baseline;line-height:1.5;' +
+          (cur ? 'font-size:34px;color:#3F3C33;' : li < CUR ? 'font-size:23px;color:#3F3C33;' : 'font-size:23px;color:#5C5849;') };
+    });
+    return { lines, density, densPos: (density - 10) / 40 * 100, total: n, done, right: right + '/' + done, pct: Math.round(done / n * 100) };
+  }
+}
+</script>
+</body>
+</html>
