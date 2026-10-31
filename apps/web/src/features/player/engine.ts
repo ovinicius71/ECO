@@ -42,7 +42,8 @@ export interface PlayerEngine {
   /** Solta o player atual (o engine pode receber outro depois, ex.: StrictMode). */
   detach(): void
   setLines(lines: readonly TimedLine[]): void
-  tick(): void
+  /** Lê o tempo do player. `exact` grava o tempo mesmo dentro do passo do relógio. */
+  tick(exact?: boolean): void
   play(): void
   pause(): void
   togglePlay(): void
@@ -122,7 +123,8 @@ export function createPlayerEngine(
         if (playing && frame === null) frame = schedule(loop)
         if (!playing) {
           stopLoop()
-          engine.tick()
+          // Parado, o tempo exato importa (ex.: o Ditado decide se o verso terminou).
+          engine.tick(true)
         }
       },
       onError(message) {
@@ -147,7 +149,7 @@ export function createPlayerEngine(
       store.setState({ lineIndex: findLineIndex(lines, lyricNow()) })
     },
 
-    tick() {
+    tick(exact = false) {
       if (!controller) return
       const state = store.getState()
       const videoMs = controller.getTimeMs()
@@ -166,6 +168,7 @@ export function createPlayerEngine(
       const lineIndex = findLineIndex(lines, lyricMs)
       const durationMs = state.durationMs || controller.getDurationMs()
       if (
+        exact ||
         lineIndex !== state.lineIndex ||
         Math.abs(videoMs - state.videoMs) >= clockStepMs ||
         durationMs !== state.durationMs

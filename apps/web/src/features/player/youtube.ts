@@ -28,7 +28,7 @@ interface YTNamespace {
       }
     },
   ) => YTPlayer
-  PlayerState: { PLAYING: number }
+  PlayerState: { PLAYING: number; BUFFERING: number }
 }
 
 declare global {
@@ -110,7 +110,11 @@ export async function createYouTubePlayer(
         ready = true
         events.onReady()
       },
-      onStateChange: (event) => events.onPlayingChange(event.data === YT.PlayerState.PLAYING),
+      onStateChange: (event) => {
+        // Carregando (buffering) não é pausa: mantém o estado e o laço de tempo como estão.
+        if (event.data === YT.PlayerState.BUFFERING) return
+        events.onPlayingChange(event.data === YT.PlayerState.PLAYING)
+      },
       onError: (event) => events.onError(ERRORS[event.data] ?? 'Erro no player do YouTube.'),
     },
   })

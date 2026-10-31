@@ -154,4 +154,13 @@ describe('createPlayerEngine', () => {
     engine.setLines([{ startMs: 0, endMs: 5_000 }])
     expect(state().lineIndex).toBe(-1)
   })
+
+  it('ao pausar, grava o tempo exato (sem esperar o passo do relógio)', () => {
+    const { engine, player, state, playAt } = setup({ clockStepMs: 250 })
+    engine.events.onPlayingChange(true)
+    playAt(15_600)
+    player.at(15_760) // andou só 160 ms até a pausa
+    engine.events.onPlayingChange(false)
+    expect(state().videoMs).toBe(15_760)
+  })
 })
