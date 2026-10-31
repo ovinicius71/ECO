@@ -5,6 +5,7 @@ const paths = {
   arrowRight: <path d="M5 12h14M13 6l6 6-6 6" />,
   flame: <path d="M12 3c1 4 5 6 5 11a5 5 0 0 1-10 0c0-3 2-4 2-7 2 1 3 3 3 5" />,
   pause: <path d="M8 5v14M16 5v14" />,
+  replay: <path d="M4 12a8 8 0 1 0 3-6.2M4 4v4h4" />,
   /** Triângulo de play, sem o círculo (botão redondo da PlayerBar). */
   playSolid: <path d="M8 5.5v13l10.5-6.5z" />,
   play: (

@@ -5,6 +5,7 @@ import {
   parseDictationSettings,
   seekPointFor,
   settingsFromLabels,
+  settingsFromSession,
 } from './settings'
 
 describe('ajustes do ditado', () => {
@@ -55,5 +56,19 @@ describe('seekPointFor', () => {
   it('nunca negativo e 0 para índice inválido', () => {
     expect(seekPointFor([{ startMs: 200, endMs: 900 }], 0, 1_000)).toBe(0)
     expect(seekPointFor(lines, 9, 300)).toBe(0)
+  })
+})
+
+describe('settingsFromSession', () => {
+  it('reconstrói os ajustes salvos na sessão', () => {
+    expect(
+      settingsFromSession({
+        settings: { pauseAtEnd: false, rate: 0.75, lines: '5,13' },
+        correction: 'strict',
+      }),
+    ).toEqual({ pauseAtEnd: false, rate: 0.75, correction: 'strict', lines: [5, 13] })
+    expect(settingsFromSession({ settings: {}, correction: 'tolerant' })).toEqual(
+      DEFAULT_DICTATION_SETTINGS,
+    )
   })
 })

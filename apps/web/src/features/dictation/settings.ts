@@ -73,3 +73,18 @@ export function seekPointFor(
   const floor = lines[index - 1]?.endMs ?? 0
   return Math.max(line.startMs - preRollMs, floor, 0)
 }
+
+/** Ajustes de uma sessão salva (para "Repetir" e "Praticar só os versos com erro"). */
+export function settingsFromSession(session: {
+  settings: Record<string, string | number | boolean>
+  correction: CorrectionMode
+}): DictationSettings {
+  const { pauseAtEnd, rate, lines } = session.settings
+  const chosen = typeof lines === 'string' && lines ? lines.split(',').map(Number) : undefined
+  return {
+    pauseAtEnd: pauseAtEnd !== false,
+    rate: typeof rate === 'number' && RATES.includes(rate) ? rate : DEFAULT_DICTATION_SETTINGS.rate,
+    correction: session.correction,
+    ...(chosen ? { lines: chosen } : {}),
+  }
+}
