@@ -25,6 +25,8 @@ O `docs/adr/` continua sendo só para as decisões de arquitetura. O status ofic
 | 0012 | 2026-10-31 | 03 | Vídeo e ajuste de sincronia na tela da música | [geral](geral/0012-player-no-setup.md) | [técnico](tecnico/0012-player-no-setup.md) |
 | 0013 | 2026-10-31 | 05 | Modo Ditado (e player sempre visível, ADR 0002) | [geral](geral/0013-modo-ditado.md) | [técnico](tecnico/0013-modo-ditado.md) |
 | 0014 | 2026-10-31 | 05 | Duas correções no player (buffering e tempo na pausa) | [geral](geral/0014-correcoes-do-player.md) | [técnico](tecnico/0014-correcoes-do-player.md) |
+| 0015 | 2026-10-31 | 10 | Resultado, sessões salvas e progresso na Home | [geral](geral/0015-resultado-e-progresso.md) | [técnico](tecnico/0015-resultado-e-progresso.md) |
+| 0016 | 2026-10-31 | 10 | Ajuste na correção de contrações (were × We’re) | [geral](geral/0016-ajustes-na-correcao.md) | [técnico](tecnico/0016-ajustes-na-correcao.md) |
 
 ## Modelo — geral
 
