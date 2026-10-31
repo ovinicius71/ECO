@@ -13,7 +13,7 @@ Este é o **status oficial** do projeto. O Claude Code atualiza este arquivo ao 
 | # | Branch | Entrega | Depende de | Status |
 | --- | --- | --- | --- | --- |
 | 00 | `chore/00-setup-monorepo` | Monorepo, web (Vite/React/TS), api (FastAPI/uv), lint, testes, scripts | — | ✅ |
-| 01 | `feat/01-design-system` | Tokens, fontes e componentes base (Header, Button, Segmented, ListRow, StatusPanel, Gauge, KeyHint) com página `/dev/ui` | 00 | 🔵 |
+| 01 | `feat/01-design-system` | Tokens, fontes e componentes base (Header, Button, Segmented, ListRow, StatusPanel, Gauge, KeyHint) com página `/dev/ui` | 00 | 🟡 |
 | 02 | `feat/02-busca-letra` | API: resolve link do YouTube (oEmbed) e busca no LRCLIB com parser de LRC. Web: Home e tela Configurar música com dados reais | 00, 01 | ⬜ |
 | 03 | `feat/03-player-sincronia` | Wrapper da IFrame API: verso atual pelo tempo, offset, velocidade, loop do verso, pausa no fim do verso | 02 | ⬜ |
 | 04 | `feat/04-motor-correcao` | Motor de correção (tolerante/estrita, alinhamento, quase/erro) com testes (lógica pura) | 00 | ⬜ |
