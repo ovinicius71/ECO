@@ -5,6 +5,7 @@ import { Gauge } from '@/components/Gauge/Gauge'
 import { Segmented } from '@/components/Segmented/Segmented'
 import { SelectList } from '@/components/SelectList/SelectList'
 import { StatusPanel, StatusRow } from '@/components/StatusPanel/StatusPanel'
+import { AppHeader } from '@/layout/AppHeader/AppHeader'
 import { KeyHintBar } from '@/layout/KeyHintBar/KeyHintBar'
 import styles from './DevUi.module.css'
 
@@ -32,6 +33,7 @@ export function DevUi() {
 
   return (
     <div className={styles.page}>
+      <AppHeader streakDays={12} />
       <main className={styles.main}>
         <h1 className={styles.title}>Componentes</h1>
 
