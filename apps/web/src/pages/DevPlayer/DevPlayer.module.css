@@ -1,0 +1,64 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.status {
+  padding: var(--eco-space-6) var(--eco-gutter);
+  font-size: var(--eco-text-label);
+  letter-spacing: var(--eco-tracking-label);
+}
+
+.main {
+  flex: 1;
+  width: 100%;
+  max-width: var(--eco-page-max);
+  margin: 0 auto;
+  padding: var(--eco-space-6) var(--eco-gutter);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--eco-space-7);
+}
+
+.video {
+  flex: 1 1 360px;
+  min-width: 0;
+  max-width: 560px;
+}
+
+.lyrics {
+  flex: 999 1 420px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--eco-space-3);
+}
+
+.label {
+  margin: 0;
+  font-size: var(--eco-text-label);
+  letter-spacing: var(--eco-tracking-label);
+  color: var(--eco-ink-2);
+}
+
+.dim {
+  margin: 0;
+  min-height: 1.3em;
+  font-size: var(--eco-text-lyric);
+  color: var(--eco-ink-2);
+}
+
+.current {
+  margin: 0;
+  font-size: var(--eco-text-lyric-current);
+  line-height: 1.25;
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: var(--eco-space-5);
+  margin-top: var(--eco-space-4);
+}

@@ -2,7 +2,7 @@ import 'fake-indexeddb/auto'
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 import type { Song } from '@/types/song'
 import { EcoDb } from './db'
-import { getSong, saveSong } from './songs'
+import { getSong, saveSong, updateSongOffset } from './songs'
 
 const song = (overrides: Partial<Song> = {}): Song => ({
   videoId: 'abcdefghijk',
@@ -50,5 +50,17 @@ describe('songs', () => {
       createdAt: '2026-10-31T10:00:00.000Z',
     })
     expect(await getSong('abcdefghijk', db)).toEqual(saved)
+  })
+
+  it('grava só o offset', async () => {
+    await saveSong(song(), db)
+    await updateSongOffset('abcdefghijk', -400, db)
+    expect(await getSong('abcdefghijk', db)).toMatchObject({
+      offsetMs: -400,
+      title: 'Paper Moon Radio',
+    })
+
+    await updateSongOffset('naoexiste00', 100, db) // música ausente: não cria nada
+    expect(await getSong('naoexiste00', db)).toBeUndefined()
   })
 })

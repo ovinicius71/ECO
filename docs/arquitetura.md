@@ -47,6 +47,7 @@ eco/
 │       │   │   └── Watch/            (Assistir)
 │       │   ├── Result/
 │       │   ├── DevUi/            vitrine de componentes em /dev/ui (só em dev)
+│       │   ├── DevPlayer/        bancada do player em /dev/player/:videoId (só em dev)
 │       │   └── Vocabulary/
 │       ├── features/             lógica por domínio (hooks + funções puras + testes)
 │       │   ├── player/           wrapper da IFrame API, useCurrentLine, offset, velocidade, loop

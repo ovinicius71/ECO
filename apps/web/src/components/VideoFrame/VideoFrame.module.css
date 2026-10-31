@@ -1,0 +1,52 @@
+.frame {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  border: var(--eco-border-strong);
+  background-color: var(--eco-paper-raised);
+  background-image: repeating-linear-gradient(
+    135deg,
+    transparent 0 9px,
+    var(--eco-paper-hatch) 9px 10px
+  );
+  color: var(--eco-bar);
+}
+
+.mount {
+  position: absolute;
+  inset: 0;
+}
+
+.mount :global(iframe) {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--eco-space-3);
+  padding: var(--eco-space-4);
+  text-align: center;
+}
+
+.label {
+  font-size: var(--eco-text-label);
+  letter-spacing: var(--eco-tracking-label);
+  color: var(--eco-ink-2);
+}
+
+.message {
+  margin: 0;
+  font-size: var(--eco-text-sm);
+}
+
+.link {
+  font-size: var(--eco-text-sm);
+  color: var(--eco-ink);
+}

@@ -74,7 +74,7 @@ export function loadYouTubeApi(): Promise<YTNamespace> {
 }
 
 /**
- * Cria o player dentro de `container` (num `div` próprio, que o YouTube troca pelo iframe).
+ * Cria o player dentro de `container`, num slot próprio (o YouTube troca o div interno pelo iframe).
  * Os métodos do controlador são seguros antes do `onReady`: viram no-op.
  */
 export async function createYouTubePlayer(
@@ -84,8 +84,13 @@ export async function createYouTubePlayer(
   options: { controls: boolean },
 ): Promise<PlayerController> {
   const YT = await loadYouTubeApi()
+  // Cada player tem o seu slot: no StrictMode, o player cancelado é destruído depois que o
+  // novo já foi montado no mesmo container, e não pode levar o novo junto.
+  const slot = document.createElement('div')
+  slot.style.cssText = 'width:100%;height:100%'
   const mount = document.createElement('div')
-  container.append(mount)
+  slot.append(mount)
+  container.append(slot)
 
   let ready = false
   const player = new YT.Player(mount, {
@@ -120,8 +125,7 @@ export async function createYouTubePlayer(
     getAvailableRates: () => (ready ? player.getAvailablePlaybackRates() : [1]),
     destroy: () => {
       player.destroy()
-      // O destroy remove o iframe; garante que o div de montagem também saia.
-      container.querySelectorAll(':scope > *').forEach((child) => child.remove())
+      slot.remove()
     },
   }
 }

@@ -1,0 +1,91 @@
+.bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--eco-space-3) 20px;
+  padding: 14px var(--eco-gutter);
+  border-top: var(--eco-border);
+}
+
+.play {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border: 0;
+  border-radius: var(--eco-radius-pill);
+  background: var(--eco-bar);
+  color: var(--eco-on-bar);
+  cursor: pointer;
+}
+
+.time,
+.duration {
+  font-family: var(--eco-font-mono);
+  font-size: var(--eco-text-sm);
+}
+
+.duration {
+  color: var(--eco-ink-2);
+}
+
+/* Linha do tempo: trilho fino com a parte tocada em tinta e o losango como cabeçote. */
+.timeline {
+  flex: 1 1 240px;
+  min-width: 0;
+  height: 18px;
+  margin: 0;
+  appearance: none;
+  background:
+    linear-gradient(var(--eco-bar), var(--eco-bar)) 0 50% / var(--progress, 0%) 2px no-repeat,
+    linear-gradient(var(--eco-rule), var(--eco-rule)) 0 50% / 100% 2px no-repeat;
+  cursor: pointer;
+}
+
+.timeline::-webkit-slider-thumb {
+  appearance: none;
+  width: 12px;
+  height: 12px;
+  border: 0;
+  background: var(--eco-bar);
+  transform: rotate(45deg);
+}
+
+.timeline::-moz-range-thumb {
+  width: 12px;
+  height: 12px;
+  border: 0;
+  border-radius: 0;
+  background: var(--eco-bar);
+  transform: rotate(45deg);
+}
+
+.timeline::-moz-range-track {
+  background: transparent;
+}
+
+.chip {
+  min-height: 40px;
+  padding: 0 14px;
+  border: var(--eco-border);
+  background: transparent;
+  font-size: var(--eco-text-sm);
+  cursor: pointer;
+}
+
+.chip:hover:not(:disabled) {
+  background: var(--eco-bar);
+  color: var(--eco-on-bar);
+}
+
+.rate {
+  font-family: var(--eco-font-mono);
+}
+
+.play:disabled,
+.chip:disabled,
+.timeline:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
