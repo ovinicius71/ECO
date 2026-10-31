@@ -16,7 +16,7 @@ Este é o **status oficial** do projeto. O Claude Code atualiza este arquivo ao 
 | 01 | `feat/01-design-system` | Tokens, fontes e componentes base (Header, Button, Segmented, ListRow, StatusPanel, Gauge, KeyHint) com página `/dev/ui` | 00 | ✅ |
 | 02 | `feat/02-busca-letra` | API: resolve link do YouTube (oEmbed) e busca no LRCLIB com parser de LRC. Web: Home e tela Configurar música com dados reais | 00, 01 | ⬜ |
 | 03 | `feat/03-player-sincronia` | Wrapper da IFrame API: verso atual pelo tempo, offset, velocidade, loop do verso, pausa no fim do verso | 02 | ⬜ |
-| 04 | `feat/04-motor-correcao` | Motor de correção (tolerante/estrita, alinhamento, quase/erro) com testes (lógica pura) | 00 | 🟡 |
+| 04 | `feat/04-motor-correcao` | Motor de correção (tolerante/estrita, alinhamento, quase/erro) com testes (lógica pura) | 00 | ✅ |
 | 05 | `feat/05-modo-ditado` | Modo Ditado completo: tela, fluxo por verso e resultado parcial | 03, 04 | ⬜ |
 | 06 | `feat/06-modo-digitar-junto` | Modo Digitar Junto: digitação caractere a caractere sincronizada | 03, 04 | ⬜ |
 | 07 | `feat/07-modo-preencher` | Lacunas por nível CEFR e densidade, e o modo Preencher | 03, 04 | ⬜ |

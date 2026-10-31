@@ -1,7 +1,7 @@
 # Entrega — Parte 04: Motor de correção
 
 Branch: `feat/04-motor-correcao` · Base: `main`
-Status: 🟡 pronta para push
+Status: ✅ mergeada na `main` (`f7044b3`, 2026-10-31)
 
 ## O que foi entregue
 - `apps/web/src/features/correction/` (lógica pura, sem React):
